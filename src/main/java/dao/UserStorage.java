@@ -3,6 +3,8 @@ package dao;
 import entity.User;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserStorage {
 
@@ -15,6 +17,9 @@ public class UserStorage {
     private final static String ADD_USER = "insert into users u values (default, ?, ?, ?, ?, ?, ?, ?)";
     private final static String CHECK_LOGIN = "select * from users u where s.login = ?";
     private final static String REMOVE_BY_LOGIN = "delete * from users u where s.login = ?";
+    private final static String CHECK_BY_PASS = "select * from users u where u.pass = ?";
+    private final static String CHECK_BY_NAME = "select * from users u where u.name = ?";
+    private final static String GET_USER_BY_LOGIN = "select * from users u s.login = ?";
 
     public void addUser (String name, String lastName, String login, String pass, int  role, double balance, double salary, double income) {
         try {
@@ -34,45 +39,79 @@ public class UserStorage {
             e.printStackTrace();
         }
     }
-            public boolean removeUserByLogin (String login) {
-                try {
-                    connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
-                    PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_LOGIN);
-                    preparedStatement.setString(1, login);
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    if (resultSet.next()) return true;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                return false;
+        public boolean removeUserByLogin (String login) {
+            try {
+                connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+                PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_LOGIN);
+                preparedStatement.setString(1, login);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
+            return false;
+        }
 
-            public boolean checkUserByLogin (String login) {
-                try {
-                    connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES,PASS_TABLES);
-                    PreparedStatement preparedStatement = connection.prepareStatement(CHECK_LOGIN);
-                    preparedStatement.setString(1, login);
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    if (resultSet.next()) return true;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                return false;
+        public boolean checkUserByLogin (String login) {
+            try {
+                connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES,PASS_TABLES);
+                PreparedStatement preparedStatement = connection.prepareStatement(CHECK_LOGIN);
+                preparedStatement.setString(1, login);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
             }
 
         public boolean checkUserPassword (String pass) {
-        return true;
+            try {
+                connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES,PASS_TABLES);
+                PreparedStatement preparedStatement = connection.prepareStatement(CHECK_BY_PASS);
+                preparedStatement.setString(1, pass);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        return false;
             }
 
-            public boolean checkUserByName (String name) {
-        return true;
+        public boolean checkUserByName (String name) {
+            try {
+                connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES,PASS_TABLES);
+                PreparedStatement preparedStatement = connection.prepareStatement(CHECK_BY_NAME);
+                preparedStatement.setString(1, name);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
+            return false;
+        }
 
+    public User getUserByLogin (String login) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_LOGIN);
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-
-
-
-
-
-
+            User user = new User(resultSet.getLong(1),
+                            resultSet.getString(2),
+                            resultSet.getString(3),
+                            resultSet.getString(4),
+                            resultSet.getString(5),
+                            resultSet.getInt(6),
+                            resultSet.getDouble(7),
+                            resultSet.getDouble(8),
+                            resultSet.getDouble(9));
+            return user;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

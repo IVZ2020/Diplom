@@ -15,10 +15,10 @@ public class UserService {
     Reader reader = new Reader();
     User user = new User();
 
-    public void authUser (String login, String pass) {
-        boolean auth = false;
+    public boolean authUser (String login, String pass) {
         if (userStorage.checkUserByLogin(login) && userStorage.checkUserPassword(pass))
-            auth = true;
+            return true;
+        return false;
     }
 
     public void addUser (String name, String lastName, String login, String pass, int  role, double balance, double salary, double income) {
@@ -26,8 +26,16 @@ public class UserService {
         if (userStorage.checkUserByName(name)) writer.writer("User " + name + " " + lastName + " added");
     }
 
-    public void removeUser (String login) {
+    public void removeUserByLogin (String login) {
         userStorage.removeUserByLogin(login);
         if (!userStorage.checkUserByLogin(login)) writer.writer("User " + login + " removed");
+    }
+
+    public User getUserByLogin (String login) {
+        if (userStorage.checkUserByLogin(login)) {
+            User user = userStorage.getUserByLogin(login);
+            return user;
+        }
+            return null;
     }
 }
