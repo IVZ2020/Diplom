@@ -1,18 +1,29 @@
 package dao;
 
+import entity.Menu;
 import entity.User;
+import lombok.extern.slf4j.Slf4j;
+import service.Writer;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserStorage {
+@Slf4j
+public class UserDao {
+
+    static {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     Connection connection = null;
     private final static String URL_TABLES = "jdbc:postgresql://localhost:5432/postgres";
     private final static String LOGIN_TABLES = "postgres";
     private final static String PASS_TABLES = "learn2000_";
-    User user = new User();
 
     private final static String ADD_USER = "insert into users u values (default, ?, ?, ?, ?, ?, ?, ?)";
     private final static String CHECK_LOGIN = "select * from users u where s.login = ?";
@@ -20,6 +31,25 @@ public class UserStorage {
     private final static String CHECK_BY_PASS = "select * from users u where u.pass = ?";
     private final static String CHECK_BY_NAME = "select * from users u where u.name = ?";
     private final static String GET_USER_BY_LOGIN = "select * from users u s.login = ?";
+    private final static String REG_USER = "insert into users  u values (default, ?, ?, ?, ?)";
+
+    public void regNewUser (User user) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(REG_USER);
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getLogin());
+            preparedStatement.setString(4, user.getPass());
+            preparedStatement.executeQuery();
+            connection.close();
+//            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+//        return false;
+    }
+
 
     public void addUser (String name, String lastName, String login, String pass, int  role, double balance, double salary, double income) {
         try {
@@ -114,4 +144,8 @@ public class UserStorage {
         }
         return null;
     }
+
+
+
+
 }

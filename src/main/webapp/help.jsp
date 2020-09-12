@@ -1,13 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <html>
 <head>
-    <title>Auth</title>
-
+    <title>Help</title>
 </head>
 <body>
-<p>Auth</p>
-
+<p>Help</p>
 </body>
 </html>

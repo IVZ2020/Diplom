@@ -39,4 +39,11 @@ public class User {
         this.login = login;
         this.pass = pass;
     }
+
+    public User(String name, String lastName, String login, String pass) {
+        this.name = name;
+        this.lastName = lastName;
+        this.login = login;
+        this.pass = pass;
+    }
 }

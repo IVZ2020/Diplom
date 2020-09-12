@@ -9,32 +9,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet (urlPatterns = "/webapp/mainPage.jsp", name = "mainPageServlet")
-public class mainPageServlet extends HttpServlet {
+@WebServlet (urlPatterns = "/auth", name = "AuthServlet")
+public class AuthServlet extends HttpServlet {
 
     UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getServletContext().getRequestDispatcher("/webapp/mainPage.jsp");
+        getServletContext().getRequestDispatcher("/auth.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String[] menuList2 = new String[] {"auth", "signup", "exit"};
-        req.setAttribute("menuList2", menuList2);
         String loginForCheck = req.getParameter("login");
         String passForCheck = req.getParameter("pass");
         if (userService.authUser(loginForCheck, passForCheck)) {
             User userChecked = userService.getUserByLogin(loginForCheck);
             req.getSession().setAttribute("userChecked", userChecked);
-            resp.sendRedirect("/webapp/mainPage.jsp");
+            resp.sendRedirect("/mainPage");
         } else {
-            resp.sendRedirect("/webapp/mainPage.jsp");
-        }
-            getServletContext().getRequestDispatcher("/webapp/mainPage.jsp").forward(req, resp);
+            getServletContext().getRequestDispatcher("/mainPage.jsp").forward(req, resp);
         }
     }
-
+}
