@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet (urlPatterns = "/regUser", name="RegUser")
+@WebServlet (urlPatterns = "/regUser", name="RegUserServlet")
 public class RegUserServlet extends HttpServlet {
 
     UserService userService = new UserService();
@@ -22,11 +22,11 @@ public class RegUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userName = (String) req.getAttribute("userName");
-        String userLastName = (String) req.getAttribute("userLastName");
-        String userLogin = (String) req.getAttribute("userLogin");
-        String userPassword = (String) req.getAttribute("userPassword");
-        userService.registerNewUser( new User(userName, userLastName, userLogin, userPassword));
+        String userName = req.getParameter("userName");
+        String userLastName = req.getParameter("userLastName");
+        String userLogin = req.getParameter("userLogin");
+        String userPassword = req.getParameter("userPassword");
+        userService.registerNewUser(new User(userName, userLastName, userLogin, userPassword));
         getServletContext().getRequestDispatcher("/reg.jsp").forward(req, resp);
     }
 

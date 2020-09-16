@@ -13,36 +13,38 @@ public class UserService {
 
     UserDao userDao = new UserDao();
 
-    public boolean authUser (String login, String pass) {
+    public boolean authUser(String login, String pass) {
         if (userDao.checkUserByLogin(login) && userDao.checkUserPassword(pass))
             return true;
         return false;
     }
 
-    public void addUser (String name, String lastName, String login, String pass, int  role, double balance, double salary, double income) {
+    public void addUser(String name, String lastName, String login, String pass, int role, double balance, double salary, double income) {
         userDao.addUser(name, lastName, login, pass, role, balance, salary, income);
         if (userDao.checkUserByName(name)) log.info("User " + name + " " + lastName + " added");
     }
 
-    public void registerNewAdmin (User user) {
+    public void registerNewAdmin(User user) {
         userDao.regNewAdmin(user);
-//        log.info("Admin " + user.getName() + " " + user.getName() + " added");
-        }
-
-        public void removeUserByLogin (String login) {
-        userDao.removeUserByLogin(login);
-//        if (!userDao.checkUserByLogin(login)) log.info("User " + login + " removed");
     }
 
-    public void registerNewUser (User user) {
+    public void registerNewUser(User user) {
         userDao.regNewUser(user);
     }
 
-    public User getUserByLogin (String login) {
+    public User getUserByLogin(String login) {
         if (userDao.checkUserByLogin(login)) {
             User user = userDao.getUserByLogin(login);
             return user;
         }
-            return null;
+        return null;
+    }
+
+    public void removeUserByLogin(String login) {
+        userDao.removeUserByLogin(login);
+//        if (!userDao.checkUserByLogin(login)) log.info("User " + login + " removed");
     }
 }
+
+
+//        log.info("Admin " + user.getName() + " " + user.getName() + " added");

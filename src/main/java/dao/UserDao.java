@@ -58,6 +58,7 @@ public class UserDao {
             preparedStatement.setString(2, user.getLastName());
             preparedStatement.setString(3, user.getLogin());
             preparedStatement.setString(4, user.getPass());
+            preparedStatement.execute();
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();

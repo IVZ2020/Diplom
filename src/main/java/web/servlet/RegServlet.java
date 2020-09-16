@@ -1,8 +1,5 @@
 package web.servlet;
 
-import entity.User;
-import service.UserService;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +17,7 @@ public class RegServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String role = (String) req.getParameter("SelectRole");
+        String role = req.getParameter("SelectRole");
         switch (role) {
             case "admin": getServletContext().getRequestDispatcher("/regAdmin.jsp").forward(req, resp);;
             case "user": getServletContext().getRequestDispatcher("/regUser.jsp").forward(req, resp);;

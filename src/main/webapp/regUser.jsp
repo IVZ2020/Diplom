@@ -7,10 +7,10 @@
 <body>
 
 <form method="post" action="/regUser">
-    <input name="name" placeholder="Имя" type="text">
-    <input name="lastName" placeholder="Фамилия" type="text">
-    <input name="login" placeholder="Логин" type="text">
-    <input name="pass" placeholder="Пароль" type="password">
+    <input name="userName" placeholder="Имя" type="text">
+    <input name="userLastName" placeholder="Фамилия" type="text">
+    <input name="userLogin" placeholder="Логин" type="text">
+    <input name="userPassword" placeholder="Пароль" type="password">
     <button>Submit</button>
     <a href="mainPage.jsp" name="exit">На главную</a>
 </form>

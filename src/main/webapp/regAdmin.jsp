@@ -7,10 +7,10 @@
 <body>
 
 <form method="post" action="/regAdmin">
-    <input name="name" placeholder="Имя" type="text">
-    <input name="lastName" placeholder="Фамилия" type="text">
-    <input name="login" placeholder="Логин" type="text">
-    <input name="pass" placeholder="Пароль" type="password">
+    <input name="adminName" placeholder="Имя" type="text">
+    <input name="adminLastName" placeholder="Фамилия" type="text">
+    <input name="adminLogin" placeholder="Логин" type="text">
+    <input name="adminPass" placeholder="Пароль" type="password">
     <button>Submit</button>
     <a href="mainPage.jsp" name="exit">На главную</a>
 </form>

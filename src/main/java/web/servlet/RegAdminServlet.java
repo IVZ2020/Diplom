@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet (urlPatterns = "/regAdmin", name="RegAdmin")
+@WebServlet (urlPatterns = "/regAdmin", name="RegAdminServlet")
 public class RegAdminServlet extends HttpServlet {
 
     UserService userService = new UserService();
