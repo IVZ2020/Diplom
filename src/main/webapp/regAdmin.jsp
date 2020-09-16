@@ -10,9 +10,9 @@
     <input name="adminName" placeholder="Имя" type="text">
     <input name="adminLastName" placeholder="Фамилия" type="text">
     <input name="adminLogin" placeholder="Логин" type="text">
-    <input name="adminPass" placeholder="Пароль" type="password">
+    <input name="adminPassword" placeholder="Пароль" type="password">
     <button>Submit</button>
-    <a href="mainPage.jsp" name="exit">На главную</a>
 </form>
+<a href="/mainPage" name="exit">На главную</a>
 </body>
 </html>

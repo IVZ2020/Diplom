@@ -22,13 +22,16 @@ public class AuthServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String loginForCheck = req.getParameter("login");
-        String passForCheck = req.getParameter("pass");
-        if (userService.authUser(loginForCheck, passForCheck)) {
-            User userChecked = userService.getUserByLogin(loginForCheck);
-            req.getSession().setAttribute("userChecked", userChecked);
-            resp.sendRedirect("/mainPage");
+        String loginForCheck = req.getParameter("authLogin");
+        String passForCheck = req.getParameter("authPassword");
+        if (req.getParameter("selectAdmin") == "adminSelected") {
+            if (userService.checkAdminLogin(loginForCheck)) {
+                req.getSession().setAttribute("currentAdmin", userService.getAdminByLogin(loginForCheck));
+            }
         } else {
+            if (userService.checkUserLogin(loginForCheck)) {
+                req.getSession().setAttribute("currentUser", userService.getUserByLogin(loginForCheck));
+        }
             getServletContext().getRequestDispatcher("/mainPage.jsp").forward(req, resp);
         }
     }

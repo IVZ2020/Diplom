@@ -28,6 +28,18 @@ public class UserService {
         userDao.regNewAdmin(user);
     }
 
+    public boolean checkUserLogin (String login) {
+        if (userDao.checkUserByLogin(login)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkAdminLogin (String login) {
+        if (userDao.checkAdminByLogin(login)) return true;
+        return false;
+    }
+
     public void registerNewUser(User user) {
         userDao.regNewUser(user);
     }
@@ -36,6 +48,14 @@ public class UserService {
         if (userDao.checkUserByLogin(login)) {
             User user = userDao.getUserByLogin(login);
             return user;
+        }
+        return null;
+    }
+
+    public User getAdminByLogin (String login) {
+        if (userDao.checkAdminByLogin(login)) {
+            User admin = userDao.getAdminByLogin(login);
+            return admin;
         }
         return null;
     }

@@ -27,11 +27,13 @@ public class UserDao {
     private final static String PASS_TABLES = "learn2000_";
 
     private final static String ADD_USER = "insert into users u values (default, ?, ?, ?, ?, ?, ?, ?)";
-    private final static String CHECK_LOGIN = "select * from users u where u.login = ?";
+    private final static String CHECK_USER_LOGIN = "select * from users u where u.login = ?";
+    private final static String CHECK_ADMIN_LOGIN = "select * from admins a where a.login = ?";
     private final static String REMOVE_BY_LOGIN = "delete * from users u where u.login = ?";
     private final static String CHECK_BY_PASS = "select * from users u where u.pass = ?";
     private final static String CHECK_BY_NAME = "select * from users u where u.name = ?";
-    private final static String GET_USER_BY_LOGIN = "select * from users u u.login = ?";
+    private final static String GET_USER_BY_LOGIN = "select * from users u where u.login = ?";
+    private final static String GET_ADMIN_BY_LOGIN = "select * from admins a where a.login = ?";
     private final static String REG_USER = "insert into users values (default, ?, ?, ?, ?)";
     private final static String REG_ADMIN = "insert into admins values (default, ?, ?, ?, ?)";
 
@@ -102,7 +104,7 @@ public class UserDao {
         public boolean checkUserByLogin (String login) {
             try {
                 connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES,PASS_TABLES);
-                PreparedStatement preparedStatement = connection.prepareStatement(CHECK_LOGIN);
+                PreparedStatement preparedStatement = connection.prepareStatement(CHECK_USER_LOGIN);
                 preparedStatement.setString(1, login);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) return true;
@@ -111,6 +113,21 @@ public class UserDao {
             }
             return false;
             }
+
+    public boolean checkAdminByLogin (String login) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES,PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(CHECK_ADMIN_LOGIN);
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
 
         public boolean checkUserPassword (String pass) {
             try {
@@ -144,8 +161,8 @@ public class UserDao {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_LOGIN);
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
-
-            User user = new User(resultSet.getInt(1),
+            User user = new User(
+                            resultSet.getInt(1),
                             resultSet.getString(2),
                             resultSet.getString(3),
                             resultSet.getString(4),
@@ -162,6 +179,27 @@ public class UserDao {
         return null;
     }
 
+    public User getAdminByLogin (String login) {
+
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ADMIN_BY_LOGIN);
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            User admin = new User(
+                    resultSet.getInt(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getInt(6));
+            return admin;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 

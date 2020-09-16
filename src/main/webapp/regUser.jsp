@@ -12,7 +12,7 @@
     <input name="userLogin" placeholder="Логин" type="text">
     <input name="userPassword" placeholder="Пароль" type="password">
     <button>Submit</button>
-    <a href="mainPage.jsp" name="exit">На главную</a>
 </form>
+<a href="/mainPage" name="exit">На главную</a>
 </body>
 </html>

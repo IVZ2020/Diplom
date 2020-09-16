@@ -9,11 +9,13 @@
 
 <form method="post" action="/reg">
     <select size="1" name="SelectRole">
-        <option disabled>Выберете роль пользователя</option>
+        <option disabled>Выберите кого регистрируете</option>
         <option selected value="user">Пользователь</option>
         <option value="admin">Администратор</option>
     </select>
     <button>Регистрация</button>
+
 </form>
+<a href="/mainPage" name="exit">На главную</a>
 </body>
 </html>

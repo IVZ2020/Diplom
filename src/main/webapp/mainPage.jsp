@@ -6,11 +6,24 @@
 </head>
 <body>
 
-<ol style="list-style: none">
-    <c:forEach var="menuItem" items="${requestScope.menuItemsList}">
-        <li><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></li>
-    </c:forEach>
-</ol>
+<c:if test="${SessionScope.currentAdmin == null && SessionScope.currentUser == null}">
+
+    <ol style="list-style: none">
+        <c:forEach var="menuItem" items="${requestScope.menuItemsList}">
+            <li><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></li>
+        </c:forEach>
+    </ol>
+</c:if>
+
+<c:if test="${sessionScope.currentAdmin.role == 2}">
+    <p>Выводим личный кабинет админа</p>
+    <c:redirect url = "/adminCabinet.jsp"/>
+</c:if>
+
+<c:if test="${sessionScope.currentAdmin.role == 1}">
+    <p>Выводим личный кабинет юзера</p>
+    <c:redirect url = "/userCabinet.jsp"/>
+</c:if>
 
 </body>
 </html>
