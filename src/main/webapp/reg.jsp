@@ -5,15 +5,15 @@
     <title>Registration</title>
 </head>
 <body>
-<p>Registration</p>
+<p>Кого будем регистрировать?</p>
 
-<form method="post" name="registration" action="/reg">
-    <input name="name" value="Имя" type="text">
-    <input name="lastName" value="Фамилия" type="text">
-    <input name="login" value="Логин" type="text">
-    <input name="pass" value="Пароль" type="password">
-    <button>Submit</button>
-
+<form method="post" action="/reg">
+    <select size="1" name="SelectRole">
+        <option disabled>Выберете роль пользователя</option>
+        <option selected value="user">Пользователь</option>
+        <option value="admin">Администратор</option>
+    </select>
+    <button>Регистрация</button>
 </form>
 </body>
 </html>

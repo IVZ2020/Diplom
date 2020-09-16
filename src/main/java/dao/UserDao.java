@@ -2,6 +2,7 @@ package dao;
 
 import entity.Menu;
 import entity.User;
+import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import service.Writer;
 
@@ -9,7 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
+@Log4j
 public class UserDao {
 
     static {
@@ -26,12 +27,13 @@ public class UserDao {
     private final static String PASS_TABLES = "learn2000_";
 
     private final static String ADD_USER = "insert into users u values (default, ?, ?, ?, ?, ?, ?, ?)";
-    private final static String CHECK_LOGIN = "select * from users u where s.login = ?";
-    private final static String REMOVE_BY_LOGIN = "delete * from users u where s.login = ?";
+    private final static String CHECK_LOGIN = "select * from users u where u.login = ?";
+    private final static String REMOVE_BY_LOGIN = "delete * from users u where u.login = ?";
     private final static String CHECK_BY_PASS = "select * from users u where u.pass = ?";
     private final static String CHECK_BY_NAME = "select * from users u where u.name = ?";
-    private final static String GET_USER_BY_LOGIN = "select * from users u s.login = ?";
-    private final static String REG_USER = "insert into users  u values (default, ?, ?, ?, ?)";
+    private final static String GET_USER_BY_LOGIN = "select * from users u u.login = ?";
+    private final static String REG_USER = "insert into users values (default, ?, ?, ?, ?)";
+    private final static String REG_ADMIN = "insert into admins values (default, ?, ?, ?, ?)";
 
     public void regNewUser (User user) {
         try {
@@ -41,17 +43,28 @@ public class UserDao {
             preparedStatement.setString(2, user.getLastName());
             preparedStatement.setString(3, user.getLogin());
             preparedStatement.setString(4, user.getPass());
-            preparedStatement.executeQuery();
+            preparedStatement.execute();
             connection.close();
-//            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        return false;
     }
 
+    public void regNewAdmin (User user) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(REG_ADMIN);
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getLogin());
+            preparedStatement.setString(4, user.getPass());
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-    public void addUser (String name, String lastName, String login, String pass, int  role, double balance, double salary, double income) {
+    public void addUser (String name, String lastName, String login, String pass, int role, double balance, double salary, double income) {
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER);
@@ -63,12 +76,15 @@ public class UserDao {
             preparedStatement.setDouble(6, balance);
             preparedStatement.setDouble(7, salary);
             preparedStatement.setDouble(8, income);
-            preparedStatement.executeQuery();
+            preparedStatement.execute();
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+
+
         public boolean removeUserByLogin (String login) {
             try {
                 connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
@@ -128,7 +144,7 @@ public class UserDao {
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            User user = new User(resultSet.getLong(1),
+            User user = new User(resultSet.getInt(1),
                             resultSet.getString(2),
                             resultSet.getString(3),
                             resultSet.getString(4),

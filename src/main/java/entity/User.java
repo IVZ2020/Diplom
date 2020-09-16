@@ -12,7 +12,7 @@ import java.util.List;
 
 public class User {
 
-    private long id;
+    private int id;
     private String name;
     private String lastName;
     private String login;
@@ -23,7 +23,7 @@ public class User {
     private double income;
     private List<Action> history; // Как поместить в базу историю пользователя?
 
-    public User(long id, String name, String lastName, String login, String pass, int role, double balance, double salary, double income) {
+    public User(int id, String name, String lastName, String login, String pass, int role, double balance, double salary, double income) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;

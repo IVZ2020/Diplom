@@ -3,11 +3,12 @@ package service;
 import dao.UserDao;
 import entity.Menu;
 import entity.User;
+import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
-@Slf4j
+@Log4j
 public class UserService {
 
     UserDao userDao = new UserDao();
@@ -23,13 +24,18 @@ public class UserService {
         if (userDao.checkUserByName(name)) log.info("User " + name + " " + lastName + " added");
     }
 
-    public void registerNewUser (User user) {
-            userDao.regNewUser(user);
+    public void registerNewAdmin (User user) {
+        userDao.regNewAdmin(user);
+//        log.info("Admin " + user.getName() + " " + user.getName() + " added");
+        }
+
+        public void removeUserByLogin (String login) {
+        userDao.removeUserByLogin(login);
+//        if (!userDao.checkUserByLogin(login)) log.info("User " + login + " removed");
     }
 
-    public void removeUserByLogin (String login) {
-        userDao.removeUserByLogin(login);
-        if (!userDao.checkUserByLogin(login)) log.info("User " + login + " removed");
+    public void registerNewUser (User user) {
+        userDao.regNewUser(user);
     }
 
     public User getUserByLogin (String login) {
