@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet (urlPatterns = "/auth", name = "AuthServlet")
+@WebServlet(urlPatterns = "/auth", name = "AuthServlet")
 public class AuthServlet extends HttpServlet {
 
     UserService userService = new UserService();
@@ -18,21 +18,25 @@ public class AuthServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/auth.jsp").forward(req, resp);
+        req.getSession().setAttribute("currentMessage", userService.getMessage("auth"));
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String loginForCheck = req.getParameter("authLogin");
+        req.getSession().setAttribute("currentLogin", loginForCheck);
         String passForCheck = req.getParameter("authPassword");
-        if (req.getParameter("selectAdmin") == "adminSelected") {
-            if (userService.checkAdminLogin(loginForCheck)) {
-                req.getSession().setAttribute("currentAdmin", userService.getAdminByLogin(loginForCheck));
+
+        if (!loginForCheck.equals(userService.checkLogin(loginForCheck))) {
+            req.getSession().setAttribute("wrongLogin", userService.getMessage("Неверный логин"));
+            getServletContext().getRequestDispatcher("/auth.jsp").forward(req, resp);
+            } else if (!passForCheck.equals(userService.checkLogin(passForCheck))) {
+                req.getSession().setAttribute("wrongPass", userService.getMessage("Неверный пароль"));
+                getServletContext().getRequestDispatcher("/auth.jsp").forward(req, resp);
+                } else {
+                     req.getSession().setAttribute("currentUser", userService.getUserByLogin(loginForCheck));
+                     getServletContext().getRequestDispatcher("/userCabinet.jsp").forward(req, resp);
+                }
+                getServletContext().getRequestDispatcher("/").forward(req, resp);
             }
-        } else {
-            if (userService.checkUserLogin(loginForCheck)) {
-                req.getSession().setAttribute("currentUser", userService.getUserByLogin(loginForCheck));
         }
-            getServletContext().getRequestDispatcher("/mainPage.jsp").forward(req, resp);
-        }
-    }
-}

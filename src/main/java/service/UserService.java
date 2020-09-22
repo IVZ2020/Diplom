@@ -64,6 +64,21 @@ public class UserService {
         userDao.removeUserByLogin(login);
 //        if (!userDao.checkUserByLogin(login)) log.info("User " + login + " removed");
     }
+
+    public String getMessage (String message) {
+        String currentMessage = userDao.getMessage(message);
+        return currentMessage;
+    }
+
+    public boolean checkLogin (String login) {
+        if (userDao.getLogin(login)) return true;
+        return false;
+        }
+    public boolean checkPassword (String password) {
+        if (userDao.getPassword(password)) return true;
+        return false;
+        }
+
 }
 
 

@@ -36,6 +36,9 @@ public class UserDao {
     private final static String GET_ADMIN_BY_LOGIN = "select * from admins a where a.login = ?";
     private final static String REG_USER = "insert into users values (default, ?, ?, ?, ?)";
     private final static String REG_ADMIN = "insert into admins values (default, ?, ?, ?, ?)";
+    private final static String GET_MESSAGE = "select * from messages m where m.messagerus = ?";
+    private final static String GET_LOGIN = "select * from users u where u.login = ?";
+    private final static String GET_PASSWORD = "select * from users u where u.pass = ?";
 
     public void regNewUser (User user) {
         try {
@@ -127,8 +130,6 @@ public class UserDao {
         return false;
     }
 
-
-
         public boolean checkUserPassword (String pass) {
             try {
                 connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES,PASS_TABLES);
@@ -201,6 +202,47 @@ public class UserDao {
         return null;
     }
 
+    public String getMessage (String message) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_MESSAGE);
+            preparedStatement.setString(1, message);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
+    public boolean getLogin (String login) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_LOGIN);
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.getString(login).equals(preparedStatement.executeQuery())) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean getPassword (String password) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_PASSWORD);
+            preparedStatement.setString(1, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.getString(password).equals(preparedStatement.executeQuery())) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 }

@@ -15,15 +15,5 @@
     </ol>
 </c:if>
 
-<c:if test="${sessionScope.currentAdmin.role == 2}">
-    <p>Выводим личный кабинет админа</p>
-    <c:redirect url = "/adminCabinet.jsp"/>
-</c:if>
-
-<c:if test="${sessionScope.currentAdmin.role == 1}">
-    <p>Выводим личный кабинет юзера</p>
-    <c:redirect url = "/userCabinet.jsp"/>
-</c:if>
-
 </body>
 </html>

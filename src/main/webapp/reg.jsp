@@ -8,8 +8,7 @@
 <p>Кого будем регистрировать?</p>
 
 <form method="post" action="/reg">
-    <select size="1" name="SelectRole">
-        <option disabled>Выберите кого регистрируете</option>
+    <select name="SelectRole">
         <option selected value="user">Пользователь</option>
         <option value="admin">Администратор</option>
     </select>
