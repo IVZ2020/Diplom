@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import service.Writer;
 
+import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,38 +28,18 @@ public class UserDao {
     private final static String PASS_TABLES = "learn2000_";
 
     private final static String ADD_USER = "insert into users u values (default, ?, ?, ?, ?, ?, ?, ?)";
-    private final static String CHECK_USER_LOGIN = "select * from users u where u.login = ?";
-    private final static String CHECK_ADMIN_LOGIN = "select * from admins a where a.login = ?";
+    private final static String IS_LOGIN_EXIST = "select * from users u where u.login = ?";
     private final static String REMOVE_BY_LOGIN = "delete * from users u where u.login = ?";
-    private final static String CHECK_BY_PASS = "select * from users u where u.pass = ?";
     private final static String CHECK_BY_NAME = "select * from users u where u.name = ?";
     private final static String GET_USER_BY_LOGIN = "select * from users u where u.login = ?";
-    private final static String GET_ADMIN_BY_LOGIN = "select * from admins a where a.login = ?";
     private final static String REG_USER = "insert into users values (default, ?, ?, ?, ?)";
-    private final static String REG_ADMIN = "insert into admins values (default, ?, ?, ?, ?)";
     private final static String GET_MESSAGE = "select * from messages m where m.messagerus = ?";
-    private final static String GET_LOGIN = "select * from users u where u.login = ?";
-    private final static String GET_PASSWORD = "select * from users u where u.pass = ?";
 
+;
     public void regNewUser (User user) {
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
             PreparedStatement preparedStatement = connection.prepareStatement(REG_USER);
-            preparedStatement.setString(1, user.getName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setString(3, user.getLogin());
-            preparedStatement.setString(4, user.getPass());
-            preparedStatement.execute();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void regNewAdmin (User user) {
-        try {
-            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
-            PreparedStatement preparedStatement = connection.prepareStatement(REG_ADMIN);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLastName());
             preparedStatement.setString(3, user.getLogin());
@@ -89,14 +70,13 @@ public class UserDao {
         }
     }
 
-
-
         public boolean removeUserByLogin (String login) {
             try {
                 connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
                 PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_LOGIN);
                 preparedStatement.setString(1, login);
                 ResultSet resultSet = preparedStatement.executeQuery();
+                connection.close();
                 if (resultSet.next()) return true;
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -104,43 +84,18 @@ public class UserDao {
             return false;
         }
 
-        public boolean checkUserByLogin (String login) {
+        public boolean isLoginExistInBase (String login) {
             try {
                 connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES,PASS_TABLES);
-                PreparedStatement preparedStatement = connection.prepareStatement(CHECK_USER_LOGIN);
+                PreparedStatement preparedStatement = connection.prepareStatement(IS_LOGIN_EXIST);
                 preparedStatement.setString(1, login);
                 ResultSet resultSet = preparedStatement.executeQuery();
+                connection.close();
                 if (resultSet.next()) return true;
             } catch (SQLException e) {
                 e.printStackTrace();
             }
             return false;
-            }
-
-    public boolean checkAdminByLogin (String login) {
-        try {
-            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES,PASS_TABLES);
-            PreparedStatement preparedStatement = connection.prepareStatement(CHECK_ADMIN_LOGIN);
-            preparedStatement.setString(1, login);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-        public boolean checkUserPassword (String pass) {
-            try {
-                connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES,PASS_TABLES);
-                PreparedStatement preparedStatement = connection.prepareStatement(CHECK_BY_PASS);
-                preparedStatement.setString(1, pass);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if (resultSet.next()) return true;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        return false;
             }
 
         public boolean checkUserByName (String name) {
@@ -149,6 +104,7 @@ public class UserDao {
                 PreparedStatement preparedStatement = connection.prepareStatement(CHECK_BY_NAME);
                 preparedStatement.setString(1, name);
                 ResultSet resultSet = preparedStatement.executeQuery();
+                connection.close();
                 if (resultSet.next()) return true;
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -162,39 +118,19 @@ public class UserDao {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_LOGIN);
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
             User user = new User(
-                            resultSet.getInt(1),
-                            resultSet.getString(2),
-                            resultSet.getString(3),
-                            resultSet.getString(4),
-                            resultSet.getString(5),
-                            resultSet.getInt(6),
-                            resultSet.getDouble(7),
-                            resultSet.getDouble(8),
-                            resultSet.getDouble(9));
+                    (resultSet.getInt(1)),
+                    (resultSet.getString(2)),
+                    (resultSet.getString(3)),
+                    (resultSet.getString(4)),
+                    (resultSet.getString(5)),
+                    (resultSet.getInt(6)),
+                    (resultSet.getDouble(7)),
+                    (resultSet.getDouble(8)),
+                    (resultSet.getDouble(9)));
+            connection.close();
             return user;
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public User getAdminByLogin (String login) {
-
-        try {
-            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_ADMIN_BY_LOGIN);
-            preparedStatement.setString(1, login);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            User admin = new User(
-                    resultSet.getInt(1),
-                    resultSet.getString(2),
-                    resultSet.getString(3),
-                    resultSet.getString(4),
-                    resultSet.getString(5),
-                    resultSet.getInt(6));
-            return admin;
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -208,6 +144,9 @@ public class UserDao {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_MESSAGE);
             preparedStatement.setString(1, message);
             ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            User user = new User();
+            connection.close();
             return resultSet.getString(1);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -215,34 +154,26 @@ public class UserDao {
         return null;
     }
 
-    public boolean getLogin (String login) {
-        try {
-            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_LOGIN);
-            preparedStatement.setString(1, login);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.getString(login).equals(preparedStatement.executeQuery())) {
-                return true;
+    public boolean ifUserHasFieldsNull(String login) {
+            User ifUserHasFieldsNull = getUserByLogin(login);
+            Field[] fields = ifUserHasFieldsNull.getClass().getDeclaredFields();
+            for (Field field: fields) {
+                if (field == null) {
+                   return true;
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         return false;
     }
 
-    public boolean getPassword (String password) {
-        try {
-            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_PASSWORD);
-            preparedStatement.setString(1, password);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.getString(password).equals(preparedStatement.executeQuery())) {
-                return true;
+    public List<String> getUserFieldsNullList (String login) {
+            User UserHasFieldsNull = getUserByLogin(login);
+            Field[] fields = UserHasFieldsNull.getClass().getDeclaredFields();
+            List<String> nullFields = new ArrayList<>();
+            for (Field field: fields) {
+                if (field == null) {
+                    nullFields.add(field.getName());
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+            return nullFields;
     }
-
 }

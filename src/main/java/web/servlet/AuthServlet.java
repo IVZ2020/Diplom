@@ -18,25 +18,27 @@ public class AuthServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/auth.jsp").forward(req, resp);
-        req.getSession().setAttribute("currentMessage", userService.getMessage("auth"));
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String loginForCheck = req.getParameter("authLogin");
-        req.getSession().setAttribute("currentLogin", loginForCheck);
-        String passForCheck = req.getParameter("authPassword");
+        String checkLogin = req.getParameter("login");
+        String checkPassword = req.getParameter("password");
+        if (userService.isLoginExist(checkLogin)) {
+            User user = userService.getUserByLogin(checkLogin);
+            if (checkPassword.equals(user.getPass())) {
+                req.getSession().setAttribute("currentUser", user);
+                resp.sendRedirect("/userCabinet");
 
-        if (!loginForCheck.equals(userService.checkLogin(loginForCheck))) {
-            req.getSession().setAttribute("wrongLogin", userService.getMessage("Неверный логин"));
-            getServletContext().getRequestDispatcher("/auth.jsp").forward(req, resp);
-            } else if (!passForCheck.equals(userService.checkLogin(passForCheck))) {
-                req.getSession().setAttribute("wrongPass", userService.getMessage("Неверный пароль"));
-                getServletContext().getRequestDispatcher("/auth.jsp").forward(req, resp);
-                } else {
-                     req.getSession().setAttribute("currentUser", userService.getUserByLogin(loginForCheck));
-                     getServletContext().getRequestDispatcher("/userCabinet.jsp").forward(req, resp);
-                }
-                getServletContext().getRequestDispatcher("/").forward(req, resp);
+            } else {
+                req.setAttribute("message", "wrong pass");
+                req.setAttribute("login", checkLogin);
+                req.getRequestDispatcher("/auth.jsp").forward(req, resp);
+
             }
+        } else {
+            req.setAttribute("message", "user not found");
+            req.getRequestDispatcher("/auth.jsp").forward(req, resp);
         }
+    }
+}

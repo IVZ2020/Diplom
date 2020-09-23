@@ -21,30 +21,20 @@ public class User {
     private double balance;
     private double salary;
     private double income;
-    private List<Action> history; // Как поместить в базу историю пользователя?
+//    private List<Action> history; // Как поместить в базу историю пользователя?
 
-    public User(int id, String name, String lastName, String login, String pass, int role, double balance, double salary, double income) {
-        this.id = id;
-        this.name = name;
-        this.lastName = lastName;
-        this.login = login;
-        this.pass = pass;
-        this.role = role;
-        this.balance = balance;
-        this.salary = salary;
-        this.income = income;
-    }
 
     public User(String login, String pass) {
         this.login = login;
         this.pass = pass;
     }
 
-    public User(String name, String lastName, String login, String pass) {
+    public User(String name, String lastName, String login, String pass, int role) {
         this.name = name;
         this.lastName = lastName;
         this.login = login;
         this.pass = pass;
+        this.role = role;
     }
 
     public User(int id, String name, String lastName, String login, String pass, int role) {

@@ -11,6 +11,10 @@
     <title>UserCabinet</title>
 </head>
 <body>
-<p>Личный кабинет пользователя</p>
+<p>Личный кабинет пользователя ${sessionScope.currentUser.name}</p>
+
+<a href="/mainPage" name="exit">На главную</a>
+
+
 </body>
 </html>

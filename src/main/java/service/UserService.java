@@ -13,31 +13,9 @@ public class UserService {
 
     UserDao userDao = new UserDao();
 
-    public boolean authUser(String login, String pass) {
-        if (userDao.checkUserByLogin(login) && userDao.checkUserPassword(pass))
-            return true;
-        return false;
-    }
-
-    public void addUser(String name, String lastName, String login, String pass, int role, double balance, double salary, double income) {
-        userDao.addUser(name, lastName, login, pass, role, balance, salary, income);
-        if (userDao.checkUserByName(name)) log.info("User " + name + " " + lastName + " added");
-    }
-
-    public void registerNewAdmin(User user) {
-        userDao.regNewAdmin(user);
-    }
-
-    public boolean checkUserLogin (String login) {
-        if (userDao.checkUserByLogin(login)) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean checkAdminLogin (String login) {
-        if (userDao.checkAdminByLogin(login)) return true;
-        return false;
+    public boolean isLoginExist(String login) {
+        if (userDao.isLoginExistInBase(login)) return true;
+        else return false;
     }
 
     public void registerNewUser(User user) {
@@ -45,41 +23,24 @@ public class UserService {
     }
 
     public User getUserByLogin(String login) {
-        if (userDao.checkUserByLogin(login)) {
-            User user = userDao.getUserByLogin(login);
-            return user;
-        }
-        return null;
-    }
-
-    public User getAdminByLogin (String login) {
-        if (userDao.checkAdminByLogin(login)) {
-            User admin = userDao.getAdminByLogin(login);
-            return admin;
-        }
-        return null;
+        User user = userDao.getUserByLogin(login);
+        if (user != null)
+            return userDao.getUserByLogin(login);
+        else return null;
     }
 
     public void removeUserByLogin(String login) {
         userDao.removeUserByLogin(login);
-//        if (!userDao.checkUserByLogin(login)) log.info("User " + login + " removed");
     }
 
-    public String getMessage (String message) {
-        String currentMessage = userDao.getMessage(message);
-        return currentMessage;
+    public boolean ifUserHasFieldsNull(String login) {
+        if (userDao.ifUserHasFieldsNull(login)) return false;
+        else return true;
     }
 
-    public boolean checkLogin (String login) {
-        if (userDao.getLogin(login)) return true;
-        return false;
-        }
-    public boolean checkPassword (String password) {
-        if (userDao.getPassword(password)) return true;
-        return false;
-        }
-
+    public List<String> getUserFieldsNullList (String login) {
+        return userDao.getUserFieldsNullList(login);
+    }
 }
-
 
 //        log.info("Admin " + user.getName() + " " + user.getName() + " added");

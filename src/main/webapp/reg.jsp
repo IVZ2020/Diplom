@@ -5,16 +5,20 @@
     <title>Registration</title>
 </head>
 <body>
-<p>Кого будем регистрировать?</p>
+<p>Регистрация</p>
+
+<c:if test="${requestScope.userAdded}">
+    <p>${requestScope.userAdded}</p>
+</c:if>
 
 <form method="post" action="/reg">
-    <select name="SelectRole">
-        <option selected value="user">Пользователь</option>
-        <option value="admin">Администратор</option>
-    </select>
-    <button>Регистрация</button>
-
+    <input name="userName" placeholder="Имя" type="text">
+    <input name="userLastName" placeholder="Фамилия" type="text">
+    <input name="userLogin" placeholder="Логин" type="text">
+    <input name="userPassword" placeholder="Пароль" type="password">
+    <button>Submit</button>
 </form>
 <a href="/mainPage" name="exit">На главную</a>
+
 </body>
 </html>

@@ -1,5 +1,8 @@
 package web.servlet;
 
+import entity.User;
+import service.UserService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +13,8 @@ import java.io.IOException;
 @WebServlet (urlPatterns = "/reg", name = "RegServlet")
 public class RegServlet extends HttpServlet {
 
+    UserService userService = new UserService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/reg.jsp").forward(req, resp);
@@ -17,13 +22,13 @@ public class RegServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String role = req.getParameter("SelectRole");
-        switch (role) {
-            case "admin": getServletContext().getRequestDispatcher("/regAdmin.jsp").forward(req, resp);;
-            case "user": getServletContext().getRequestDispatcher("/regUser.jsp").forward(req, resp);;
-            default: getServletContext().getRequestDispatcher("/reg.jsp").forward(req, resp);
-        }
-        resp.sendRedirect("/mainPage.jsp");
-
+        String userName = req.getParameter("userName");
+        String userLastName = req.getParameter("userLastName");
+        String userLogin = req.getParameter("userLogin");
+        String userPassword = req.getParameter("userPassword");
+        userService.registerNewUser(new User(userName, userLastName, userLogin, userPassword, 1));
+        req.setAttribute("userAdded", "Пользователь добавлен");
+        resp.sendRedirect("/userCabinet");
     }
 }
+
