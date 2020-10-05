@@ -194,4 +194,19 @@ public class UserDao {
         }
         return usersFieldList;
     }
+
+    public List<String> getUserFieldsValue (String userLogin) {
+        User user = getUserByLogin(userLogin);
+        List<String> userFieldsValue = new ArrayList<>();
+        userFieldsValue.add(String.valueOf(user.getId()));
+        userFieldsValue.add(user.getName());
+        userFieldsValue.add(user.getLastName());
+        userFieldsValue.add(user.getLogin());
+        userFieldsValue.add(user.getPass());
+        userFieldsValue.add(String.valueOf(user.getRole()));
+        userFieldsValue.add(String.valueOf(user.getBalance()));
+        userFieldsValue.add(String.valueOf(user.getSalary()));
+        userFieldsValue.add(String.valueOf(user.getIncome()));
+        return userFieldsValue;
+    }
 }

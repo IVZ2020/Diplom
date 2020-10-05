@@ -8,10 +8,13 @@
 <body>
 <p>Личный кабинет пользователя ${sessionScope.currentUser.name}</p>
 
-    <c:forEach var="item" items="${sessionScope.currentUser}">
+    <c:forEach var="item" items="${sessionScope.userFieldList}">
         ${item}
     </c:forEach>
 
+    <c:forEach var="value" items="${sessionScope.userFieldsValue}">
+        <p>${value}</p>
+    </c:forEach>
 <%--    <c:forEach var="field" items="${sessionScope.currentUser}">--%>
 <%--    <p>"${field}"</p>--%>
 <%--    </c:forEach>--%>

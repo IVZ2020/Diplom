@@ -18,6 +18,11 @@ public class UserCabinetServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User currentUser = (User) req.getSession().getAttribute("currentUser");
+        List<String> userFieldList = userService.getUserFieldList (currentUser.getLogin());
+        List<String> userFieldsValue = userService.getUserFieldsValue(currentUser.getLogin());
+        req.getSession().setAttribute("userFieldList", userFieldList);
+        req.getSession().setAttribute("userFieldsValue", userFieldsValue);
         req.getRequestDispatcher("/userCabinet.jsp").forward(req, resp);
 
     }
