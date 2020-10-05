@@ -18,15 +18,8 @@ public class UserCabinetServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/userCabinet.jsp").forward(req, resp);
 
-        User currentUser = (User) req.getSession().getAttribute("currentUser");
-        if (userService.ifUserHasFieldsNull(currentUser.getLogin())) {
-            List<String> userFieldsNullList = userService.getUserFieldsNullList(currentUser.getLogin());
-            req.setAttribute("emptyFieldsList", userFieldsNullList);
-            getServletContext().getRequestDispatcher("/userCabinet.jsp").forward(req, resp);
-        } else {
-            getServletContext().getRequestDispatcher("/userCabinet.jsp").forward(req, resp);
-        }
     }
 
     @Override

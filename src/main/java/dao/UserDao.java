@@ -32,11 +32,12 @@ public class UserDao {
     private final static String REMOVE_BY_LOGIN = "delete * from users u where u.login = ?";
     private final static String CHECK_BY_NAME = "select * from users u where u.name = ?";
     private final static String GET_USER_BY_LOGIN = "select * from users u where u.login = ?";
-    private final static String REG_USER = "insert into users values (default, ?, ?, ?, ?)";
+    private final static String REG_USER = "insert into users values (default, ?, ?, ?, ?, ?)";
     private final static String GET_MESSAGE = "select * from messages m where m.messagerus = ?";
 
-;
-    public void regNewUser (User user) {
+    ;
+
+    public void regNewUser(User user) {
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
             PreparedStatement preparedStatement = connection.prepareStatement(REG_USER);
@@ -44,6 +45,7 @@ public class UserDao {
             preparedStatement.setString(2, user.getLastName());
             preparedStatement.setString(3, user.getLogin());
             preparedStatement.setString(4, user.getPass());
+            preparedStatement.setInt(5, user.getRole());
             preparedStatement.execute();
             connection.close();
         } catch (SQLException e) {
@@ -51,7 +53,7 @@ public class UserDao {
         }
     }
 
-    public void addUser (String name, String lastName, String login, String pass, int role, double balance, double salary, double income) {
+    public void addUser(String name, String lastName, String login, String pass, int role, double balance, double salary, double income) {
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER);
@@ -70,49 +72,49 @@ public class UserDao {
         }
     }
 
-        public boolean removeUserByLogin (String login) {
-            try {
-                connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
-                PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_LOGIN);
-                preparedStatement.setString(1, login);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                connection.close();
-                if (resultSet.next()) return true;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return false;
+    public boolean removeUserByLogin(String login) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_LOGIN);
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            connection.close();
+            if (resultSet.next()) return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return false;
+    }
 
-        public boolean isLoginExistInBase (String login) {
-            try {
-                connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES,PASS_TABLES);
-                PreparedStatement preparedStatement = connection.prepareStatement(IS_LOGIN_EXIST);
-                preparedStatement.setString(1, login);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                connection.close();
-                if (resultSet.next()) return true;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return false;
-            }
-
-        public boolean checkUserByName (String name) {
-            try {
-                connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES,PASS_TABLES);
-                PreparedStatement preparedStatement = connection.prepareStatement(CHECK_BY_NAME);
-                preparedStatement.setString(1, name);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                connection.close();
-                if (resultSet.next()) return true;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return false;
+    public boolean isLoginExistInBase(String login) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(IS_LOGIN_EXIST);
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            connection.close();
+            if (resultSet.next()) return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return false;
+    }
 
-    public User getUserByLogin (String login) {
+    public boolean checkUserByName(String name) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(CHECK_BY_NAME);
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            connection.close();
+            if (resultSet.next()) return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public User getUserByLogin(String login) {
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_LOGIN);
@@ -131,14 +133,13 @@ public class UserDao {
                     (resultSet.getDouble(9)));
             connection.close();
             return user;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public String getMessage (String message) {
+    public String getMessage(String message) {
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
             PreparedStatement preparedStatement = connection.prepareStatement(GET_MESSAGE);
@@ -155,25 +156,42 @@ public class UserDao {
     }
 
     public boolean ifUserHasFieldsNull(String login) {
-            User ifUserHasFieldsNull = getUserByLogin(login);
-            Field[] fields = ifUserHasFieldsNull.getClass().getDeclaredFields();
-            for (Field field: fields) {
-                if (field == null) {
-                   return true;
-                }
+        User ifUserHasFieldsNull = getUserByLogin(login);
+        Field[] fields = ifUserHasFieldsNull.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            String fieldName = field.getName();
+
+            if (field == null) {
+                return true;
             }
+        }
         return false;
     }
 
-    public List<String> getUserFieldsNullList (String login) {
-            User UserHasFieldsNull = getUserByLogin(login);
-            Field[] fields = UserHasFieldsNull.getClass().getDeclaredFields();
-            List<String> nullFields = new ArrayList<>();
-            for (Field field: fields) {
-                if (field == null) {
-                    nullFields.add(field.getName());
-                }
-            }
-            return nullFields;
+    public boolean isNameOrLastNameEmpty(String login) {
+        User user = getUserByLogin(login);
+        if (user.getName().isEmpty() || (user.getLastName().isEmpty())) return true;
+        return false;
+    }
+
+    public List<User> getAllUsers() {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<String> getUserFieldList (String login) {
+        User user = getUserByLogin(login);
+        Field[] fields = user.getClass().getDeclaredFields();
+        List<String> usersFieldList = new ArrayList<>();
+        for (Field field: fields) {
+            String fieldName = field.getName();
+            usersFieldList.add(fieldName);
+        }
+        return usersFieldList;
     }
 }

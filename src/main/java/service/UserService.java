@@ -34,12 +34,16 @@ public class UserService {
     }
 
     public boolean ifUserHasFieldsNull(String login) {
-        if (userDao.ifUserHasFieldsNull(login)) return false;
-        else return true;
+        if (userDao.ifUserHasFieldsNull(login)) return true;
+        else return false;
     }
 
-    public List<String> getUserFieldsNullList (String login) {
-        return userDao.getUserFieldsNullList(login);
+    public List<String> getUserFieldList (String login) {
+        return userDao.getUserFieldList (login);
+    }
+
+    public boolean isNameOrLastNameEmpty (String login) {
+        return userDao.isNameOrLastNameEmpty(login);
     }
 }
 
