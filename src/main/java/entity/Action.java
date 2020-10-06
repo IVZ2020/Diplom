@@ -29,7 +29,7 @@ public class Action {
         return res;
     }
 
-    public static double percentage (double num1, int percent) {
+    public static double percentFromNumber (double num1, int percent) {
         double res = 0;
             res = (num1 / 100) * percent;
             return res;

@@ -28,6 +28,7 @@ public class RegServlet extends HttpServlet {
         String userPassword = req.getParameter("userPassword");
         userService.registerNewUser(new User(userName, userLastName, userLogin, userPassword, 1));
         req.setAttribute("userAdded", "Пользователь добавлен");
+        req.getSession().setAttribute("currentUser", userService.getUserByLogin(userLogin));
         resp.sendRedirect("/userCabinet");
     }
 }

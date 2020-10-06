@@ -6,6 +6,7 @@
 </head>
 <body>
 <p>Search</p>
+<a href="/mainPage" name="exit">На главную</a>
 
 </body>
 </html>
