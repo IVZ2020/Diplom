@@ -8,8 +8,8 @@
 <body>
 
     <form method="post" action="/auth">
-        <input name="login" value="${requestScope.login}" placeholder="1" type="text">
-        <input name="password" placeholder="1" type="password">
+        <input name="login" value="${requestScope.login}" placeholder="Login" type="text">
+        <input name="password" placeholder="Password" type="password">
         <button>Войти</button>
     </form>
 

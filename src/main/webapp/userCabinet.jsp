@@ -9,19 +9,21 @@
 <p>Личный кабинет пользователя ${sessionScope.currentUser.name}</p>
 
     <c:forEach var="item" items="${sessionScope.userFieldList}">
-        ${item}
+        <p>${item}</p>
     </c:forEach>
 
     <c:forEach var="value" items="${sessionScope.userFieldsValue}">
         <p>${value}</p>
     </c:forEach>
-<%--    <c:forEach var="field" items="${sessionScope.currentUser}">--%>
-<%--    <p>"${field}"</p>--%>
-<%--    </c:forEach>--%>
 
-<%--<c:if test="${!sessionScope.currentUser}">--%>
-<%--    <p><a href="/auth">Авторизуйтесь</a></p>--%>
-<%--</c:if>--%>
+<p>Изменения логина и пароля</p>
+<p>Вывод истории операций в файл</p>
+<p>Добавление расходов/доходов</p>
+<p>Баланс</p>
+<p>Поиск операции по дате/сумме/названию</p>
+<p>Конвертер валюты</p>
+<p>Сообщение администратору</p>
+
 
 
 <a href="/mainPage" name="exit">На главную</a>
