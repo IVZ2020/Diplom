@@ -27,17 +27,16 @@ public class AuthServlet extends HttpServlet {
         if (userService.isLoginExist(checkLogin)) {
             User user = userService.getUserByLogin(checkLogin);
             if (checkPassword.equals(user.getPass())) {
+                req.getSession().setAttribute("currentUser", user);
                 switch (user.getRole()) {
+
                     case 1:
-                        req.getSession().setAttribute("currentUser", user);
                         resp.sendRedirect("/userCabinet");
                         break;
                     case 2:
-                        req.getSession().setAttribute("currentAdmin", user);
                         resp.sendRedirect("/adminCabinet");
                         break;
                     case 3:
-                        req.getSession().setAttribute("currentModerator", user);
                         resp.sendRedirect("/moderatorCabinet");
                         break;
                 }

@@ -8,6 +8,16 @@
 <body>
 <p>Личный кабинет модератора ${sessionScope.currentModerator}</p>
 
+<c:forEach var="item" items="${sessionScope.userFieldList}">
+    <p>${item}</p>
+</c:forEach>
+
+<c:forEach var="value" items="${sessionScope.userFieldsValue}">
+    <p>${value}</p>
+</c:forEach>
+
+<a href="/logoutServlet">Logout</a>
+
 <p>Сообщения всем пользователям</p>
 <p>Сообщение конкретному пользователю</p>
 <p>Вывод в файл переписки с пользователем</p>

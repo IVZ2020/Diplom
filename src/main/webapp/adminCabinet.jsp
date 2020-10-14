@@ -8,6 +8,19 @@
 <body>
 <p>Личный кабинет администратора ${sessionScope.currentAdmin}</p>
 
+<c:forEach var="item" items="${sessionScope.adminFieldList}">
+    <p>${item}</p>
+</c:forEach>
+
+<c:forEach var="value" items="${sessionScope.adminFieldsValue}">
+    <p>${value}</p>
+</c:forEach>
+
+<a href="/logoutServlet">Logout</a>
+
+
+
+
 <%--Подключить bootstrap попробовать самостоятельно--%>
 <%--CDN - что это? узнать--%>
 <%--Amazon - cloud storage--%>
