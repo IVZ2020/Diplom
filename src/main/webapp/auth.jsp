@@ -12,7 +12,6 @@
         <input name="password" placeholder="Password" type="password">
         <button>Войти</button>
     </form>
-
     <p>${requestScope.message}</p>
 
 <a href="/mainPage" name="exit">На главную</a>

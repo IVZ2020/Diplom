@@ -21,11 +21,12 @@ public class MainPageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Menu> menuItems = menuService.getMenuItems();
-        req.setAttribute("menuItemsList", menuItems);
-        log.info("menu");
-        getServletContext().getRequestDispatcher("/mainPage.jsp").forward(req, resp);
-    }
+            List<Menu> menuItems = menuService.getMenuItems();
+            req.setAttribute("menuItemsList", menuItems);
+            getServletContext().getRequestDispatcher("/mainPage.jsp").forward(req, resp);
+        }
+
+//        log.info("menu");
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

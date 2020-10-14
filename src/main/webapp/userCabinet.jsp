@@ -1,6 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="${pageContext.request.contextPath} webjars/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script type="text/javascript" src="webjars/jquery/2.1.1/jquery.min.js"></script>
+
 <html>
 <head>
     <title>UserCabinet</title>
@@ -15,6 +21,8 @@
     <c:forEach var="value" items="${sessionScope.userFieldsValue}">
         <p>${value}</p>
     </c:forEach>
+
+    <a href="/logoutServlet">Logout</a>
 
 <p>Изменения логина и пароля</p>
 <p>Вывод истории операций в файл</p>

@@ -6,14 +6,17 @@
 </head>
 <body>
 
-<c:if test="${SessionScope.currentAdmin == null && SessionScope.currentUser == null}">
+        <c:if test="${requestScope.userAuthorizedMessage != null}">
+        <p>${requestScope.userAuthorizedMessage}</p>
+        <p>Check</p>
+        <a href="/mainPage" name="exit">На главную</a>
+        </c:if>
 
     <ol style="list-style: none">
         <c:forEach var="menuItem" items="${requestScope.menuItemsList}">
             <li><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></li>
         </c:forEach>
     </ol>
-</c:if>
 
 </body>
 </html>

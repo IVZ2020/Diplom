@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
-
 public class MenuDao {
 
     Connection connection = null;
@@ -24,7 +23,8 @@ public class MenuDao {
     private final static String LOGIN_TABLES = "postgres";
     private final static String PASS_TABLES = "learn2000_";
 
-    private final static String GET_MENU_ITEMS = "select * from menuitems";
+    private final static String GET_MENU_ITEMS = "SELECT * FROM menuitems";
+    private final static String GET_MENU_ITEMS_WHEN_AUTH = "SELECT * FROM menuitems WHERE menulink NOT IN ('auth')";
 
     public List<Menu> makeMenuItems () {
         List<Menu> menuItems = new ArrayList<>();
@@ -42,11 +42,35 @@ public class MenuDao {
 
                 Menu menuItem = new Menu(menuItemId, menuItemLink, menuItemRus);
                 menuItems.add(menuItem);
-
+                connection.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return menuItems;
     }
+
+    public List<Menu> makeMenuItemsWithAuth () {
+            List<Menu> menuItems = new ArrayList<>();
+            String menuItemLink;
+            String menuItemRus;
+            int menuItemId;
+            try {
+                connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+                PreparedStatement preparedStatement = connection.prepareStatement(GET_MENU_ITEMS_WHEN_AUTH);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    menuItemId = resultSet.getInt(1);
+                    menuItemLink = resultSet.getString(2);
+                    menuItemRus = resultSet.getString(3);
+
+                    Menu menuItem = new Menu(menuItemId, menuItemLink, menuItemRus);
+                    menuItems.add(menuItem);
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return menuItems;
+        }
 }

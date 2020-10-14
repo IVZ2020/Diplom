@@ -15,5 +15,6 @@
 <p>Поиск фразы в переписке с конкретным пользователем</p>
 
 <a href="/mainPage" name="exit">На главную</a>
+<a href="/logoutServlet">Logout</a>
 </body>
 </html>

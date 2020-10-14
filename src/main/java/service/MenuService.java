@@ -13,4 +13,9 @@ public class MenuService {
         List<Menu> menuItems = menuDao.makeMenuItems();
         return menuItems;
     }
+
+    public List<Menu> getMenuItemsWithAuth() {
+        List<Menu> menuItemsWithAuth = menuDao.makeMenuItemsWithAuth();
+        return menuItemsWithAuth;
+    }
 }

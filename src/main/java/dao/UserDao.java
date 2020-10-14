@@ -195,6 +195,39 @@ public class UserDao {
         return usersFieldList;
     }
 
+    public List<String> findNullFieldsInUser (String login) {
+        List<String> list = new ArrayList<>();
+        User user = getUserByLogin(login);
+        Field[] fields = User.class.getDeclaredFields();
+        for (Field field: fields) {
+            Object o = null;
+            try {
+                field.setAccessible(true);
+                o = field.get(user);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            if (o == null) {
+                list.add(field.getName() + " field is empty");
+            }
+        }
+        return list;
+    }
+
+    public List<String> findNullFieldsInUser_ (String login) {
+        User user = getUserByLogin(login);
+        Field[] fields = user.getClass().getDeclaredFields();
+        List<String> fieldsWithNull = new ArrayList<>();
+        for (Field f : User.class.getDeclaredFields()) {
+            if (f == null) {
+                fieldsWithNull.add(f.getName());
+            }
+            return fieldsWithNull;
+        }
+        return null;
+    }
+
+
     public List<String> getUserFieldsValue (String userLogin) {
         User user = getUserByLogin(userLogin);
         List<String> userFieldsValue = new ArrayList<>();
