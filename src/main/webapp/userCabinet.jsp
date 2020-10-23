@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="${pageContext.request.contextPath} webjars/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<script type="text/javascript" src="webjars/jquery/2.2.3/jquery.min.js"></script>pt>
+<script type="text/javascript" src="webjars/jquery/2.2.3/jquery.min.js"></script>
 
 <html>
 <head>
@@ -28,12 +28,18 @@
         </c:forEach>
     </tr>
 </table>
+
+    <ol style="list-style: none">
+        <c:forEach var="menuItem" items="${sessionScope.userMenu}">
+            <li><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></li>
+        </c:forEach>
+    </ol>
+
+
 </div>
 
+<%--    <a href="/logoutServlet">Logout</a>--%>
 
-
-
-    <a href="/logoutServlet">Logout</a>
 
 <p>Изменения логина и пароля</p>
 <p>Вывод истории операций в файл</p>

@@ -1,6 +1,5 @@
 package entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class Action {
 
-    public static double arifmetic (double num1, double num2, String action) {
+    public static double arifmetic(double num1, double num2, String action) {
         double res = 0;
         switch (action) {
             case "sum":
@@ -29,13 +28,13 @@ public class Action {
         return res;
     }
 
-    public static double percentFromNumber (double num1, int percent) {
+    public static double percentFromNumber(double num1, int percent) {
         double res = 0;
-            res = (num1 / 100) * percent;
-            return res;
+        res = (num1 / 100) * percent;
+        return res;
     }
 
-    public static double percent (double num1, int pecent2) {
-return pecent2;
+    public static double percent(double num1, int pecent2) {
+        return pecent2;
     }
 }

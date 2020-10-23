@@ -4,15 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Menu {
+public class Menu implements Comparable<Menu> {
 
     private int menuId;
     private String menuLink;
@@ -21,5 +16,10 @@ public class Menu {
     public Menu(String menuLink, String menuRus) {
         this.menuLink = menuLink;
         this.menuRus = menuRus;
+    }
+
+    @Override
+    public int compareTo (Menu menuItem) {
+        return this.menuId - menuItem.getMenuId();
     }
 }

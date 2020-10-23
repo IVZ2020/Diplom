@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter (servletNames = "MainPageServlet")
+@WebFilter(servletNames = "MainPageServlet")
 public class MainPageServletFilter extends HttpFilter {
 
     MenuService menuService = new MenuService();
@@ -22,12 +22,13 @@ public class MainPageServletFilter extends HttpFilter {
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
         if (currentUser == null) {
+            req.setAttribute("mainMenu", menuService.getMainMenu());
             chain.doFilter(req, res);
+        } else {
+            String message = "user " + currentUser.getLogin() + " authorized";
+            req.getSession().setAttribute("userAuthorizedMessage", message);
+            req.getSession().setAttribute("mainMenuWithAuthItemsList", menuService.getMainMenuWithAuth());
+            getServletContext().getRequestDispatcher("/mainPage.jsp").forward(req, res);
         }
-        String message = "user " + currentUser.getLogin() + "already authorized";
-        req.setAttribute("userAuthorizedMessage", message);
-        List<Menu> menuItems = menuService.getMenuItemsWithAuth();
-        req.setAttribute("menuItemsList", menuItems);
-        getServletContext().getRequestDispatcher("/mainPage.jsp").forward(req,res);
     }
 }

@@ -9,14 +9,21 @@
 <script type="text/javascript" src="webjars/jquery/2.2.3/jquery.min.js"></script>
 
 
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.css">
+<script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
+Examples
+The examples of bootstrap table.
+
+
+
 <html>
 <head>
     <title>AdminCabinet</title>
 </head>
 <body>
-<p>Личный кабинет администратора ${sessionScope.currentAdmin.name}</p>
+<p>Личный кабинет администратора ${sessionScope.currentUser.name}</p>
 
-<div class="container-fluid">
+<div class="container-fluid" align="center">
     <table class="table table-striped table-bordered">
         <tr>
         <c:forEach var="item" items="${sessionScope.adminFieldList}">
@@ -29,9 +36,17 @@
         </c:forEach>
         </tr>
     </table>
+
+    <ol style="list-style: none">
+        <c:forEach var="menuItem" items="${sessionScope.adminMenu}">
+            <li><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></li>
+        </c:forEach>
+    </ol>
+
 </div>
 
-<a href="/logoutServlet">Logout</a>
+<%--<p><a href="/logoutServlet">Logout</a></p>--%>
+<p><a href="/changeUserName">Change admin name</a></p>
 
 
 

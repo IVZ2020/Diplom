@@ -1,18 +1,31 @@
 package dao;
 
-import entity.Menu;
 import entity.User;
 import lombok.extern.log4j.Log4j;
-import lombok.extern.slf4j.Slf4j;
-import service.Writer;
 
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Log4j
 public class UserDao {
+
+    private final static String URL_TABLES = "jdbc:postgresql://localhost:5432/postgres";
+    private final static String LOGIN_TABLES = "postgres";
+    private final static String PASS_TABLES = "learn2000_";
+    private final static String ADD_USER = "INSERT INTO users u VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
+    private final static String IS_LOGIN_EXIST = "SELECT login FROM users u WHERE u.login = ?";
+    private final static String REMOVE_BY_LOGIN = "DELETE * FROM users u WHERE u.login = ?";
+    private final static String GET_USER_BY_ID = "SELECT * FROM users u WHERE u.id = ?";
+    private final static String CHECK_BY_NAME = "SELECT * FROM users u WHERE u.name = ?";
+    private final static String GET_USER_BY_LOGIN = "SELECT * FROM users u WHERE u.login = ?";
+    private final static String GET_USER_BY_NAME = "SELECT * FROM users u WHERE u.name = ?";
+    private final static String REG_USER = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?, ?)";
+    private final static String GET_MESSAGE = "SELECT * FROM messages m WHERE m.messagerus = ?";
+    private final static String UPDATE_NAME_BY_ID = "UPDATE users SET name = ? WHERE id = ? AND pass = ?";
 
     static {
         try {
@@ -23,19 +36,6 @@ public class UserDao {
     }
 
     Connection connection = null;
-    private final static String URL_TABLES = "jdbc:postgresql://localhost:5432/postgres";
-    private final static String LOGIN_TABLES = "postgres";
-    private final static String PASS_TABLES = "learn2000_";
-
-    private final static String ADD_USER = "insert into users u values (default, ?, ?, ?, ?, ?, ?, ?)";
-    private final static String IS_LOGIN_EXIST = "select * from users u where u.login = ?";
-    private final static String REMOVE_BY_LOGIN = "delete * from users u where u.login = ?";
-    private final static String CHECK_BY_NAME = "select * from users u where u.name = ?";
-    private final static String GET_USER_BY_LOGIN = "select * from users u where u.login = ?";
-    private final static String REG_USER = "insert into users values (default, ?, ?, ?, ?, ?)";
-    private final static String GET_MESSAGE = "select * from messages m where m.messagerus = ?";
-
-    ;
 
     public void regNewUser(User user) {
         try {
@@ -78,7 +78,7 @@ public class UserDao {
             PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_BY_LOGIN);
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
-            connection.close();
+//            connection.close();
             if (resultSet.next()) return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -92,7 +92,7 @@ public class UserDao {
             PreparedStatement preparedStatement = connection.prepareStatement(IS_LOGIN_EXIST);
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
-            connection.close();
+//            connection.close();
             if (resultSet.next()) return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -106,7 +106,7 @@ public class UserDao {
             PreparedStatement preparedStatement = connection.prepareStatement(CHECK_BY_NAME);
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
-            connection.close();
+//            connection.close();
             if (resultSet.next()) return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -131,7 +131,58 @@ public class UserDao {
                     (resultSet.getDouble(7)),
                     (resultSet.getDouble(8)),
                     (resultSet.getDouble(9)));
-            connection.close();
+//            connection.close();
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public User getUserById(int id) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_ID);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            User user = new User(
+                    (resultSet.getInt(1)),
+                    (resultSet.getString(2)),
+                    (resultSet.getString(3)),
+                    (resultSet.getString(4)),
+                    (resultSet.getString(5)),
+                    (resultSet.getInt(6)),
+                    (resultSet.getDouble(7)),
+                    (resultSet.getDouble(8)),
+                    (resultSet.getDouble(9)));
+//            connection.close();
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public User getUserByName(String name) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_NAME);
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            User user = new User(
+                    (resultSet.getInt(1)),
+                    (resultSet.getString(2)),
+                    (resultSet.getString(3)),
+                    (resultSet.getString(4)),
+                    (resultSet.getString(5)),
+                    (resultSet.getInt(6)),
+                    (resultSet.getDouble(7)),
+                    (resultSet.getDouble(8)),
+                    (resultSet.getDouble(9)));
+//            connection.close();
             return user;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -147,7 +198,7 @@ public class UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             User user = new User();
-            connection.close();
+//            connection.close();
             return resultSet.getString(1);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -170,65 +221,30 @@ public class UserDao {
 
     public boolean isNameOrLastNameEmpty(String login) {
         User user = getUserByLogin(login);
-        if (user.getName().isEmpty() || (user.getLastName().isEmpty())) return true;
-        return false;
+        return user.getName().isEmpty() || (user.getLastName().isEmpty());
     }
 
     public List<User> getAllUsers() {
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public List<String> getUserFieldList (String login) {
+    public List<String> getUserFieldList(String login) {
         User user = getUserByLogin(login);
         Field[] fields = user.getClass().getDeclaredFields();
         List<String> usersFieldList = new ArrayList<>();
-        for (Field field: fields) {
+        for (Field field : fields) {
             String fieldName = field.getName();
             usersFieldList.add(fieldName);
         }
         return usersFieldList;
     }
 
-    public List<String> findNullFieldsInUser (String login) {
-        List<String> list = new ArrayList<>();
-        User user = getUserByLogin(login);
-        Field[] fields = User.class.getDeclaredFields();
-        for (Field field: fields) {
-            Object o = null;
-            try {
-                field.setAccessible(true);
-                o = field.get(user);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            if (o == null) {
-                list.add(field.getName() + " field is empty");
-            }
-        }
-        return list;
-    }
-
-    public List<String> findNullFieldsInUser_ (String login) {
-        User user = getUserByLogin(login);
-        Field[] fields = user.getClass().getDeclaredFields();
-        List<String> fieldsWithNull = new ArrayList<>();
-        for (Field f : User.class.getDeclaredFields()) {
-            if (f == null) {
-                fieldsWithNull.add(f.getName());
-            }
-            return fieldsWithNull;
-        }
-        return null;
-    }
-
-
-    public List<String> getUserFieldsValue (String userLogin) {
+    public List<String> getUserFieldsValue(String userLogin) {
         User user = getUserByLogin(userLogin);
         List<String> userFieldsValue = new ArrayList<>();
         userFieldsValue.add(String.valueOf(user.getId()));
@@ -241,5 +257,57 @@ public class UserDao {
         userFieldsValue.add(String.valueOf(user.getSalary()));
         userFieldsValue.add(String.valueOf(user.getIncome()));
         return userFieldsValue;
+    }
+
+    public List<String> getUserProfileFieldList(String login) {
+        User user = getUserByLogin(login);
+        User userForProfile = new User();
+        userForProfile.setName(user.getName());
+        userForProfile.setLastName(user.getLastName());
+        userForProfile.setLogin(user.getLogin());
+        userForProfile.setPass(user.getPass());
+        userForProfile.setIncome(user.getIncome());
+        Field[] fields = userForProfile.getClass().getDeclaredFields();
+        List<String> userProfileFieldList = new ArrayList<>();
+        for (Field field : fields) {
+            String fieldName = field.getName();
+            userProfileFieldList.add(fieldName);
+        }
+        return userProfileFieldList;
+    }
+
+    public List<String> getUserProfileFieldsValue(String userLogin) {
+        User user = getUserByLogin(userLogin);
+        List<String> userProfileFieldsValue = new ArrayList<>();
+        userProfileFieldsValue.add(user.getName());
+        userProfileFieldsValue.add(user.getLastName());
+        userProfileFieldsValue.add(user.getLogin());
+        userProfileFieldsValue.add(user.getPass());
+        userProfileFieldsValue.add(String.valueOf(user.getBalance()));
+        userProfileFieldsValue.add(String.valueOf(user.getSalary()));
+        userProfileFieldsValue.add(String.valueOf(user.getIncome()));
+        return userProfileFieldsValue;
+    }
+
+    public void checkInputLoginRegEx(String login) {
+        Pattern p1 = Pattern.compile("a");
+        Matcher m1 = p1.matcher(login);
+    }
+
+    public boolean changeUserName(String newName, String password, int id) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NAME_BY_ID);
+            preparedStatement.setString(1, newName);
+            preparedStatement.setInt(2, id);
+            preparedStatement.setString(3, password);
+            preparedStatement.executeUpdate();
+//                preparedStatement.execute();
+            connection.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

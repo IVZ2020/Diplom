@@ -6,17 +6,17 @@ public class Reader {
 
     Scanner scanner = new Scanner(System.in);
 
-    public String readString () {
+    public String readString() {
         String string = String.valueOf(scanner.hasNext());
         return string;
     }
 
-    public int readInt () {
+    public int readInt() {
         Integer numInt = scanner.nextInt();
         return numInt;
     }
 
-    public double readDouble () {
+    public double readDouble() {
         Double numDouble = scanner.nextDouble();
         return numDouble;
     }

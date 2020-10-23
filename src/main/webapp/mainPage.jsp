@@ -13,19 +13,51 @@
 </head>
 <body>
 
-        <c:if test="${requestScope.userAuthorizedMessage != null}">
-        <p>${requestScope.userAuthorizedMessage}</p>
-        <p>Check</p>
-        <a href="/mainPage" name="exit">На главную</a>
+        <c:if test="${requestScope.userAdded != null}">
+            <p>${requestScope.userAdded}</p>
+            <a href="/logoutServlet">logout</a>
+<%--            <a href="/mainPage" name="exit">На главную</a>--%>
         </c:if>
 
-    <ol style="list-style: none">
-        <c:forEach var="menuItem" items="${requestScope.menuItemsList}">
-            <li><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></li>
-        </c:forEach>
-    </ol>
+<%--        <c:if test="${requestScope.userAdded == null}">--%>
+<%--            <c:forEach var="menuItem" items="${requestScope.mainMenu}">--%>
+<%--                <li><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></li>--%>
+<%--            </c:forEach>--%>
+<%--            <a href="/logoutServlet">logout</a>--%>
+            <%--            <a href="/mainPage" name="exit">На главную</a>--%>
+<%--        </c:if>--%>
 
-<a href="/logoutServlet">logout</a>
+        <c:if test="${requestScope.userAuthorizedMessage != null}">
+        <p>${requestScope.userAuthorizedMessage}</p>
+            <ol style="list-style: none">
+                <c:forEach var="menuItem" items="${requestScope.mainMenuWithAuthItemsList}">
+                    <li><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></li>
+                </c:forEach>
+            </ol>
+            <a href="/logoutServlet">logout</a>
+<%--        <a href="/mainPage" name="exit">На главную</a>--%>
+        </c:if>
+
+        <c:if test="${requestScope.mainMenu != null}">
+            <ol style="list-style: none">
+                <c:forEach var="menuItem" items="${requestScope.mainMenu}">
+                    <li><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></li>
+                </c:forEach>
+            </ol>
+        </c:if>
+
+<%--        <c:if test="${requestScope.mainMenuWithAuthItemsList != null}">--%>
+<%--            <ol style="list-style: none">--%>
+<%--                <c:forEach var="menuItem" items="${requestScope.mainMenuWithAuthItemsList}">--%>
+<%--                    <li><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></li>--%>
+<%--                </c:forEach>--%>
+<%--            </ol>--%>
+<%--        </c:if>--%>
+
+
+
+<%--        <a href="/mainPage" name="exit">На главную</a>--%>
+<%--    <a href="/logoutServlet">logout</a>--%>
 
 </body>
 </html>

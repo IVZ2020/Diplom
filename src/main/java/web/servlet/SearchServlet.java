@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet (urlPatterns = "/search", name = "SearchServlet")
+@WebServlet(urlPatterns = "/search", name = "SearchServlet")
 public class SearchServlet extends HttpServlet {
 
     UserService userService = new UserService();

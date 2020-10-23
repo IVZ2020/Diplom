@@ -1,10 +1,8 @@
 package service;
 
 import dao.UserDao;
-import entity.Menu;
 import entity.User;
 import lombok.extern.log4j.Log4j;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -14,8 +12,7 @@ public class UserService {
     UserDao userDao = new UserDao();
 
     public boolean isLoginExist(String login) {
-        if (userDao.isLoginExistInBase(login)) return true;
-        else return false;
+        return userDao.isLoginExistInBase(login);
     }
 
     public void registerNewUser(User user) {
@@ -24,9 +21,12 @@ public class UserService {
 
     public User getUserByLogin(String login) {
         User user = userDao.getUserByLogin(login);
-        if (user != null)
-            return userDao.getUserByLogin(login);
-        else return null;
+        return user;
+    }
+
+    public User getUserById(int id) {
+        User user = userDao.getUserById(id);
+        return user;
     }
 
     public void removeUserByLogin(String login) {
@@ -34,21 +34,29 @@ public class UserService {
     }
 
     public boolean ifUserHasFieldsNull(String login) {
-        if (userDao.ifUserHasFieldsNull(login)) return true;
-        else return false;
+        return userDao.ifUserHasFieldsNull(login);
     }
 
-    public List<String> getUserFieldList (String login) {
-        return userDao.getUserFieldList (login);
+    public List<String> getUserFieldList(String login) {
+        return userDao.getUserFieldList(login);
     }
 
-    public List<String> getUserFieldsValue (String login) {
+    public List<String> getUserFieldsValue(String login) {
         return userDao.getUserFieldsValue(login);
     }
 
-    public boolean isNameOrLastNameEmpty (String login) {
+    public List<String> getUserProfileFieldList(String login) {return userDao.getUserProfileFieldList(login);}
+
+    public List<String> getUserProfileFieldsValues(String login) {return userDao.getUserProfileFieldsValue(login);}
+
+    public boolean isNameOrLastNameEmpty(String login) {
         return userDao.isNameOrLastNameEmpty(login);
     }
+
+    public boolean changeUserName(String newName, String password, int id) {
+        return userDao.changeUserName(newName, password, id);
+    }
 }
+
 
 //        log.info("Admin " + user.getName() + " " + user.getName() + " added");

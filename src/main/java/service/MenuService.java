@@ -9,13 +9,20 @@ public class MenuService {
 
     MenuDao menuDao = new MenuDao();
 
-    public List<Menu> getMenuItems () {
-        List<Menu> menuItems = menuDao.makeMenuItems();
-        return menuItems;
+    public List<Menu> getMainMenu() {
+        return menuDao.getMainMenu();
     }
 
-    public List<Menu> getMenuItemsWithAuth() {
-        List<Menu> menuItemsWithAuth = menuDao.makeMenuItemsWithAuth();
-        return menuItemsWithAuth;
+    public List<Menu> getMainMenuWithAuth() {
+        return menuDao.getMainMenuWithAuth();
+    }
+
+
+    public List<Menu> getAdminMenu() {
+        return menuDao.getAdminMenu();
+    }
+
+    public List<Menu> getUserMenu() {
+        return menuDao.getUserMenu();
     }
 }
