@@ -30,6 +30,6 @@ public class ChangeUserNameServlet extends HttpServlet {
         if (userService.changeUserName(newName, password, currentUserId)) {
             currentUser.setName(newName);
         }
-        res.sendRedirect("/changeAdminProfile");
+        res.sendRedirect("/editAdminProfile");
     }
 }

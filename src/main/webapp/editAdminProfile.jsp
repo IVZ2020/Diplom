@@ -14,7 +14,7 @@
 
 Check this page
 
-<table class="table table-success table-borderless">
+<table class="table table-success table-bordered">
     <c:forEach var="item" items="${sessionScope.userProfileFields}">
         <tr>
             <c:forEach var="item" items="${sessionScope.userProfileFieldsValues}">
