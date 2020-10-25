@@ -12,6 +12,7 @@ public class MenuDao {
     private final static String URL_TABLES = "jdbc:postgresql://localhost:5432/postgres";
     private final static String LOGIN_TABLES = "postgres";
     private final static String PASS_TABLES = "learn2000_";
+
     private final static String GET_MAIN_MENU = "SELECT * FROM mainmenu";
     private final static String GET_MAIN_MENU_WITH_AUTH = "SELECT * FROM mainmenuwithauth";
     private final static String GET_ADMIN_MENU = "SELECT * FROM adminmenu";
@@ -76,7 +77,7 @@ public class MenuDao {
     public List<Menu> getAdminMenu () {
         List<Menu> adminMenu = new ArrayList<>();
         String menuItemLink;
-        String meniItemRus;
+        String menuItemRus;
         int menuItemId;
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
@@ -85,8 +86,8 @@ public class MenuDao {
             while (resultSet.next()) {
                 menuItemId = resultSet.getInt(1);
                 menuItemLink = resultSet.getString(2);
-                meniItemRus = resultSet.getString(3);
-                Menu menuItem = new Menu(menuItemId, menuItemLink,meniItemRus);
+                menuItemRus = resultSet.getString(3);
+                Menu menuItem = new Menu(menuItemId, menuItemLink,menuItemRus);
                 adminMenu.add(menuItem);
                 sortMenuById(adminMenu);
             }
@@ -100,7 +101,7 @@ public class MenuDao {
     public List<Menu> getUserMenu () {
         List<Menu> userMenu = new ArrayList<>();
         String menuItemLink;
-        String meniItemRus;
+        String menuItemRus;
         int menuItemId;
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
@@ -109,8 +110,8 @@ public class MenuDao {
             while (resultSet.next()) {
                 menuItemId = resultSet.getInt(1);
                 menuItemLink = resultSet.getString(2);
-                meniItemRus = resultSet.getString(3);
-                Menu menuItem = new Menu(menuItemId, menuItemLink,meniItemRus);
+                menuItemRus = resultSet.getString(3);
+                Menu menuItem = new Menu(menuItemId, menuItemLink,menuItemRus);
                 userMenu.add(menuItem);
                 sortMenuById(userMenu);
             }

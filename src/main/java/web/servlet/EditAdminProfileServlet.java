@@ -1,6 +1,8 @@
 package web.servlet;
 
+import entity.Fields;
 import entity.User;
+import service.FieldsService;
 import service.StringUtils;
 import service.UserService;
 
@@ -16,16 +18,13 @@ import java.util.List;
 public class EditAdminProfileServlet extends HttpServlet {
 
     UserService userService = new UserService();
+    FieldsService fieldsService = new FieldsService();
 
     @Override()
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-            User currentUser = (User) req.getSession().getAttribute("currentUser");
-            String login = currentUser.getLogin();
-            List<String> userProfileFieldList = userService.getUserProfileFieldList(login);
-            List<String> userProfileFieldsValues = userService.getUserProfileFieldsValues(login);
-            req.getSession().setAttribute("userProfileFields", userProfileFieldList);
-            req.getSession().setAttribute("userProfileFieldsValues", userProfileFieldsValues);
-            req.getRequestDispatcher("/editAdminProfile.jsp").forward(req,res);
+            List<Fields> adminProfileFields = fieldsService.getAdminFields();
+            req.getSession().setAttribute("adminProfileFields", adminProfileFields);
+            req.getServletContext().getRequestDispatcher("/editAdminProfile.jsp").forward(req,res);
         }
 
     @Override

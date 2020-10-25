@@ -1,5 +1,6 @@
 package dao;
 
+import entity.Fields;
 import entity.User;
 import lombok.extern.log4j.Log4j;
 
@@ -266,6 +267,7 @@ public class UserDao {
         userForProfile.setLastName(user.getLastName());
         userForProfile.setLogin(user.getLogin());
         userForProfile.setPass(user.getPass());
+        userForProfile.setSalary(user.getSalary());
         userForProfile.setIncome(user.getIncome());
         Field[] fields = userForProfile.getClass().getDeclaredFields();
         List<String> userProfileFieldList = new ArrayList<>();
@@ -276,18 +278,24 @@ public class UserDao {
         return userProfileFieldList;
     }
 
-    public List<String> getUserProfileFieldsValue(String userLogin) {
+    public List<String> getUserProfileFieldsValues(String userLogin) {
         User user = getUserByLogin(userLogin);
         List<String> userProfileFieldsValue = new ArrayList<>();
         userProfileFieldsValue.add(user.getName());
         userProfileFieldsValue.add(user.getLastName());
         userProfileFieldsValue.add(user.getLogin());
         userProfileFieldsValue.add(user.getPass());
-        userProfileFieldsValue.add(String.valueOf(user.getBalance()));
         userProfileFieldsValue.add(String.valueOf(user.getSalary()));
         userProfileFieldsValue.add(String.valueOf(user.getIncome()));
         return userProfileFieldsValue;
     }
+
+    public List<Fields> fieldsForEditAdminProfile (String login) {
+        User user = getUserByLogin(login);
+        List<Fields> fieldsForEditAdminProfile = new ArrayList<>();
+        return null;
+    }
+
 
     public void checkInputLoginRegEx(String login) {
         Pattern p1 = Pattern.compile("a");
