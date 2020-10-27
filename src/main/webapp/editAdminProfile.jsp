@@ -21,8 +21,8 @@
 <body>
 <div>
     <ol style="list-style: none">
-            <c:forEach var="item" items="${sessionScope.adminProfileFields}">
-                <li>${item.fieldRus}<button><a href="/${item.fieldLink}">Изменить</a></button></li>
+            <c:forEach var="item" items="${sessionScope.adminFieldList}">
+                <li>${item}<button><a href="/change/${item}">Изменить</a></button></li>
             </c:forEach>
     </ol>
 </div>

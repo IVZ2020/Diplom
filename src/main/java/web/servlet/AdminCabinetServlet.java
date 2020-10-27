@@ -1,7 +1,9 @@
 package web.servlet;
 
+import dao.FieldsDao;
 import entity.Menu;
 import entity.User;
+import service.FieldsService;
 import service.MenuService;
 import service.UserService;
 
@@ -18,6 +20,7 @@ public class AdminCabinetServlet extends HttpServlet {
 
     UserService userService = new UserService();
     MenuService menuService = new MenuService();
+    FieldsService fieldsService = new FieldsService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,6 +31,7 @@ public class AdminCabinetServlet extends HttpServlet {
         req.getSession().setAttribute("adminFieldList", userFieldList);
         req.getSession().setAttribute("adminFieldsValue", userFieldsValue);
         List<Menu> adminMenu = menuService.getAdminMenu();
+        fieldsService.deleteAllFromAdminFieldsTable();
         req.getSession().setAttribute("adminMenu", adminMenu);
         req.getServletContext().getRequestDispatcher("/adminCabinet.jsp").forward(req, resp);
     }

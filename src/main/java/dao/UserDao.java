@@ -260,23 +260,23 @@ public class UserDao {
         return userFieldsValue;
     }
 
-    public List<String> getUserProfileFieldList(String login) {
-        User user = getUserByLogin(login);
-        User userForProfile = new User();
-        userForProfile.setName(user.getName());
-        userForProfile.setLastName(user.getLastName());
-        userForProfile.setLogin(user.getLogin());
-        userForProfile.setPass(user.getPass());
-        userForProfile.setSalary(user.getSalary());
-        userForProfile.setIncome(user.getIncome());
-        Field[] fields = userForProfile.getClass().getDeclaredFields();
-        List<String> userProfileFieldList = new ArrayList<>();
-        for (Field field : fields) {
-            String fieldName = field.getName();
-            userProfileFieldList.add(fieldName);
-        }
-        return userProfileFieldList;
-    }
+//    public List<String> getUserProfileFieldList(String login) {
+//        User user = getUserByLogin(login);
+//        User userForProfile = new User();
+//        userForProfile.setName(user.getName());
+//        userForProfile.setLastName(user.getLastName());
+//        userForProfile.setLogin(user.getLogin());
+//        userForProfile.setPass(user.getPass());
+//        userForProfile.setSalary(user.getSalary());
+//        userForProfile.setIncome(user.getIncome());
+//        Field[] fields = userForProfile.getClass().getDeclaredFields();
+//        List<String> userProfileFieldList = new ArrayList<>();
+//        for (Field field : fields) {
+//            String fieldName = field.getName();
+//            userProfileFieldList.add(fieldName);
+//        }
+//        return userProfileFieldList;
+//    }
 
     public List<String> getUserProfileFieldsValues(String userLogin) {
         User user = getUserByLogin(userLogin);

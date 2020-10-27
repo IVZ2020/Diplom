@@ -45,7 +45,7 @@
 </div>
 
 <%--<p><a href="/logoutServlet">Logout</a></p>--%>
-<p><a href="/changeUserName">Change admin name</a></p>
+<p><a href="/change/name.jsp">Change admin name</a></p>
 
 
 

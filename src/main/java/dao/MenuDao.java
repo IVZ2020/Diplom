@@ -122,11 +122,11 @@ public class MenuDao {
         return userMenu;
     }
 
-    protected List<Menu> sortMenuById (List<Menu> menuList) {
-        List<Menu> sortedMenuList = new ArrayList<>();
+    protected void sortMenuById (List<Menu> menuList) {
+//        List<Menu> sortedMenuList = new ArrayList<>();
         menuList.sort(Menu::compareTo);
-        sortedMenuList.addAll(menuList);
-        return sortedMenuList;
+//        sortedMenuList.addAll(menuList);
+//        return sortedMenuList;
     }
 
 }

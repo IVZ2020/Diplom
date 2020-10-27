@@ -14,7 +14,7 @@
 </head>
 <body>
 
-    <form method="post" action="/changeUserName">
+    <form method="post" action="/change/name">
 <%--        <input name="oldName" value="${sessionScope.currentAdmin.name}" placeholder="Old Name" type="text">--%>
         <input name="newName" placeholder="New Name" type="text">
         <input name="password" placeholder="Password" type="password">

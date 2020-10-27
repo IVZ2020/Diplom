@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/changeUserName", name = "ChangeUserNameServlet")
+@WebServlet(urlPatterns = "/change/name", name = "ChangeUserNameServlet")
 public class ChangeUserNameServlet extends HttpServlet {
 
     UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        req.getServletContext().getRequestDispatcher("/changeUserName.jsp").forward(req, res);
+        req.getServletContext().getRequestDispatcher("/change/name.jsp").forward(req, res);
     }
 
     @Override

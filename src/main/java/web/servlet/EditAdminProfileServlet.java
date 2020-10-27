@@ -22,9 +22,11 @@ public class EditAdminProfileServlet extends HttpServlet {
 
     @Override()
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-            List<Fields> adminProfileFields = fieldsService.getAdminFields();
-            req.getSession().setAttribute("adminProfileFields", adminProfileFields);
-            req.getServletContext().getRequestDispatcher("/editAdminProfile.jsp").forward(req,res);
+        User currentUser = (User) req.getSession().getAttribute("currentUser");
+        String login = currentUser.getLogin();
+        List<String> userFieldList = userService.getUserFieldList(login);
+        req.getSession().setAttribute("adminFieldList", userFieldList);
+        req.getServletContext().getRequestDispatcher("/editAdminProfile.jsp").forward(req,res);
         }
 
     @Override

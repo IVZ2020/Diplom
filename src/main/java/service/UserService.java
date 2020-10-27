@@ -45,8 +45,6 @@ public class UserService {
         return userDao.getUserFieldsValue(login);
     }
 
-    public List<String> getUserProfileFieldList(String login) {return userDao.getUserProfileFieldList(login);}
-
     public List<String> getUserProfileFieldsValues(String login) {return userDao.getUserProfileFieldsValues(login);}
 
     public boolean isNameOrLastNameEmpty(String login) {
