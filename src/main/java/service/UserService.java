@@ -54,6 +54,10 @@ public class UserService {
     public boolean changeUserName(String newName, String password, int id) {
         return userDao.changeUserName(newName, password, id);
     }
+
+    public boolean changeUserLastName (String newLastName, String password, int id) {
+        return userDao.changeUserLastName(newLastName, password, id);
+    }
 }
 
 

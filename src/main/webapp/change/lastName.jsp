@@ -10,18 +10,17 @@
 
 <html>
 <head>
-    <title>Change Admin ${sessionScope.currentUser.name} name</title>
+    <title>Change ${sessionScope.currentUser.name} name</title>
 </head>
 <body>
 
-    <form method="post" action="/change/name">
-<%--        <input name="oldName" value="${sessionScope.currentAdmin.name}" placeholder="Old Name" type="text">--%>
-        <input name="newName" placeholder="New Name" type="text">
-        <input name="password" placeholder="Password" type="password">
-        <button>Change</button>
-    </form>
+<form method="post" action="/change/lastName">
+    <input name="newLastName" placeholder="New Last Name" type="text">
+    <input name="password" placeholder="Password" type="password">
+    <button>Change</button>
+</form>
 
-    <a href="/mainPage" name="exit">На главную</a>
+<a href="/mainPage" name="exit">На главную</a>
 
 </body>
 </html>

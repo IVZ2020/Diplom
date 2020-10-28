@@ -27,6 +27,7 @@ public class UserDao {
     private final static String REG_USER = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?, ?)";
     private final static String GET_MESSAGE = "SELECT * FROM messages m WHERE m.messagerus = ?";
     private final static String UPDATE_NAME_BY_ID = "UPDATE users SET name = ? WHERE id = ? AND pass = ?";
+    private final static String UPDATE_LASTNAME_BY_ID = "UPDATE users SET lastname = ? WHERE id = ? AND pass = ?";
 
     static {
         try {
@@ -258,6 +259,23 @@ public class UserDao {
         userFieldsValue.add(String.valueOf(user.getSalary()));
         userFieldsValue.add(String.valueOf(user.getIncome()));
         return userFieldsValue;
+    }
+
+    public boolean changeUserLastName(String newName, String password, int id) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_LASTNAME_BY_ID);
+            preparedStatement.setString(1, newName);
+            preparedStatement.setInt(2, id);
+            preparedStatement.setString(3, password);
+            preparedStatement.executeUpdate();
+//                preparedStatement.execute();
+            connection.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 //    public List<String> getUserProfileFieldList(String login) {
