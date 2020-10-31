@@ -33,6 +33,8 @@ public class UserDao {
     private final static String GET_USER_FIELD_LINKS = "SELECT fieldlink FROM userfields";
     private final static String GET_ADMIN_FIELD_RUS_NAMES = "SELECT fieldrus FROM adminfields";
     private final static String GET_USER_FIELD_RUS_NAMES = "SELECT fieldrus FROM userfields";
+    private final static String UPDATE_BALANCE_BY_ID = "UPDATE users SET salary = ? WHERE id = ? AND pass = ?";
+    private final static String UPDATE_INCOME_BY_ID = "UPDATE users SET income = ? WHERE id = ? AND pass = ?";
 
     static {
         try {
@@ -414,6 +416,36 @@ public class UserDao {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PASSWORD_BY_ID);
             preparedStatement.setString(1, newPassword);
             preparedStatement.setInt(2, currentUserId);
+            preparedStatement.setString(3, password);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean changeUserSalary(double newSalary, String password, int currentUserId) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_BALANCE_BY_ID);
+            preparedStatement.setDouble(1, newSalary);
+            preparedStatement.setInt(2, currentUserId);
+            preparedStatement.setString(3, password);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean changeUserIncome (double newIncome, String password, int currentUserId) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_INCOME_BY_ID);
+            preparedStatement.setDouble(1, newIncome);
+            preparedStatement.setInt(2,currentUserId);
             preparedStatement.setString(3, password);
             preparedStatement.executeUpdate();
             return true;

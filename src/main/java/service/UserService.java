@@ -71,6 +71,14 @@ public class UserService {
     public boolean changeUserPassword(String newPassword, String password, int currentUserId) {
         return userDao.changeUserPassword(newPassword, password, currentUserId);
     }
+
+    public boolean changeUserSalary(double newSalary, String password, int currentUserId) {
+        return userDao.changeUserSalary(newSalary, password, currentUserId);
+    }
+
+    public boolean changeUserIncome(double newIncome, String password, int currentUserId) {
+        return userDao.changeUserIncome(newIncome, password, currentUserId);
+    }
 }
 
 

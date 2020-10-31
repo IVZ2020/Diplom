@@ -31,7 +31,6 @@ public class AdminCabinetServlet extends HttpServlet {
         req.getSession().setAttribute("adminFieldList", userFieldList);
         req.getSession().setAttribute("adminFieldsValue", userFieldsValue);
         List<Menu> adminMenu = menuService.getAdminMenu();
-//        fieldsService.deleteAllFromAdminFieldsTable();
         req.getSession().setAttribute("adminMenu", adminMenu);
         req.getServletContext().getRequestDispatcher("/adminCabinet.jsp").forward(req, resp);
     }
