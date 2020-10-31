@@ -10,7 +10,7 @@ public class FieldsService {
 
     FieldsDao fieldsDao = new FieldsDao();
 
-    public void deleteAllFromAdminFieldsTable() {
-        fieldsDao.deleteAllFromAdminFieldsTable();
-    }
+//    public void deleteAllFromAdminFieldsTable() {
+//        fieldsDao.deleteAllFromAdminFieldsTable();
+//    }
 }

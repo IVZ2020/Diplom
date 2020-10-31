@@ -28,6 +28,11 @@ public class UserDao {
     private final static String GET_MESSAGE = "SELECT * FROM messages m WHERE m.messagerus = ?";
     private final static String UPDATE_NAME_BY_ID = "UPDATE users SET name = ? WHERE id = ? AND pass = ?";
     private final static String UPDATE_LASTNAME_BY_ID = "UPDATE users SET lastname = ? WHERE id = ? AND pass = ?";
+    private final static String UPDATE_PASSWORD_BY_ID = "UPDATE users SET pass = ? WHERE id = ? AND pass = ?";
+    private final static String GET_ADMIN_FIELD_LINKS = "SELECT fieldlink FROM adminfields";
+    private final static String GET_USER_FIELD_LINKS = "SELECT fieldlink FROM userfields";
+    private final static String GET_ADMIN_FIELD_RUS_NAMES = "SELECT fieldrus FROM adminfields";
+    private final static String GET_USER_FIELD_RUS_NAMES = "SELECT fieldrus FROM userfields";
 
     static {
         try {
@@ -221,10 +226,10 @@ public class UserDao {
         return false;
     }
 
-    public boolean isNameOrLastNameEmpty(String login) {
-        User user = getUserByLogin(login);
-        return user.getName().isEmpty() || (user.getLastName().isEmpty());
-    }
+//    public boolean isNameOrLastNameEmpty(String login) {
+//        User user = getUserByLogin(login);
+//        return user.getName().isEmpty() || (user.getLastName().isEmpty());
+//    }
 
     public List<User> getAllUsers() {
         try {
@@ -308,11 +313,11 @@ public class UserDao {
         return userProfileFieldsValue;
     }
 
-    public List<Fields> fieldsForEditAdminProfile (String login) {
-        User user = getUserByLogin(login);
-        List<Fields> fieldsForEditAdminProfile = new ArrayList<>();
-        return null;
-    }
+//    public List<Fields> fieldsForEditAdminProfile (String login) {
+//        User user = getUserByLogin(login);
+//        List<Fields> fieldsForEditAdminProfile = new ArrayList<>();
+//        return null;
+//    }
 
 
     public void checkInputLoginRegEx(String login) {
@@ -328,8 +333,89 @@ public class UserDao {
             preparedStatement.setInt(2, id);
             preparedStatement.setString(3, password);
             preparedStatement.executeUpdate();
-//                preparedStatement.execute();
             connection.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    public List<String> getUserFieldLinksForEditProfile (String tableName) {
+        List<String> links = new ArrayList<>();
+        switch (tableName) {
+            case ("adminTable") :
+                try {
+                    connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+                    PreparedStatement preparedStatement = connection.prepareStatement(GET_ADMIN_FIELD_LINKS);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                        links.add(resultSet.getString(1));
+                    }
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case ("userTable") :
+                try {
+                    connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+                    PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_FIELD_LINKS);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                        links.add(resultSet.getString(1));
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            default:
+                break;
+        }
+        return links;
+    }
+
+    public List<String> getUserFieldRusNamesForEditProfile (String tableName) {
+        List<String> rusNames = new ArrayList<>();
+        switch (tableName) {
+            case ("adminTable") :
+                try {
+                    connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+                    PreparedStatement preparedStatement = connection.prepareStatement(GET_ADMIN_FIELD_RUS_NAMES);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                        rusNames.add(resultSet.getString(1));
+                    }
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case ("userTable") :
+                try {
+                    connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+                    PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_FIELD_RUS_NAMES);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                        rusNames.add(resultSet.getString(1));
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            default:
+                break;
+        }
+        return rusNames;
+    }
+
+    public boolean changeUserPassword(String newPassword, String password, int currentUserId) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PASSWORD_BY_ID);
+            preparedStatement.setString(1, newPassword);
+            preparedStatement.setInt(2, currentUserId);
+            preparedStatement.setString(3, password);
+            preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

@@ -20,12 +20,14 @@ public class EditAdminProfileServlet extends HttpServlet {
     UserService userService = new UserService();
     FieldsService fieldsService = new FieldsService();
 
-    @Override()
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
-        String login = currentUser.getLogin();
-        List<String> userFieldList = userService.getUserFieldList(login);
-        req.getSession().setAttribute("adminFieldList", userFieldList);
+        req.getSession().setAttribute("currentUser", currentUser);
+        List<String> userFieldLinks = userService.getUserFieldLinksForEditProfile("adminTable");
+        List<String> userFieldRusNames = userService.getUserFieldRusNamesForEditProfile("adminTable");
+        req.getSession().setAttribute("adminFieldLinks", userFieldLinks);
+        req.getSession().setAttribute("adminFieldRusNames", userFieldRusNames);
         req.getServletContext().getRequestDispatcher("/editAdminProfile.jsp").forward(req,res);
         }
 
@@ -33,8 +35,7 @@ public class EditAdminProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String fieldToChange = req.getParameter("fieldToChange");
         StringUtils stringUtils = new StringUtils();
-        String urlForRedirect = "/changeUser" + stringUtils.firstUpperCase(fieldToChange);
+        String urlForRedirect = "/change" + stringUtils.firstUpperCase(fieldToChange);
         res.sendRedirect(urlForRedirect);
         }
     }
-

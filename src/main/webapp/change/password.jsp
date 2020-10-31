@@ -8,19 +8,23 @@
 
 <script type="text/javascript" src="webjars/jquery/2.2.3/jquery.min.js"></script>
 
+
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.css">
+<script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Change Admin ${sessionScope.currentUser.name} name</title>
+    <title>Change user ${sessionScope.currentUser.name} password</title>
 </head>
 <body>
 
-    <form method="post" action="/change/name">
-        <input name="newName" placeholder="New Name" type="text">
-        <input name="password" placeholder="Password" type="password">
-        <button>Change</button>
-    </form>
+<form method="post" action="/change/password">
+    <input name="newPassword" placeholder="New Password" type="text">
+    <input name="password" placeholder="Current password" type="password">
+    <button>Change</button>
+</form>
 
-    <a href="/mainPage" name="exit">На главную</a>
-
+<a href="/mainPage" name="exit">На главную</a>
 </body>
 </html>

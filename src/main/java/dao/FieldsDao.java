@@ -32,15 +32,15 @@ public class FieldsDao {
     Connection connection = null;
     UserDao userDao = new UserDao();
 
-    public void deleteAllFromAdminFieldsTable () {
-        try {
-            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ALL_FROM_ADMINFIELDS_TABLE);
-            preparedStatement.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void deleteAllFromAdminFieldsTable () {
+//        try {
+//            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+//            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ALL_FROM_ADMINFIELDS_TABLE);
+//            preparedStatement.executeQuery();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 //    public List<Fields> createListOf
 

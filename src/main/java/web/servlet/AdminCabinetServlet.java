@@ -25,13 +25,13 @@ public class AdminCabinetServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
-//        req.getSession().setAttribute("currentUser", currentUser);
+        req.getSession().setAttribute("currentUser", currentUser);
         List<String> userFieldList = userService.getUserFieldList(currentUser.getLogin());
         List<String> userFieldsValue = userService.getUserFieldsValue(currentUser.getLogin());
         req.getSession().setAttribute("adminFieldList", userFieldList);
         req.getSession().setAttribute("adminFieldsValue", userFieldsValue);
         List<Menu> adminMenu = menuService.getAdminMenu();
-        fieldsService.deleteAllFromAdminFieldsTable();
+//        fieldsService.deleteAllFromAdminFieldsTable();
         req.getSession().setAttribute("adminMenu", adminMenu);
         req.getServletContext().getRequestDispatcher("/adminCabinet.jsp").forward(req, resp);
     }

@@ -1,6 +1,7 @@
 package service;
 
 import dao.UserDao;
+import entity.Fields;
 import entity.User;
 import lombok.extern.log4j.Log4j;
 
@@ -47,9 +48,9 @@ public class UserService {
 
     public List<String> getUserProfileFieldsValues(String login) {return userDao.getUserProfileFieldsValues(login);}
 
-    public boolean isNameOrLastNameEmpty(String login) {
-        return userDao.isNameOrLastNameEmpty(login);
-    }
+//    public boolean isNameOrLastNameEmpty(String login) {
+//        return userDao.isNameOrLastNameEmpty(login);
+//    }
 
     public boolean changeUserName(String newName, String password, int id) {
         return userDao.changeUserName(newName, password, id);
@@ -57,6 +58,18 @@ public class UserService {
 
     public boolean changeUserLastName (String newLastName, String password, int id) {
         return userDao.changeUserLastName(newLastName, password, id);
+    }
+
+    public List<String> getUserFieldLinksForEditProfile (String tableName) {
+        return userDao.getUserFieldLinksForEditProfile(tableName);
+    }
+
+    public List<String> getUserFieldRusNamesForEditProfile (String tableName) {
+        return userDao.getUserFieldRusNamesForEditProfile(tableName);
+    }
+
+    public boolean changeUserPassword(String newPassword, String password, int currentUserId) {
+        return userDao.changeUserPassword(newPassword, password, currentUserId);
     }
 }
 
