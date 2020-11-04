@@ -28,6 +28,6 @@ public class ChangeUserIncomeServlet extends HttpServlet {
         if (userService.changeUserIncome(newIncome, password, user.getId())) {
             user.setIncome(newIncome);
         }
-        res.sendRedirect("/editAdminProfile");
+        res.sendRedirect("/editUserProfile");
     }
 }

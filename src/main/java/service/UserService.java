@@ -79,6 +79,10 @@ public class UserService {
     public boolean changeUserIncome(double newIncome, String password, int currentUserId) {
         return userDao.changeUserIncome(newIncome, password, currentUserId);
     }
+
+    public List<User> getAllUsers () {
+        return userDao.getAllUsers();
+    }
 }
 
 

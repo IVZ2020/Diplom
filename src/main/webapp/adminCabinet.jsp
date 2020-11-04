@@ -23,18 +23,6 @@
 <p>Личный кабинет администратора ${sessionScope.currentUser.name}</p>
 
 <div class="container-fluid" align="center">
-    <table class="table table-striped table-bordered">
-        <tr>
-        <c:forEach var="item" items="${sessionScope.adminFieldList}">
-            <th>${item}</th>
-        </c:forEach>
-        </tr>
-        <tr>
-        <c:forEach var="value" items="${sessionScope.adminFieldsValue}">
-            <th>${value}</th>
-        </c:forEach>
-        </tr>
-    </table>
 
     <ol style="list-style: none">
         <c:forEach var="menuItem" items="${sessionScope.adminMenu}">
@@ -44,12 +32,9 @@
 
 </div>
 
-<%--<p><a href="/logoutServlet">Logout</a></p>--%>
-<p><a href="/change/name.jsp">Change admin name</a></p>
 
 
-
-
+<%--<p>Изменение имени, фамилии, логина, пароля пользователя</p>--%>
 <%--Подключить bootstrap попробовать самостоятельно--%>
 <%--CDN - что это? узнать--%>
 <%--Amazon - cloud storage--%>
@@ -57,7 +42,7 @@
 
 <p>Список всех пользователей</p>
 <%--отдельная страница--%>
-<p>Изменение имени, фамилии, логина, пароля пользователя</p>
+
 <%--отдельная страница--%>
 <p>Изменение роли пользователей (наделение правами модератора и/или администратора)</p>
 <%--отдетльная страница--%>

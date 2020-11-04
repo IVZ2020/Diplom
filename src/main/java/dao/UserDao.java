@@ -25,6 +25,7 @@ public class UserDao {
     private final static String GET_USER_BY_LOGIN = "SELECT * FROM users u WHERE u.login = ?";
     private final static String GET_USER_BY_NAME = "SELECT * FROM users u WHERE u.name = ?";
     private final static String REG_USER = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?, ?)";
+    private final static String GET_ALL_USERS = "SELECT * FROM USERS";
     private final static String GET_MESSAGE = "SELECT * FROM messages m WHERE m.messagerus = ?";
     private final static String UPDATE_NAME_BY_ID = "UPDATE users SET name = ? WHERE id = ? AND pass = ?";
     private final static String UPDATE_LASTNAME_BY_ID = "UPDATE users SET lastname = ? WHERE id = ? AND pass = ?";
@@ -62,25 +63,6 @@ public class UserDao {
         }
     }
 
-    public void addUser(String name, String lastName, String login, String pass, int role, double balance, double salary, double income) {
-        try {
-            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
-            PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, lastName);
-            preparedStatement.setString(3, login);
-            preparedStatement.setString(4, pass);
-            preparedStatement.setInt(5, role);
-            preparedStatement.setDouble(6, balance);
-            preparedStatement.setDouble(7, salary);
-            preparedStatement.setDouble(8, income);
-            preparedStatement.execute();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public boolean removeUserByLogin(String login) {
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
@@ -109,7 +91,7 @@ public class UserDao {
         return false;
     }
 
-    public boolean checkUserByName(String name) {
+    public boolean isUserNameExistsInBase(String name) {
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
             PreparedStatement preparedStatement = connection.prepareStatement(CHECK_BY_NAME);
@@ -199,6 +181,33 @@ public class UserDao {
         return null;
     }
 
+    public List<User> getAllUsers () {
+        List<User> allUsersList = new ArrayList<>();
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_USERS);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User (
+                        (resultSet.getInt(1)),
+                        (resultSet.getString(2)),
+                        (resultSet.getString(3)),
+                        (resultSet.getString(4)),
+                        (resultSet.getString(5)),
+                        (resultSet.getInt(6)),
+                        (resultSet.getDouble(7)),
+                        (resultSet.getDouble(8)),
+                        (resultSet.getDouble(9)));
+                allUsersList.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allUsersList;
+    }
+
+
+
     public String getMessage(String message) {
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
@@ -226,20 +235,6 @@ public class UserDao {
             }
         }
         return false;
-    }
-
-//    public boolean isNameOrLastNameEmpty(String login) {
-//        User user = getUserByLogin(login);
-//        return user.getName().isEmpty() || (user.getLastName().isEmpty());
-//    }
-
-    public List<User> getAllUsers() {
-        try {
-            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     public List<String> getUserFieldList(String login) {

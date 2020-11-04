@@ -29,6 +29,6 @@ public class ChangeUserSalaryServlet extends HttpServlet {
         if (userService.changeUserSalary(newSalary, password, id)) {
             user.setSalary(newSalary);
         }
-        res.sendRedirect("/editAdminProfile");
+        res.sendRedirect("/editUserProfile");
     }
 }

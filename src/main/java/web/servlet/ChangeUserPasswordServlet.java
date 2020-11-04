@@ -30,6 +30,6 @@ public class ChangeUserPasswordServlet  extends HttpServlet {
         if (userService.changeUserPassword(newPassword, password, currentUserId)) {
             currentUser.setPass(newPassword);
         }
-        res.sendRedirect("/editAdminProfile");
+        res.sendRedirect("/editUserProfile");
     }
 }

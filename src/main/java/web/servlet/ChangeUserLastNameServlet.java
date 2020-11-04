@@ -29,6 +29,6 @@ public class ChangeUserLastNameServlet extends HttpServlet {
         if (userService.changeUserLastName(newLastName, password, currentUserId)) {
             currentUser.setLastName(newLastName);
         }
-        res.sendRedirect("/editAdminProfile");
+        res.sendRedirect("/editUserProfile");
     }
 }

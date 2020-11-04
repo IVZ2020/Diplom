@@ -25,11 +25,13 @@ public class ChangeUserNameServlet extends HttpServlet {
 //        String oldName = (String) req.getParameter("oldName");
         String newName = req.getParameter("newName");
         String password = req.getParameter("password");
-        User currentUser = (User) req.getSession().getAttribute("currentUser");
+        User currentUser = (User) req.getSession().getAttribute("userForChange");
         int currentUserId = currentUser.getId();
+
         if (userService.changeUserName(newName, password, currentUserId)) {
+
             currentUser.setName(newName);
         }
-        res.sendRedirect("/editAdminProfile");
+        res.sendRedirect("/editUserProfile");
     }
 }
