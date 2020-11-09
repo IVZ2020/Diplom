@@ -1,0 +1,11 @@
+INSERT INTO public.users (id, name, lastname, login, pass, role, balance, salary, income) VALUES (68, 'user', 'user', 'user', 'user', 1, 0, 0, 0);
+INSERT INTO public.users (id, name, lastname, login, pass, role, balance, salary, income) VALUES (71, 'mod', 'mod', 'mod', 'mod', 3, 0, 0, 0);
+INSERT INTO public.users (id, name, lastname, login, pass, role, balance, salary, income) VALUES (112, 'aaa', 'aaa', 'aaa', 'aaa', 2, 0, 0, 0);
+INSERT INTO public.users (id, name, lastname, login, pass, role, balance, salary, income) VALUES (67, 'sss', 'admin', 'admin', 'admin', 2, 0, 120.99, 700);
+INSERT INTO public.users (id, name, lastname, login, pass, role, balance, salary, income) VALUES (113, '$a', '555', '555', '555', 1, 0, 0, 0);
+INSERT INTO public.users (id, name, lastname, login, pass, role, balance, salary, income) VALUES (114, '\\//', '0909', '0909', '0909', 1, 0, 0, 0);
+INSERT INTO public.users (id, name, lastname, login, pass, role, balance, salary, income) VALUES (115, '', '', '', '', 1, 0, 0, 0);
+INSERT INTO public.users (id, name, lastname, login, pass, role, balance, salary, income) VALUES (116, '', '', '', '', 1, 0, 0, 0);
+INSERT INTO public.users (id, name, lastname, login, pass, role, balance, salary, income) VALUES (117, '', '', '', '', 1, 0, 0, 0);
+INSERT INTO public.users (id, name, lastname, login, pass, role, balance, salary, income) VALUES (118, '', '', '', '', 1, 0, 0, 0);
+INSERT INTO public.users (id, name, lastname, login, pass, role, balance, salary, income) VALUES (119, '===', '44', '44', '44', 1, 0, 0, 0);
