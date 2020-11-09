@@ -22,12 +22,12 @@ public class ChangeUserIncomeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        User user = (User) req.getSession().getAttribute("currentUser");
         double newIncome = Double.parseDouble(req.getParameter("newIncome"));
-        String password = req.getParameter("password");
-        if (userService.changeUserIncome(newIncome, password, user.getId())) {
-            user.setIncome(newIncome);
+        User userForChange = (User) req.getSession().getAttribute("userForChange");
+        int userForChangeId = userForChange.getId();
+        if (userService.changeUserIncome(newIncome, userForChangeId)) {
+            userForChange.setIncome(newIncome);
         }
-        res.sendRedirect("/editUserProfile");
+        res.sendRedirect("/getAllUsers");
     }
 }

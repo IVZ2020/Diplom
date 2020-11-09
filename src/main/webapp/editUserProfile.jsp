@@ -17,10 +17,10 @@
     <title>Edit User Profile</title>
 </head>
 <body>
-<c:set var="userForEditProfile" value="${sessionScope.userForEditProfile}"></c:set>
+<c:set var="userForChange" value="${sessionScope.userForChange}"></c:set>
 
-<p>Проверка Edit User Profile</p>
-<p>${userForEditProfile.name}</p>
+<p>Edit User ${userForChange.name}Profile</p>
+<%--<p>${userForChange.name}</p>--%>
 
 <div class="container">
     <div class="row">
@@ -33,12 +33,12 @@
             <p><a href="/change/income">Изменить иные доходы</a></p>
         </div>
         <div class="col-sm">
-            <p><c:out value="${userForEditProfile.name}"></c:out></p>
-            <p><c:out value="${userForEditProfile.lastName}"></c:out></p>
-            <p><c:out value="${userForEditProfile.login}"></c:out></p>
-            <p><c:out value="${userForEditProfile.pass}"></c:out></p>
-            <p><c:out value="${userForEditProfile.salary}"></c:out></p>
-            <p><c:out value="${userForEditProfile.income}"></c:out></p>
+            <p><c:out value="${userForChange.name}"></c:out></p>
+            <p><c:out value="${userForChange.lastName}"></c:out></p>
+            <p><c:out value="${userForChange.login}"></c:out></p>
+            <p><c:out value="${userForChange.pass}"></c:out></p>
+            <p><c:out value="${userForChange.salary}"></c:out></p>
+            <p><c:out value="${userForChange.income}"></c:out></p>
         </div>
     </div>
 </div>

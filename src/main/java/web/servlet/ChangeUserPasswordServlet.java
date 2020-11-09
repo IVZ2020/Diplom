@@ -24,12 +24,11 @@ public class ChangeUserPasswordServlet  extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String newPassword = req.getParameter("newPassword");
-        String password = req.getParameter("password");
-        User currentUser = (User) req.getSession().getAttribute("currentUser");
-        int currentUserId = currentUser.getId();
-        if (userService.changeUserPassword(newPassword, password, currentUserId)) {
-            currentUser.setPass(newPassword);
+        User userForChange = (User) req.getSession().getAttribute("userForChange");
+        int userForChangeId = userForChange.getId();
+        if (userService.changeUserPassword(newPassword, userForChangeId)) {
+            userForChange.setPass(newPassword);
         }
-        res.sendRedirect("/editUserProfile");
+        res.sendRedirect("/getAllUsers");
     }
 }

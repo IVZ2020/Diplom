@@ -23,12 +23,11 @@ public class ChangeUserLastNameServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String newLastName = req.getParameter("newLastName");
-        String password = req.getParameter("password");
-        User currentUser = (User) req.getSession().getAttribute("currentUser");
-        int currentUserId = currentUser.getId();
-        if (userService.changeUserLastName(newLastName, password, currentUserId)) {
-            currentUser.setLastName(newLastName);
+        User userForChange = (User) req.getSession().getAttribute("userForChange");
+        int userForChangeId = userForChange.getId();
+        if (userService.changeUserLastName(newLastName, userForChangeId)) {
+            userForChange.setLastName(newLastName);
         }
-        res.sendRedirect("/editUserProfile");
+        res.sendRedirect("/getAllUsers");
     }
 }

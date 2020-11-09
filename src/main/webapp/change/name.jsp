@@ -13,14 +13,10 @@
     <title>Change Admin ${sessionScope.currentUser.name} name</title>
 </head>
 <body>
-
     <form method="post" action="/change/name">
         <input name="newName" placeholder="New Name" type="text">
-        <input name="password" placeholder="Password" type="password">
         <button>Change</button>
     </form>
-
     <a href="/mainPage" name="exit">На главную</a>
-
 </body>
 </html>

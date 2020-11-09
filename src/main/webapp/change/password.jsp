@@ -21,7 +21,6 @@
 
 <form method="post" action="/change/password">
     <input name="newPassword" placeholder="New Password" type="text">
-    <input name="password" placeholder="Current password" type="password">
     <button>Change</button>
 </form>
 

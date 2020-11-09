@@ -21,7 +21,6 @@
 
 <form method="post" action="/change/income">
     <input name="newIncome" placeholder="New Income" type="text">
-    <input name="password" placeholder="Current password" type="password">
     <button>Change</button>
 </form>
 

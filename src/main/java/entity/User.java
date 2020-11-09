@@ -21,7 +21,6 @@ public class User {
     private double income;
 //    private List<Action> history; // Как поместить в базу историю пользователя?
 
-
     public User(String login, String pass) {
         this.login = login;
         this.pass = pass;

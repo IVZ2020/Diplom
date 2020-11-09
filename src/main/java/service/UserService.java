@@ -52,12 +52,12 @@ public class UserService {
 //        return userDao.isNameOrLastNameEmpty(login);
 //    }
 
-    public boolean changeUserName(String newName, String password, int id) {
-        return userDao.changeUserName(newName, password, id);
+    public boolean changeUserName(String newName, int id) {
+        return userDao.changeUserName(newName, id);
     }
 
-    public boolean changeUserLastName (String newLastName, String password, int id) {
-        return userDao.changeUserLastName(newLastName, password, id);
+    public boolean changeUserLastName (String newLastName, int id) {
+        return userDao.changeUserLastName(newLastName, id);
     }
 
     public List<String> getUserFieldLinksForEditProfile (String tableName) {
@@ -68,20 +68,24 @@ public class UserService {
         return userDao.getUserFieldRusNamesForEditProfile(tableName);
     }
 
-    public boolean changeUserPassword(String newPassword, String password, int currentUserId) {
-        return userDao.changeUserPassword(newPassword, password, currentUserId);
+    public boolean changeUserPassword(String newPassword, int currentUserId) {
+        return userDao.changeUserPassword(newPassword,currentUserId);
     }
 
-    public boolean changeUserSalary(double newSalary, String password, int currentUserId) {
-        return userDao.changeUserSalary(newSalary, password, currentUserId);
+    public boolean changeUserSalary(double newSalary, int currentUserId) {
+        return userDao.changeUserSalary(newSalary, currentUserId);
     }
 
-    public boolean changeUserIncome(double newIncome, String password, int currentUserId) {
-        return userDao.changeUserIncome(newIncome, password, currentUserId);
+    public boolean changeUserIncome(double newIncome, int currentUserId) {
+        return userDao.changeUserIncome(newIncome, currentUserId);
     }
 
     public List<User> getAllUsers () {
         return userDao.getAllUsers();
+    }
+
+    public void removeUserById(int userForDeleteId) {
+        userDao.removeUserById(userForDeleteId);
     }
 }
 

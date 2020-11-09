@@ -21,7 +21,6 @@
 
 <form method="post" action="/change/balance">
     <input name="newBalance" placeholder="New Balance" type="number">
-    <input name="password" placeholder="Current password" type="password">
     <button>Change</button>
 </form>
 

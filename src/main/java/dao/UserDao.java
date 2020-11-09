@@ -21,6 +21,7 @@ public class UserDao extends AbstractDao {
     private final static String CHECK_BY_NAME = "SELECT * FROM users u WHERE u.name = ?";
     private final static String GET_USER_BY_LOGIN = "SELECT * FROM users u WHERE u.login = ?";
     private final static String GET_USER_BY_NAME = "SELECT * FROM users u WHERE u.name = ?";
+    private final static String DELETE_USER_BY_ID = "DELETE FROM users u WHERE u.id = ?";
 
     private final static String GET_ALL_USERS = "SELECT * FROM USERS";
     private final static String GET_MESSAGE = "SELECT * FROM messages m WHERE m.messagerus = ?";
@@ -252,13 +253,12 @@ public class UserDao extends AbstractDao {
         return userFieldsValue;
     }
 
-    public boolean changeUserLastName(String newName, String password, int id) {
+    public boolean changeUserLastName(String newName, int id) {
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_LASTNAME_BY_ID);
             preparedStatement.setString(1, newName);
             preparedStatement.setInt(2, id);
-            preparedStatement.setString(3, password);
             preparedStatement.executeUpdate();
 //                preparedStatement.execute();
             connection.close();
@@ -311,13 +311,12 @@ public class UserDao extends AbstractDao {
         Matcher m1 = p1.matcher(login);
     }
 
-    public boolean changeUserName(String newName, String password, int id) {
+    public boolean changeUserName(String newName, int id) {
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NAME_BY_ID);
             preparedStatement.setString(1, newName);
             preparedStatement.setInt(2, id);
-            preparedStatement.setString(3, password);
             preparedStatement.executeUpdate();
             connection.close();
             return true;
@@ -394,13 +393,12 @@ public class UserDao extends AbstractDao {
         return rusNames;
     }
 
-    public boolean changeUserPassword(String newPassword, String password, int currentUserId) {
+    public boolean changeUserPassword(String newPassword, int currentUserId) {
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PASSWORD_BY_ID);
             preparedStatement.setString(1, newPassword);
             preparedStatement.setInt(2, currentUserId);
-            preparedStatement.setString(3, password);
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -409,13 +407,12 @@ public class UserDao extends AbstractDao {
         return false;
     }
 
-    public boolean changeUserSalary(double newSalary, String password, int currentUserId) {
+    public boolean changeUserSalary(double newSalary, int currentUserId) {
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_BALANCE_BY_ID);
             preparedStatement.setDouble(1, newSalary);
             preparedStatement.setInt(2, currentUserId);
-            preparedStatement.setString(3, password);
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -424,18 +421,28 @@ public class UserDao extends AbstractDao {
         return false;
     }
 
-    public boolean changeUserIncome (double newIncome, String password, int currentUserId) {
+    public boolean changeUserIncome (double newIncome, int currentUserId) {
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_INCOME_BY_ID);
             preparedStatement.setDouble(1, newIncome);
             preparedStatement.setInt(2,currentUserId);
-            preparedStatement.setString(3, password);
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void removeUserById(int userForDeleteId) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_BY_ID);
+            preparedStatement.setInt(1,userForDeleteId);
+            preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

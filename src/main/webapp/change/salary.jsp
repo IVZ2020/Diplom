@@ -21,7 +21,6 @@
 
 <form method="post" action="/change/salary">
     <input name="newSalary" placeholder="New Salary" type="text">
-    <input name="password" placeholder="Current password" type="password">
     <button>Change</button>
 </form>
 

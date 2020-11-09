@@ -16,7 +16,6 @@
 
 <form method="post" action="/change/lastName">
     <input name="newLastName" placeholder="New Last Name" type="text">
-    <input name="password" placeholder="Password" type="password">
     <button>Change</button>
 </form>
 

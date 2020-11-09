@@ -18,18 +18,14 @@
 </head>
 <body>
 
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <c:forEach var="user" items="${sessionScope.allUsersList}">
             <div class="col-md">
-<%--                <form method="get" action="/editUserProfile?id=${user.id}">--%>
-<%--                    <c:set var="userIdForEditProfile" scope="session" value="${user.id}"></c:set>--%>
-<%--                    <input value="${user.id}" name="userIdForEditProfile">--%>
-<%--                    <button>Изменить</button>--%>
-<%--                </form>--%>
-    <a href="/editUserProfile?id=${user.id}">Change</a>
+    <a href="/editUserProfile?id=${user.id}">Change user ${user.name} profile</a>
+    <a href="/deleteUser?id=${user.id}">Delete user ${user.name}</a>
                 <table class="table table-striped table-bordered">
-                    <tr style="border: 2px">
+                    <tr>
                         <th>Имя</th>
                         <th>Фамилия</th>
                         <th>Логин</th>
