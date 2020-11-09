@@ -4,29 +4,14 @@ import entity.Menu;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-public class MenuDao {
-
-    private final static String URL_TABLES = "jdbc:postgresql://localhost:5432/postgres";
-    private final static String LOGIN_TABLES = "postgres";
-    private final static String PASS_TABLES = "learn2000_";
+public class MenuDao extends AbstractDao {
 
     private final static String GET_MAIN_MENU = "SELECT * FROM mainmenu";
     private final static String GET_MAIN_MENU_WITH_AUTH = "SELECT * FROM mainmenuwithauth";
     private final static String GET_ADMIN_MENU = "SELECT * FROM adminmenu";
     private final static String GET_USER_MENU = "SELECT * FROM usermenu";
-
-    static {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    Connection connection = null;
 
     public List<Menu> getMainMenu() {
         List<Menu> mainMenu = new ArrayList<>();

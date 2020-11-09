@@ -9,27 +9,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class FieldsDao {
-
-
-
-    private final static String URL_TABLES = "jdbc:postgresql://localhost:5432/postgres";
-    private final static String LOGIN_TABLES = "postgres";
-    private final static String PASS_TABLES = "learn2000_";
+public class FieldsDao extends AbstractDao {
 
     private final static String GET_ADMIN_FIELDS = "SELECT * FROM adminfields";
     private final static String INSERT_ADMINFIELDS_FIELDLINK = "INSERT INTO adminifields VALUE fieldlink = ?";
     private final static String INSERT_ADMINFIELDS_FIELDRUS = "INSERT INTO adminfields VALUE fieldrus = ?";
     private final static String DELETE_ALL_FROM_ADMINFIELDS_TABLE = "DELETE FROM adminfields";
-    static {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
-    Connection connection = null;
     UserDao userDao = new UserDao();
 
 //    public void deleteAllFromAdminFieldsTable () {

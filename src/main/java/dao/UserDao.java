@@ -12,40 +12,29 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Log4j
-public class UserDao {
-
-    private final static String URL_TABLES = "jdbc:postgresql://localhost:5432/postgres";
-    private final static String LOGIN_TABLES = "postgres";
-    private final static String PASS_TABLES = "learn2000_";
+public class UserDao extends AbstractDao {
     private final static String ADD_USER = "INSERT INTO users u VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
+    private final static String REG_USER = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?, ?)";
     private final static String IS_LOGIN_EXIST = "SELECT login FROM users u WHERE u.login = ?";
     private final static String REMOVE_BY_LOGIN = "DELETE * FROM users u WHERE u.login = ?";
     private final static String GET_USER_BY_ID = "SELECT * FROM users u WHERE u.id = ?";
     private final static String CHECK_BY_NAME = "SELECT * FROM users u WHERE u.name = ?";
     private final static String GET_USER_BY_LOGIN = "SELECT * FROM users u WHERE u.login = ?";
     private final static String GET_USER_BY_NAME = "SELECT * FROM users u WHERE u.name = ?";
-    private final static String REG_USER = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?, ?)";
+
     private final static String GET_ALL_USERS = "SELECT * FROM USERS";
     private final static String GET_MESSAGE = "SELECT * FROM messages m WHERE m.messagerus = ?";
-    private final static String UPDATE_NAME_BY_ID = "UPDATE users SET name = ? WHERE id = ? AND pass = ?";
-    private final static String UPDATE_LASTNAME_BY_ID = "UPDATE users SET lastname = ? WHERE id = ? AND pass = ?";
-    private final static String UPDATE_PASSWORD_BY_ID = "UPDATE users SET pass = ? WHERE id = ? AND pass = ?";
+
     private final static String GET_ADMIN_FIELD_LINKS = "SELECT fieldlink FROM adminfields";
     private final static String GET_USER_FIELD_LINKS = "SELECT fieldlink FROM userfields";
     private final static String GET_ADMIN_FIELD_RUS_NAMES = "SELECT fieldrus FROM adminfields";
     private final static String GET_USER_FIELD_RUS_NAMES = "SELECT fieldrus FROM userfields";
-    private final static String UPDATE_BALANCE_BY_ID = "UPDATE users SET salary = ? WHERE id = ? AND pass = ?";
-    private final static String UPDATE_INCOME_BY_ID = "UPDATE users SET income = ? WHERE id = ? AND pass = ?";
 
-    static {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    Connection connection = null;
+    private final static String UPDATE_BALANCE_BY_ID = "UPDATE users SET salary = ? WHERE id = ?";
+    private final static String UPDATE_INCOME_BY_ID = "UPDATE users SET income = ? WHERE id = ?";
+    private final static String UPDATE_NAME_BY_ID = "UPDATE users SET name = ? WHERE id = ?";
+    private final static String UPDATE_LASTNAME_BY_ID = "UPDATE users SET lastname = ? WHERE id = ?";
+    private final static String UPDATE_PASSWORD_BY_ID = "UPDATE users SET pass = ? WHERE id = ?";
 
     public void regNewUser(User user) {
         try {
