@@ -18,9 +18,6 @@ import java.util.List;
 
 public class AuthFilter extends HttpFilter {
 
-    UserService userService = new UserService();
-    MenuService  menuService = new MenuService();
-
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
         User currentUser = (User) req.getSession().getAttribute("currentUser");

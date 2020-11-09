@@ -1,6 +1,7 @@
 package web.servlet;
 
 import entity.User;
+import service.StringUtils;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import java.io.IOException;
 public class RegServlet extends HttpServlet {
 
     UserService userService = new UserService();
+    StringUtils stringUtils = new StringUtils();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,6 +25,7 @@ public class RegServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String userName = req.getParameter("userName");
+        if (stringUtils.checkNameString(userName)) res.sendRedirect("/reg");
         String userLastName = req.getParameter("userLastName");
         String userLogin = req.getParameter("userLogin");
         String userPassword = req.getParameter("userPassword");
