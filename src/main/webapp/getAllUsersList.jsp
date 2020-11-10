@@ -5,6 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="${pageContext.request.contextPath} webjars/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
 <script type="text/javascript" src="webjars/jquery/2.2.3/jquery.min.js"></script>
 
@@ -18,12 +19,17 @@
 </head>
 <body>
 
+<div>
+    <h4 align="center">List of all users</h4>
+</div>
+
+
 <div class="container">
     <div class="row">
         <c:forEach var="user" items="${sessionScope.allUsersList}">
             <div class="col-md">
-    <a href="/editUserProfile?id=${user.id}">Change user ${user.name} profile</a>
-    <a href="/deleteUser?id=${user.id}">Delete user ${user.name}</a>
+                <button><a href="/editUserProfile?id=${user.id}">Change profile</a></button>
+                <button><a href="/deleteUser?id=${user.id}">Delete</a></button>
                 <table class="table table-striped table-bordered">
                     <tr>
                         <th>Имя</th>

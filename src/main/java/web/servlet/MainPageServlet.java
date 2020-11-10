@@ -20,8 +20,6 @@ public class MainPageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Menu> mainMenuItemsList = menuService.getMainMenu();
-        List<Menu> mainMenuWithAuthItemsList = menuService.getMainMenuWithAuth();
         getServletContext().getRequestDispatcher("/mainPage.jsp").forward(req, resp);
     }
 

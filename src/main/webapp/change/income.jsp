@@ -18,7 +18,9 @@
     <title>Change user ${sessionScope.currentUser.name} income</title>
 </head>
 <body>
-
+<div>
+    <h3>Change user ${sessionScope.currentUser.name} income</h3>
+</div>
 <form method="post" action="/change/income">
     <input name="newIncome" placeholder="New Income" type="text">
     <button>Change</button>

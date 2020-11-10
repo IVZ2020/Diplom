@@ -29,6 +29,12 @@ public class ChangeUserNameServlet extends HttpServlet {
         if (userService.changeUserName(newName, userForChangeId)) {
             userForChange.setName(newName);
         }
-        res.sendRedirect("/getAllUsers");
+        User currentUser = (User) req.getSession().getAttribute("currentUser");
+        if (userForChangeId == (currentUser.getId()) && userForChange.getRole() == 2) {
+//            req.getSession().setAttribute("currentUser", userForChange);
+            res.sendRedirect("/editAdminProfile");
+        } else if (userForChange.getRole() == 1) {
+            res.sendRedirect("/getAllUsers");
+        }
     }
 }

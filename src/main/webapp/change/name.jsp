@@ -10,9 +10,13 @@
 
 <html>
 <head>
-    <title>Change Admin ${sessionScope.currentUser.name} name</title>
+    <title>Change ${sessionScope.userForChange.name} name</title>
 </head>
 <body>
+
+<div>
+    <h3>Change name of ${sessionScope.userForChange.name}</h3>
+</div>
     <form method="post" action="/change/name">
         <input name="newName" placeholder="New Name" type="text">
         <button>Change</button>

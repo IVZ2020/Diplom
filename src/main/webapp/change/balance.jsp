@@ -15,10 +15,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Change user ${sessionScope.currentUser.name} password</title>
+    <title>Change user ${sessionScope.currentUser.name} balance</title>
 </head>
 <body>
-
+<div>
+    <h3>Change user ${sessionScope.currentUser.name} balance</h3>
+</div>
 <form method="post" action="/change/balance">
     <input name="newBalance" placeholder="New Balance" type="number">
     <button>Change</button>

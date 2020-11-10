@@ -13,7 +13,9 @@
     <title>ModeratorCabinet</title>
 </head>
 <body>
-<p>Личный кабинет модератора ${sessionScope.currentModerator}</p>
+<div>
+    <h4 align="center">Личный кабинет модератора ${sessionScope.currentModerator}</h4>
+</div>
 
 <c:forEach var="item" items="${sessionScope.userFieldList}">
     <p>${item}</p>

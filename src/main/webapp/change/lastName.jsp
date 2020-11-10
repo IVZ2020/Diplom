@@ -10,10 +10,12 @@
 
 <html>
 <head>
-    <title>Change ${sessionScope.currentUser.name} name</title>
+    <title>Change ${sessionScope.currentUser.name} last name</title>
 </head>
 <body>
-
+<div>
+    <h3>Change user ${sessionScope.currentUser.name} last name</h3>
+</div>
 <form method="post" action="/change/lastName">
     <input name="newLastName" placeholder="New Last Name" type="text">
     <button>Change</button>

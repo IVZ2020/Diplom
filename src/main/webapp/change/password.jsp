@@ -18,7 +18,9 @@
     <title>Change user ${sessionScope.currentUser.name} password</title>
 </head>
 <body>
-
+<div>
+    <h3>Change user ${sessionScope.currentUser.name} password</h3>
+</div>
 <form method="post" action="/change/password">
     <input name="newPassword" placeholder="New Password" type="text">
     <button>Change</button>

@@ -13,30 +13,15 @@
     <title>Registration</title>
 </head>
 <body>
-<p>Регистрация</p>
 
-
-
-
-
-
-<%--<c:if test="${sessionScope.currentUser == null && requestScope.userAdded != null}">--%>
-<%--    <p>Пользователь добавлен</p>--%>
-<%--    <p>${requestScope.userAdded}</p>--%>
-<%--</c:if>--%>
-
-<%--<c:if test="${sessionScope.currentUser == null && requestScope.userAdded == null}">--%>
-<%--    <p>Регистрируйте нового юзера</p>--%>
-<%--</c:if>--%>
+<div>
+    <h4>New user registration</h4>
+</div>
 
 <c:if test="${requestScope.userExist != null}">
     <p>Пользователь c таким логином уже существует</p>
     <p>${requestScope.userExist}</p>
 </c:if>
-
-<%--<c:if test="${sessionScope.currentUser == null && requestScope.userAdded == null}">--%>
-<%--    <p>${requestScope.userAdded}</p>--%>
-<%--</c:if>--%>
 
 <form method="post" action="/reg">
     <input name="userName" placeholder="Имя" type="text">

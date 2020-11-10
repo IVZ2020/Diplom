@@ -12,7 +12,9 @@
     <title>Help</title>
 </head>
 <body>
-<p>Help</p>
+<div>
+    <h4 align="center">Help</h4>
+</div>
 <a href="/mainPage" name="exit">На главную</a>
 <a href="/logoutServlet">Logout</a>
 </body>

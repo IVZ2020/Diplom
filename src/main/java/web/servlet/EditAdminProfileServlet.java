@@ -23,7 +23,7 @@ public class EditAdminProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
-        req.getSession().setAttribute("currentUser", currentUser);
+        req.getSession().setAttribute("userForChange", currentUser);
         List<String> userFieldLinks = userService.getUserFieldLinksForEditProfile("adminTable");
         List<String> userFieldRusNames = userService.getUserFieldRusNamesForEditProfile("adminTable");
         req.getSession().setAttribute("adminFieldLinks", userFieldLinks);
@@ -35,7 +35,9 @@ public class EditAdminProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String fieldToChange = req.getParameter("fieldToChange");
         StringUtils stringUtils = new StringUtils();
-        String urlForRedirect = "/change" + stringUtils.firstUpperCase(fieldToChange);
-        res.sendRedirect(urlForRedirect);
+        User userForChange = (User) req.getSession().getAttribute("currentUser");
+        req.getSession().setAttribute("userForChange", userForChange);
+        String urlForRedirect = "/change/" + stringUtils.firstUpperCase(fieldToChange);
+        req.getServletContext().getRequestDispatcher(urlForRedirect + ".jsp");
         }
     }

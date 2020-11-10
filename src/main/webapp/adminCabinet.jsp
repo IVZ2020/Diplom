@@ -20,7 +20,10 @@
     <title>AdminCabinet</title>
 </head>
 <body>
-<p>Личный кабинет администратора ${sessionScope.currentUser.name}</p>
+
+<div>
+    <h4 align="center">Личный кабинет администратора ${sessionScope.currentUser.name}</h4>
+</div>
 
 <div class="container-fluid" align="center">
 

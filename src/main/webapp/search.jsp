@@ -12,7 +12,9 @@
     <title>Search</title>
 </head>
 <body>
-<p>Search</p>
+<div>
+    <h4>Search</h4>
+</div>
 <a href="/mainPage" name="exit">На главную</a>
 <a href="/logoutServlet">Logout</a>
 

@@ -22,9 +22,9 @@
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <c:set var="currentUser" value="${sessionScope.currentUser}">
+            <c:set var="currentUser" value="${sessionScope.userForChange}">
             </c:set>
-            <p><a href="/change/name.jsp">Изменить имя</a></p>
+            <p><a href="/change/name?id=${currentUser.id}">Изменить имя</a></p>
             <p><a href="/change/lastName.jsp">Изменить фамилию</a></p>
             <p><a href="/change/login.jsp">Изменить логин</a></p>
             <p><a href="/change/password.jsp">Изменить пароль</a></p>

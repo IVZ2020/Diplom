@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<p>Input ${sessionScope.invalidateField} is invalidate</p>
+<h5>Input ${sessionScope.invalidateField} is invalidate</h5>
 <a href="/reg">Зарегистрировать пользователя</a>
 <a href="/mainPage">На главную</a>
 

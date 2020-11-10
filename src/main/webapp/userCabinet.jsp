@@ -13,7 +13,9 @@
     <title>UserCabinet</title>
 </head>
 <body>
-<p>Личный кабинет пользователя ${sessionScope.currentUser.name}</p>
+<div>
+<h4>Личный кабинет пользователя ${sessionScope.currentUser.name}</h4>
+</div>
 
 <div class="container">
 <table border="1" class="table table-striped table-bordered">

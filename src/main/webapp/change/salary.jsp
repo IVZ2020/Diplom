@@ -19,6 +19,10 @@
 </head>
 <body>
 
+<div>
+    <h3>Change user ${sessionScope.currentUser.name} salary</h3>
+</div>
+
 <form method="post" action="/change/salary">
     <input name="newSalary" placeholder="New Salary" type="text">
     <button>Change</button>
