@@ -13,11 +13,10 @@ public class RegFilter extends HttpFilter {
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        if (req.getSession().getAttribute("currentUser") == null) {
-            chain.doFilter(req, res);
-        } else {
-            res.sendRedirect("/mainPage");
+        if ((req.getParameter("adminFlag") == "admin") && req.getSession().getAttribute("currentUser") != null) {
+            req.getServletContext().getRequestDispatcher("/req.jsp").forward(req, res);
+            //            res.sendRedirect("/reg");
+        } else chain.doFilter(req, res);
         }
-
     }
-}
+

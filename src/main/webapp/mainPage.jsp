@@ -13,32 +13,31 @@
 </head>
 <body>
 
-<div class="container-fluid">
+
     <h4 align="center">Main Page</h4>
-</div>
-<div class="container-fluid">
-        <c:if test="${requestScope.userAdded != null}">
-            <h5 align="center">${requestScope.userAdded}</h5>
-            <a href="/mainPage">На главную</a>
-        </c:if>
 
-        <c:if test="${sessionScope.userAuthorizedMessage != null}">
-        <p>${sessionScope.userAuthorizedMessage}</p>
-            <ol style="list-style: none">
-                <c:forEach var="menuItem" items="${sessionScope.mainMenuWithAuthItemsList}">
-                    <li><h5 align="center"><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></h5></li>
-                </c:forEach>
-            </ol>
-            <a href="/logoutServlet">logout</a>
-        </c:if>
+    <c:if test="${requestScope.userAdded != null}">
+        <h4 align="center">${requestScope.userAdded}</h4>
+        <h5 align="center"><a href="/mainPage">На главную</a></h5>
+    </c:if>
 
-        <c:if test="${requestScope.mainMenu != null}">
-            <ol style="list-style: none">
-                <c:forEach var="menuItem" items="${requestScope.mainMenu}">
-                    <li><h5 align="center"><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></h5></li>
-                </c:forEach>
-            </ol>
-        </c:if>
-</div>
+    <c:if test="${sessionScope.userAuthorizedMessage != null}">
+    <p align="center">${sessionScope.userAuthorizedMessage}</p>
+        <ol style="list-style: none">
+            <c:forEach var="menuItem" items="${sessionScope.mainMenuWithAuthItemsList}">
+                <li><h5 align="center"><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></h5></li>
+            </c:forEach>
+        </ol>
+        <h5 align="center"><a href="/logoutServlet">logout</a></h5>
+    </c:if>
+
+    <c:if test="${requestScope.mainMenu != null}">
+        <ol style="list-style: none">
+            <c:forEach var="menuItem" items="${requestScope.mainMenu}">
+                <li><h5 align="center"><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></h5></li>
+            </c:forEach>
+        </ol>
+    </c:if>
+
 </body>
 </html>

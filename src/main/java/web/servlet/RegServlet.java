@@ -34,9 +34,9 @@ public class RegServlet extends HttpServlet {
         } else {
             userService.registerNewUser(new User(userName, userLastName, userLogin, userPassword, 1));
             req.setAttribute("userAdded", "Пользователь " + userLogin + " добавлен");
-            req.getSession().removeAttribute("currentUser");
-            req.getServletContext().getRequestDispatcher("/mainPage.jsp").forward(req, res);
+                req.getSession().removeAttribute("currentUser");
+                req.getServletContext().getRequestDispatcher("/mainPage.jsp").forward(req, res);
+            }
         }
     }
-}
 

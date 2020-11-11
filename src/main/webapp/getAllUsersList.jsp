@@ -23,6 +23,9 @@
     <h4 align="center">List of all users</h4>
 </div>
 
+<div class="container">
+    <button><a href="/reg?adminFlag=admin">Add new user</a></button>
+</div>
 
 <div class="container">
     <div class="row">
