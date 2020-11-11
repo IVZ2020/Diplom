@@ -87,6 +87,10 @@ public class UserService {
     public void removeUserById(int userForDeleteId) {
         userDao.removeUserById(userForDeleteId);
     }
+
+    public boolean changeUserLogin(String newLogin, int currentUserId) {
+        return userDao.changeUserLogin(newLogin, currentUserId);
+    }
 }
 
 

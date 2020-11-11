@@ -36,6 +36,8 @@ public class UserDao extends AbstractDao {
     private final static String UPDATE_NAME_BY_ID = "UPDATE users SET name = ? WHERE id = ?";
     private final static String UPDATE_LASTNAME_BY_ID = "UPDATE users SET lastname = ? WHERE id = ?";
     private final static String UPDATE_PASSWORD_BY_ID = "UPDATE users SET pass = ? WHERE id = ?";
+    private final static String UPDATE_LOGIN_BY_ID = "UPDATE users SET login = ? WHERE id = ?";
+
 
     public void regNewUser(User user) {
         try {
@@ -444,5 +446,19 @@ public class UserDao extends AbstractDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean changeUserLogin(String newLogin, int currentUserId) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_LOGIN_BY_ID);
+            preparedStatement.setString(1, newLogin);
+            preparedStatement.setInt(2, currentUserId);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
