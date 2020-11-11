@@ -48,15 +48,31 @@ public class RegExDao {
     }
 
     public static String validationOnRegistration (List<String> fieldsForValidation) {
-        String invalidField;
         for (String field : fieldsForValidation
              ) {
             Pattern pattern = Pattern.compile(STRING_CHECK);
             Matcher matcher = pattern.matcher(field);
             if (!matcher.matches()) {
-                invalidField = field;
-                return invalidField;
+                return field;
             }
+        }
+        return "1";
+    }
+
+    public static boolean isNumeric(String strNum) {
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException | NullPointerException nfe) {
+            return false;
+        }
+        return true;
+    }
+
+    public static String checkInputDouble(List<String> fieldsForValidation) {
+        for (String field : fieldsForValidation
+             ) {
+            if (!RegExDao.isNumeric(field))
+            return field;
         }
         return "1";
     }
