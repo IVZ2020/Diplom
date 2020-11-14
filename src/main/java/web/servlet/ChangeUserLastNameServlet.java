@@ -28,6 +28,14 @@ public class ChangeUserLastNameServlet extends HttpServlet {
         if (userService.changeUserLastName(newLastName, userForChangeId)) {
             userForChange.setLastName(newLastName);
         }
-        res.sendRedirect("/getAllUsers");
+        User currentUser = (User) req.getSession().getAttribute("currentUser");
+        if (userForChangeId == (currentUser.getId()) && userForChange.getRole() == 2) {
+            res.sendRedirect("/editAdminProfile");
+        } else if (currentUser.getRole() == 2 && userForChange.getRole() == 1) {
+            res.sendRedirect("/getAllUsers");
+        } else {
+            res.sendRedirect("/editUserProfile");
+        }
+//        res.sendRedirect("/getAllUsers");
     }
 }

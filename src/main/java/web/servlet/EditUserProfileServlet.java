@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet (urlPatterns = "/editUserProfile", name="EditUserProfileServlet")
 public class EditUserProfileServlet extends HttpServlet {
@@ -17,12 +18,20 @@ public class EditUserProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        User user = userService.getUserById(id);
-//        req.setAttribute("userForEditProfile", user);
-        req.getSession().setAttribute("userForChange", user);
+        User currentUser = (User) req.getSession().getAttribute("currentUser");
+        req.getSession().setAttribute("userForChange", currentUser);
+        List<String> userFieldLinks = userService.getUserFieldLinksForEditProfile("userTable");
+        List<String> userFieldRusNames = userService.getUserFieldRusNamesForEditProfile("userTable");
+        req.getSession().setAttribute("userFieldLinks", userFieldLinks);
+        req.getSession().setAttribute("userFieldRusNames", userFieldRusNames);
+        if (req.getParameter("id") != null) {
+            int id = Integer.parseInt(req.getParameter("id"));
+            User user = userService.getUserById(id);
+            req.getSession().setAttribute("userForChange", user);
+        }
         req.getServletContext().getRequestDispatcher("/editUserProfile.jsp").forward(req,res);
-    }
+        }
+//        req.setAttribute("userForEditProfile", user);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

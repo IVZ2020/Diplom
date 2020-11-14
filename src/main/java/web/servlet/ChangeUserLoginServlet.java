@@ -34,6 +34,8 @@ public class ChangeUserLoginServlet extends HttpServlet {
             res.sendRedirect("/editAdminProfile");
         } else if (userForChange.getRole() == 1) {
             res.sendRedirect("/getAllUsers");
+        } else {
+            res.sendRedirect("/editUserProfile");
         }
     }
 }

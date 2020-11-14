@@ -28,12 +28,9 @@ public class UserCabinetServlet extends HttpServlet {
         req.getSession().setAttribute("userFieldsValue", userFieldsValue);
         List<Menu> userMenu = menuService.getUserMenu();
         req.getSession().setAttribute("userMenu", userMenu);
-        req.getRequestDispatcher("/userCabinet.jsp").forward(req, resp);
+        req.getServletContext().getRequestDispatcher("/userCabinet.jsp").forward(req, resp);
 
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
-}
+

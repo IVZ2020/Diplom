@@ -28,6 +28,13 @@ public class ChangeUserIncomeServlet extends HttpServlet {
         if (userService.changeUserIncome(newIncome, userForChangeId)) {
             userForChange.setIncome(newIncome);
         }
-        res.sendRedirect("/getAllUsers");
+        User currnetUser = (User) req.getSession().getAttribute("currentUser");
+        if (userForChangeId == (currnetUser.getId()) && userForChange.getRole() == 2) {
+            res.sendRedirect("/editAdminProfile");
+        } else if (userForChange.getRole() == 1 && currnetUser.getRole() == 2) {
+            res.sendRedirect("/getAllUsers");
+        } else {
+            res.sendRedirect("/editUserProfile");
+        }
     }
 }

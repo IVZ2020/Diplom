@@ -19,7 +19,7 @@
 <body>
 <c:set var="userForChange" value="${sessionScope.userForChange}"></c:set>
 <div>
-    <h4 align="center">Edit User ${userForChange.name}Profile</h4>
+    <h4 align="center">Edit ${userForChange.name}Profile</h4>
 </div>
 
 <div class="container">

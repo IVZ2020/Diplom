@@ -22,9 +22,8 @@
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <c:set var="currentUser" value="${sessionScope.userForChange}">
-            </c:set>
-            <p><a href="/change/name?id=${currentUser.id}">Изменить имя</a></p>
+            <c:set var="userForChange" value="${sessionScope.userForChange}"></c:set>
+            <p><a href="/change/name.jsp">Изменить имя</a></p>
             <p><a href="/change/lastName.jsp">Изменить фамилию</a></p>
             <p><a href="/change/login.jsp">Изменить логин</a></p>
             <p><a href="/change/password.jsp">Изменить пароль</a></p>
@@ -32,12 +31,12 @@
             <p><a href="/change/income.jsp">Изменить иные доходы</a></p>
         </div>
         <div class="col-sm">
-            <p><c:out value="${currentUser.name}"></c:out></p>
-            <p><c:out value="${currentUser.lastName}"></c:out></p>
-            <p><c:out value="${currentUser.login}"></c:out></p>
-            <p><c:out value="${currentUser.pass}"></c:out></p>
-            <p><c:out value="${currentUser.salary}"></c:out></p>
-            <p><c:out value="${currentUser.income}"></c:out></p>
+            <p><c:out value="${userForChange.name}"></c:out></p>
+            <p><c:out value="${userForChange.lastName}"></c:out></p>
+            <p><c:out value="${userForChange.login}"></c:out></p>
+            <p><c:out value="${userForChange.pass}"></c:out></p>
+            <p><c:out value="${userForChange.salary}"></c:out></p>
+            <p><c:out value="${userForChange.income}"></c:out></p>
         </div>
     </div>
 </div>

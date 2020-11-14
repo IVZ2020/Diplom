@@ -21,7 +21,7 @@ public class ChangeLastNameValidationFilter  extends HttpFilter {
             List<String> fieldsForValidation = new ArrayList<>();
             fieldsForValidation.add(req.getParameter("newLastName"));
             String resultOfValidation = RegExDao.validationOnRegistration(fieldsForValidation);
-            if (resultOfValidation.equals("1")) {
+            if (resultOfValidation == "1") {
                 chain.doFilter(req, res);
             } else {
                 req.getSession().setAttribute("invalidateField", resultOfValidation);
