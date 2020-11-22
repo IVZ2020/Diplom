@@ -1,6 +1,5 @@
 package web.servlet;
 
-import entity.Menu;
 import lombok.extern.log4j.Log4j;
 import service.MenuService;
 
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @Log4j
 @WebServlet(urlPatterns = "/mainPage", name = "MainPageServlet")

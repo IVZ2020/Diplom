@@ -1,6 +1,5 @@
 package web.servlet;
 
-import entity.Menu;
 import entity.User;
 import service.MenuService;
 import service.UserService;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(urlPatterns = "/auth", name = "AuthServlet")
 public class AuthServlet extends HttpServlet {

@@ -1,7 +1,7 @@
 package dao;
 
 import entity.Fields;
-import entity.Menu;
+import entity.MenuItem;
 import entity.User;
 
 import java.sql.*;

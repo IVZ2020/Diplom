@@ -1,6 +1,6 @@
 package web.filter;
 
-import entity.Menu;
+import entity.MenuItem;
 import entity.User;
 import service.MenuService;
 
@@ -21,13 +21,14 @@ public class MainPageServletFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
+        req.getSession().setAttribute("mainMenuArray", menuService.getMainMenuArray());
         if (currentUser == null) {
             req.setAttribute("mainMenu", menuService.getMainMenu());
             chain.doFilter(req, res);
         } else {
             String message = "user " + currentUser.getLogin() + " authorized";
             req.getSession().setAttribute("userAuthorizedMessage", message);
-            req.getSession().setAttribute("mainMenuWithAuthItemsList", menuService.getMainMenuWithAuth());
+            req.getSession().setAttribute("mainMenuWithAuthItemsList", menuService.getMainMenuWithAuth(currentUser.getRole()));
             getServletContext().getRequestDispatcher("/mainPage.jsp").forward(req, res);
         }
     }

@@ -16,9 +16,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Edit ${sessionScope.currentUser.name} profile</title>
+    <title>Edit ${sessionScope.userForChange.name} profile</title>
 </head>
 <body>
+<h4>Edit ${sessionScope.userForChange.name} profile</h4>
 <div class="container">
     <div class="row">
         <div class="col-sm">
@@ -41,6 +42,7 @@
     </div>
 </div>
 
+<p>${sessionScope.contextPath.chars()}</p>
 <%--<a href="/mainPage" name="exit"><p>На главную</p></a>--%>
 <a href="/logoutServlet" name="logout"><p>Logout</p></a>
 

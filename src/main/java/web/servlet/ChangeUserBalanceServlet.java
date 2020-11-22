@@ -22,6 +22,7 @@ public class ChangeUserBalanceServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        String Uri = (String) req.getServletContext().getContextPath();
         double newBalance = Double.parseDouble(req.getParameter("newBalance"));
         User userForChange = (User) req.getSession().getAttribute("userForChange");
         int userForChangeId = userForChange.getId();
@@ -30,6 +31,7 @@ public class ChangeUserBalanceServlet extends HttpServlet {
         }
         User currentUser = (User) req.getSession().getAttribute("currentUser");
         if (userForChangeId == (currentUser.getId()) && userForChange.getRole() == 2) {
+            req.getSession().setAttribute("contextPath", Uri);
             res.sendRedirect("/editAdminProfile");
         } else if (userForChange.getRole() == 1 && currentUser.getRole() == 2) {
             res.sendRedirect("/getAllUsers");

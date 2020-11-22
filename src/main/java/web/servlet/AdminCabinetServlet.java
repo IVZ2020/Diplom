@@ -1,7 +1,6 @@
 package web.servlet;
 
-import dao.FieldsDao;
-import entity.Menu;
+import entity.MenuItem;
 import entity.User;
 import service.FieldsService;
 import service.MenuService;
@@ -29,7 +28,7 @@ public class AdminCabinetServlet extends HttpServlet {
         List<String> userFieldsValue = userService.getUserFieldsValue(currentUser.getLogin());
         req.getSession().setAttribute("adminFieldList", userFieldList);
         req.getSession().setAttribute("adminFieldsValue", userFieldsValue);
-        List<Menu> adminMenu = menuService.getAdminMenu();
+        List<MenuItem> adminMenu = menuService.getAdminMenu();
         req.getSession().setAttribute("adminMenu", adminMenu);
         req.getServletContext().getRequestDispatcher("/adminCabinet.jsp").forward(req, resp);
     }

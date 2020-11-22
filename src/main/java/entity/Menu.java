@@ -4,22 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+import java.util.LinkedList;
+import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
-public class Menu implements Comparable<Menu> {
+@Data
 
-    private int menuId;
-    private String menuLink;
-    private String menuRus;
-
-    public Menu(String menuLink, String menuRus) {
-        this.menuLink = menuLink;
-        this.menuRus = menuRus;
-    }
-
-    @Override
-    public int compareTo (Menu menuItem) {
-        return this.menuId - menuItem.getMenuId();
-    }
+public class Menu {
+    private List<Integer> menuId;
+    private List<String> menuLink;
+    private List<String> menuRus;
 }

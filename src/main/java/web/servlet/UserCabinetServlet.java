@@ -1,6 +1,6 @@
 package web.servlet;
 
-import entity.Menu;
+import entity.MenuItem;
 import entity.User;
 import service.MenuService;
 import service.UserService;
@@ -26,7 +26,7 @@ public class UserCabinetServlet extends HttpServlet {
         List<String> userFieldsValue = userService.getUserFieldsValue(currentUser.getLogin());
         req.getSession().setAttribute("userFieldList", userFieldList);
         req.getSession().setAttribute("userFieldsValue", userFieldsValue);
-        List<Menu> userMenu = menuService.getUserMenu();
+        List<MenuItem> userMenu = menuService.getUserMenu();
         req.getSession().setAttribute("userMenu", userMenu);
         req.getServletContext().getRequestDispatcher("/userCabinet.jsp").forward(req, resp);
 

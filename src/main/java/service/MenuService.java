@@ -2,6 +2,7 @@ package service;
 
 import dao.MenuDao;
 import entity.Menu;
+import entity.MenuItem;
 
 import java.util.List;
 
@@ -9,20 +10,24 @@ public class MenuService {
 
     MenuDao menuDao = new MenuDao();
 
-    public List<Menu> getMainMenu() {
+    public List<MenuItem> getMainMenu() {
         return menuDao.getMainMenu();
     }
 
-    public List<Menu> getMainMenuWithAuth() {
-        return menuDao.getMainMenuWithAuth();
+    public List<MenuItem> getMainMenuWithAuth(int role) {
+        return menuDao.getMainMenuWithAuth(role);
     }
 
 
-    public List<Menu> getAdminMenu() {
+    public List<MenuItem> getAdminMenu() {
         return menuDao.getAdminMenu();
     }
 
-    public List<Menu> getUserMenu() {
+    public List<MenuItem> getUserMenu() {
         return menuDao.getUserMenu();
+    }
+
+    public Menu getMainMenuArray () {
+        return menuDao.getMainMenuArray();
     }
 }
