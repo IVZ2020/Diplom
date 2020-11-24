@@ -16,12 +16,12 @@ public class ChangeUserBalanceServlet extends HttpServlet {
     UserService userService = new UserService();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        req.getServletContext().getRequestDispatcher("/change/balance.jsp").forward(req, res);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getServletContext().getRequestDispatcher("/change/balance.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String Uri = (String) req.getServletContext().getContextPath();
         double newBalance = Double.parseDouble(req.getParameter("newBalance"));
         User userForChange = (User) req.getSession().getAttribute("userForChange");
@@ -32,11 +32,11 @@ public class ChangeUserBalanceServlet extends HttpServlet {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
         if (userForChangeId == (currentUser.getId()) && userForChange.getRole() == 2) {
             req.getSession().setAttribute("contextPath", Uri);
-            res.sendRedirect("/editAdminProfile");
+            resp.sendRedirect("/editAdminProfile");
         } else if (userForChange.getRole() == 1 && currentUser.getRole() == 2) {
-            res.sendRedirect("/getAllUsers");
+            resp.sendRedirect("/getAllUsers");
         } else {
-            res.sendRedirect("/editUserProfile");
+            resp.sendRedirect("/editUserProfile");
         }
     }
 }

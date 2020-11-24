@@ -33,13 +33,6 @@
             <c:forEach var="menuItem" items="${sessionScope.mainMenuWithAuthItemsList}">
             <h5 align="center"><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></h5>
             </c:forEach>
-<%--        <c:set var="mainMenuArray" value ="${sessionScope.mainMenuArray}">--%>
-<%--        </c:set>--%>
-<%--    <p>${mainMenuArray.menuLink.iterator()}</p>--%>
-<%--    <p>${mainMenuArray.menuRus.iterator()}</p>--%>
-
-<%--        <h5 align="center"><a href="/logoutServlet">logout</a></h5>--%>
-
     </c:if>
 
     <c:if test="${requestScope.mainMenu != null}">

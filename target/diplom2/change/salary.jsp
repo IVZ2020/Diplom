@@ -25,7 +25,7 @@
 
 <form method="post" action="/change/salary">
     <input name="newSalary" placeholder="New Salary" type="text">
-    <button>Change</button>
+    <button>Изменить</button>
 </form>
 
 <a href="/mainPage" name="exit">На главную</a>
