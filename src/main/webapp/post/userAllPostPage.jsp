@@ -12,22 +12,32 @@
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.css">
 <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
 
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>AllPostPage</title>
 </head>
 <body>
-    <р4>Переписка</р4>
+    <h4>Переписка</h4>
 
-    <form action="/postServlet" method="post">
-        <input placeholder="Введите сообщение" name="newPost" type="text">
-    <button>добавить</button>
-    </form>
 
-    <p>Список всех диалогов, сортированных по времени</p>
-    <a>Начать переписку</a>
+    <c:if test="${sessionScope.userAllPostPageList != null}">
+        <c:forEach items="${sessionScope.userAllPostPageList}" var="post">
+            <tr>
+                <th>
+                    <p>${post.post} - ${post.stringDate}</p>
+                </th>
+            </tr>
+        </c:forEach>
+    </c:if>
+
+    <a href="/dialogPageServlet">Написать сообщение</a><br>
+    <a href="/logoutServlet">Выход</a><br>
+    <a href="/mainPage">На главную</a><br>
+
+    Сформировать диалог<br>
+    Сформировать список юзеров с диалогами<br>
+
 
 </body>
 </html>

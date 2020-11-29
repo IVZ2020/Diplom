@@ -30,6 +30,5 @@ public class GetAllUsersListServlet extends HttpServlet {
         User userByIdForEditProfile = userService.getUserById(userIdForEditProfile);
         req.getSession().setAttribute("userByIdForEditProfile", userByIdForEditProfile);
         req.getServletContext().getRequestDispatcher("/editUserProfile.jsp").forward(req, resp);
-
     }
 }

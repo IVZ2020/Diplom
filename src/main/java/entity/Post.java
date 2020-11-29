@@ -17,9 +17,9 @@ public class Post {
     private int idPost;
     private int idDialog;
     private int idUser;
+    private int idSender;
     private String post;
-    private Date date = new Date();
-    private SimpleDateFormat formatForDateNow = new SimpleDateFormat("E dd.MM.yyyy '-' HH:mm:ss");
+    private String stringDate;
     private long postTime;
 
     public Post(int idUser, String post) {
