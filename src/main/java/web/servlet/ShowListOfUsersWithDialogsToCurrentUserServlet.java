@@ -3,6 +3,7 @@ package web.servlet;
 import dao.PostDao;
 import entity.Post;
 import entity.User;
+import service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ import java.util.List;
 @WebServlet(urlPatterns = "/allUsersPostList", name = "AllUsersPostList")
 public class ShowListOfUsersWithDialogsToCurrentUserServlet extends HttpServlet {
 
+    UserService userService = new UserService();
     PostDao postDao = new PostDao();
     User currentUser;
     int currentUserId;

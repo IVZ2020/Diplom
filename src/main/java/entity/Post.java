@@ -17,13 +17,28 @@ public class Post {
     private int idPost;
     private int idDialog;
     private int idUser;
-    private int idSender;
+    private int idReceiver;
     private String post;
     private String stringDate;
     private long postTime;
 
     public Post(int idUser, String post) {
         this.idUser = idUser;
+        this.post = post;
+    }
+
+    public Post(int idPost, int idDialog, int idUser, int idSender, String post, String stringDate) {
+        this.idPost = idPost;
+        this.idDialog = idDialog;
+        this.idUser = idUser;
+        this.idReceiver = idReceiver;
+        this.post = post;
+        this.stringDate = stringDate;
+    }
+
+    public Post(int idUser, int idReceiver, String post) {
+        this.idUser = idUser;
+        this.idReceiver = idReceiver;
         this.post = post;
     }
 }

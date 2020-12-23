@@ -56,7 +56,6 @@
                     </tr>
                 </table>
             </div>
-            </form>
         </c:forEach>
     </div>
     <a href="/mainPage" name="exit"><p>На главную</p></a>

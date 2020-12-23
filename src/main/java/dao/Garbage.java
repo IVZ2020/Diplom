@@ -47,3 +47,31 @@
 //
 //            }
 //        }
+
+//public List<Integer> getListOfIdSendersByCurrentUserId (int userId) {
+//        List<Integer> listOfSenders = new ArrayList<>();
+//        try {
+//        connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+//        PreparedStatement preparedStatement = connection.prepareStatement(GET_LIST_OF_ID_SENDERS_BY_ID);
+//        preparedStatement.setInt(1, userId);
+//        ResultSet resultSet = preparedStatement.executeQuery();
+//        while (resultSet.next()) {
+//        if (listOfSenders.isEmpty()) {
+//        int senderId = resultSet.getInt(1);
+//        listOfSenders.add(senderId);
+//        } else {
+//        int senderId = resultSet.getInt(1);
+//        int checkElement = listOfSenders.get(listOfSenders.size() - 1);
+//        for (int i = listOfSenders.size() - 1; i >= 0; i--) {
+//        if (!(checkElement == (senderId))) {
+//        listOfSenders.add(senderId);
+//        }
+//        }
+//        }
+//        }
+//        return listOfSenders;
+//        } catch (SQLException e) {
+//        e.printStackTrace();
+//        }
+//        return null;
+//        }

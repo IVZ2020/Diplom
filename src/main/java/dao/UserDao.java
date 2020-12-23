@@ -22,6 +22,9 @@ public class UserDao extends AbstractDao {
     private final static String GET_USER_BY_LOGIN = "SELECT * FROM users u WHERE u.login = ?";
     private final static String GET_USER_BY_NAME = "SELECT * FROM users u WHERE u.name = ?";
     private final static String DELETE_USER_BY_ID = "DELETE FROM users u WHERE u.id = ?";
+    private final static String GET_USERS_BY_ID_LIST = "SELECT * FROM users u WHERE u.id = ?";
+
+
 
     private final static String GET_ALL_USERS = "SELECT * FROM USERS";
     private final static String GET_MESSAGE = "SELECT * FROM messages m WHERE m.messagerus = ?";
@@ -139,7 +142,7 @@ public class UserDao extends AbstractDao {
                     (resultSet.getDouble(7)),
                     (resultSet.getDouble(8)),
                     (resultSet.getDouble(9)));
-//            connection.close();
+            connection.close();
             return user;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -460,5 +463,15 @@ public class UserDao extends AbstractDao {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public List<User> getListOfUsersById(List<Integer> sendersIdList) {
+        List<User> userList = new ArrayList<>();
+        User user;
+                for (int i = sendersIdList.size() - 1; i >= 0; i--) {
+                    user = getUserById(sendersIdList.get(i));
+                userList.add(user);
+        }
+        return userList;
     }
 }

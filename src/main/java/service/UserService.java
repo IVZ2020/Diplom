@@ -91,7 +91,12 @@ public class UserService {
     public boolean changeUserLogin(String newLogin, int currentUserId) {
         return userDao.changeUserLogin(newLogin, currentUserId);
     }
-}
+
+    public List<User> getListOfUsersById(List<Integer> sendersIdList) {
+        return userDao.getListOfUsersById(sendersIdList);
+        }
+    }
+
 
 
 //        log.info("Admin " + user.getName() + " " + user.getName() + " added");

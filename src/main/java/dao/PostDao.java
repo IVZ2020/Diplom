@@ -14,9 +14,9 @@ public class PostDao extends AbstractDao {
     private final static String ADD_POST = "INSERT INTO post VALUES (default, ?, ?, ?, ?, ?)";
     private final static String REMOVE_POST = "DELETE * FROM post p WHERE p.idpost = ?";
     private final static String GET_ALL_POSTS_BY_USER_ID = "SELECT * FROM post p WHERE p.iduser = ?";
+    private final static String GET_LIST_OF_ID_SENDERS_BY_ID = "SELECT p.idsender FROM post p WHERE p.iduser = ? GROUP BY p.idsender";
 
 //    private final static String GET_POSTS_TEST = "SELECT * FROM post p HAVING iduser = ?";
-
 
     public String parseDateToString (Date date) {
         return formatForDateNow.format(date);
@@ -36,13 +36,12 @@ public class PostDao extends AbstractDao {
     }
 
     public void addNewPost(Post post) {
-
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_POST);
             preparedStatement.setInt(1,post.getIdDialog());
             preparedStatement.setInt(2, post.getIdUser());
-            preparedStatement.setInt(3, post.getIdSender());
+            preparedStatement.setInt(3, post.getIdReceiver());
             preparedStatement.setString(4, post.getPost());
             preparedStatement.setString(5, parseDateToString(date));
             preparedStatement.executeQuery();
@@ -51,23 +50,22 @@ public class PostDao extends AbstractDao {
         }
     }
 
-    public void removePost(Post post) {
-        try {
-            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
-            PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_POST);
-            preparedStatement.setInt(1, post.getIdPost());
-            preparedStatement.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void removePost(Post post) {
+//        try {
+//            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+//            PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_POST);
+//            preparedStatement.setInt(1, post.getIdPost());
+//            preparedStatement.executeQuery();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public List<Post> getUserAllPostPageList (int userId) {
             List<Post> postList = new ArrayList<>();
-
         try {
             connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_POSTS_BY_USER_ID); //GET_ALL_POSTS_BY_USER_ID
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_POSTS_BY_USER_ID);
             preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -75,15 +73,28 @@ public class PostDao extends AbstractDao {
                     post.setIdPost(resultSet.getInt(1));
                     post.setIdDialog(resultSet.getInt(2));
                     post.setIdUser(resultSet.getInt(3));
-                    post.setIdSender(resultSet.getInt(4));
+                    post.setIdReceiver(resultSet.getInt(4));
                     post.setPost(resultSet.getString(5));
                     post.setStringDate(resultSet.getString(6));
                     postList.add(post);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return postList;
     }
+//    1 таблица
+//    dialog: idIdalog, idReceiver, IdSender, Date
+//
+//    2 таблица
+//    post: idMessage, idDialog, Post, idSender (тот, кто написал), Date
+//
+//    Логика:
+//    Задача - знать id Диалога
+//    Достать лист Post по idDialog
+//
+//    getInfoByIdDialog
+//    из Таблицы 1 достает по idReceiver и idSender самих User
+
+
 }

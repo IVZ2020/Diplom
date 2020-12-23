@@ -18,26 +18,34 @@
     <title>AllPostPage</title>
 </head>
 <body>
-    <h4>Переписка</h4>
-
+    <h4>Переписка пользователя "${sessionScope.currentUser.login}"</h4>
 
     <c:if test="${sessionScope.userAllPostPageList != null}">
         <c:forEach items="${sessionScope.userAllPostPageList}" var="post">
             <tr>
                 <th>
-                    <p>${post.post} - ${post.stringDate}</p>
+                    ${post.post} — ${post.stringDate}
+                    <a href="/sendMessageServlet?receiverid=${post.idReceiver}">Написать</a><br>
                 </th>
             </tr>
         </c:forEach>
     </c:if>
 
-    <a href="/dialogPageServlet">Написать сообщение</a><br>
+    <c:if test="${sessionScope.sendersList != null}">
+        <c:forEach items="${sessionScope.sendersList}" var="sender">
+            <tr>
+                <th>
+                    <p>${sender.name}</p>
+                </th>
+            </tr>
+        </c:forEach>
+    </c:if>
+
     <a href="/logoutServlet">Выход</a><br>
     <a href="/mainPage">На главную</a><br>
 
     Сформировать диалог<br>
     Сформировать список юзеров с диалогами<br>
-
 
 </body>
 </html>

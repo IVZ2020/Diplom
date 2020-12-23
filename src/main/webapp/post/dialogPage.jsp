@@ -21,11 +21,12 @@
 
 <p>Страница вывода диалога текущего юзера с конкретным юзером</p>
 
-
-<form action="/dialogPageServlet" method="post">
-    <textarea name="newPost" type="text" placeholder="Введите сообщение"></textarea>
-    <button>Отправить</button>
-</form>
+<c:if test="${sessionScope.currentUser.role == 2}">
+    <a href="/adminCabinet">В кабинет админа</a><br>
+</c:if>
+<c:if test="${sessionScope.currentUser.role == 1}">
+    <a href="/userCabinet">В кабинет юзера</a><br>
+</c:if>
 
 <a href="/logoutServlet">Выход</a><br>
 <a href="/mainPage">На главную</a><br>
