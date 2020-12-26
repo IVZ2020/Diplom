@@ -1,6 +1,8 @@
 package dao;
 
+import entity.Dialog;
 import entity.Post;
+import entity.User;
 
 import java.awt.*;
 import java.sql.*;
@@ -15,6 +17,8 @@ public class PostDao extends AbstractDao {
     private final static String REMOVE_POST = "DELETE * FROM post p WHERE p.idpost = ?";
     private final static String GET_ALL_POSTS_BY_USER_ID = "SELECT * FROM post p WHERE p.iduser = ?";
     private final static String GET_LIST_OF_ID_SENDERS_BY_ID = "SELECT p.idsender FROM post p WHERE p.iduser = ? GROUP BY p.idsender";
+
+    UserDao userdao = new UserDao();
 
 //    private final static String GET_POSTS_TEST = "SELECT * FROM post p HAVING iduser = ?";
 
@@ -83,6 +87,49 @@ public class PostDao extends AbstractDao {
         }
         return postList;
     }
+
+    // Getting list of users who has diallog to current user
+    public List<User> getReceiverList (List<Post> listOfPosts) {
+        List<User> users = new ArrayList<>();
+        for (Post post: listOfPosts) {
+            int receiverId = post.getIdReceiver();
+            User user = userdao.getUserById(receiverId);
+            if (users.size() == 0) {
+                users.add(user);
+            }
+                for (int i = users.size() - 1; i > 0; i--) {
+                    if (users.get(i).equals(user)) {
+                        users.add(user);
+                    }
+                }
+        }
+        return users;
+    }
+
+    public Dialog createDialog (User userSender, User userReceiver, List<Post> postList) {
+            Dialog dialog = new Dialog();
+            dialog.setUserSender(userSender);
+            dialog.setUserReceiver(userReceiver);
+            dialog.setPostList(postList);
+            return dialog;
+        }
+
+    public List<Dialog> createListOfDialogs (Dialog dialog) {
+        List<Dialog> listOfDialogs = new ArrayList<>();
+        listOfDialogs.add(dialog);
+        return listOfDialogs;
+    }
+
+    public List<Post> createListOfPostByReceiverId (List<Post> allPosts, int receiverId, int senderId) {
+        List<Post> receiversPosts = new ArrayList<>();
+        for (Post post:allPosts) {
+            if (post.getIdReceiver() == receiverId) {
+                receiversPosts.add(post);
+            }
+        }
+        return receiversPosts;
+    }
+
 //    1 таблица
 //    dialog: idIdalog, idReceiver, IdSender, Date
 //

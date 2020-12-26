@@ -28,6 +28,7 @@
     <a href="/userCabinet">В кабинет юзера</a><br>
 </c:if>
 
+<a href="/dialogPage">В диалоги</a><br>
 <a href="/logoutServlet">Выход</a><br>
 <a href="/mainPage">На главную</a><br>
 

@@ -20,26 +20,38 @@
 <body>
     <h4>Переписка пользователя "${sessionScope.currentUser.login}"</h4>
 
-    <c:if test="${sessionScope.userAllPostPageList != null}">
-        <c:forEach items="${sessionScope.userAllPostPageList}" var="post">
-            <tr>
-                <th>
-                    ${post.post} — ${post.stringDate}
-                    <a href="/sendMessageServlet?receiverid=${post.idReceiver}">Написать</a><br>
-                </th>
-            </tr>
+    <c:if test="${requestScope.newListOfDialogs != null}">
+        <c:forEach items="${requestScope.newListOfDialogs}" var="dialog">
+            <div class="border"><strong>Диалог с пользователем</strong> ${dialog.userReceiver.name}
+                <br>
+                    <c:forEach items="${dialog.postList}" var="post">
+                        <strong>Сообщение:</strong>${post.post}<br>
+                        <strong>Отправлено:</strong>${post.stringDate}<br>
+                    </c:forEach>
+                <a href="/sendMessageServlet?receiverid=${dialog.userReceiver.id}">Новое сообщение</a><br>
+            </div>
         </c:forEach>
     </c:if>
 
-    <c:if test="${sessionScope.sendersList != null}">
-        <c:forEach items="${sessionScope.sendersList}" var="sender">
-            <tr>
-                <th>
-                    <p>${sender.name}</p>
-                </th>
-            </tr>
-        </c:forEach>
-    </c:if>
+
+<%--    <c:if test="${sessionScope.userAllPostPageList != null}">--%>
+<%--        <c:forEach items="${sessionScope.userAllPostPageList}" var="post">--%>
+<%--            <tr>--%>
+<%--                <th>--%>
+<%--                    Сообщение от ${post.idReceiver} "${post.post}" отправлено: ${post.stringDate}.--%>
+<%--                    <a href="/sendMessageServlet?receiverid=${post.idReceiver}">Написать</a><br>--%>
+<%--                </th>--%>
+<%--            </tr>--%>
+<%--        </c:forEach>--%>
+<%--    </c:if>--%>
+
+<%--    <c:forEach var="user" items="${requestScope.getListOfAllUsersWhoHasDialogWithCurrentUser}">--%>
+<%--        <tr>--%>
+<%--            <th>--%>
+<%--                <p>${user.name}</p>--%>
+<%--            </th>--%>
+<%--        </tr>--%>
+<%--    </c:forEach>--%>
 
     <a href="/logoutServlet">Выход</a><br>
     <a href="/mainPage">На главную</a><br>

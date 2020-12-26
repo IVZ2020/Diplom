@@ -12,6 +12,8 @@ import java.util.List;
 public class Dialog {
 
     private int dialogId;
+    private User userSender;
+    private User userReceiver;
     List<Post> postList;
 //    private List<Integer> allPosts;
 

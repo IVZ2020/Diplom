@@ -1,6 +1,7 @@
 package dao;
 
 import entity.Fields;
+import entity.Post;
 import entity.User;
 import lombok.extern.log4j.Log4j;
 
@@ -473,5 +474,30 @@ public class UserDao extends AbstractDao {
                 userList.add(user);
         }
         return userList;
+    }
+
+    public List<User> getListOfReceivers (List<Post> postList) {
+        List<User> receiversList = new ArrayList<>();
+        if (postList.size() != 0) {
+            for (Post post : postList) {
+                if (post != null) {
+                    receiversList.add(getUserById(post.getIdReceiver()));
+                }
+            }
+        }
+        return receiversList;
+    }
+
+    public User getReceiverFromPostList (List<Post> postList) {
+        User receiver = new User();
+
+        if (postList.size() != 0) {
+            for (Post post : postList) {
+                if (post != null) {
+                    receiver = getUserById(post.getIdReceiver());
+                }
+            }
+        }
+        return receiver;
     }
 }
