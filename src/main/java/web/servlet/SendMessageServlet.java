@@ -37,7 +37,7 @@ public class SendMessageServlet extends HttpServlet {
         int idReceiver = Integer.parseInt(req.getParameter("receiverid"));
         post = new Post(currentUser.getId(), idReceiver, newPost);
         postService.addNewPost(post);
-        resp.sendRedirect("/dialogPage");
+        resp.sendRedirect("/allUsersPostList");
 
     }
 }

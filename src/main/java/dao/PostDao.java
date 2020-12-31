@@ -7,7 +7,7 @@ import entity.User;
 import java.awt.*;
 import java.sql.*;
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Date;
 import java.util.List;
 
@@ -88,22 +88,31 @@ public class PostDao extends AbstractDao {
         return postList;
     }
 
-    // Getting list of users who has diallog to current user
-    public List<User> getReceiverList (List<Post> listOfPosts) {
-        List<User> users = new ArrayList<>();
-        for (Post post: listOfPosts) {
-            int receiverId = post.getIdReceiver();
-            User user = userdao.getUserById(receiverId);
-            if (users.size() == 0) {
-                users.add(user);
-            }
-                for (int i = users.size() - 1; i > 0; i--) {
-                    if (users.get(i).equals(user)) {
-                        users.add(user);
-                    }
+    public List<Post> getPostListWithoutDuplicates (List <Post> postList) {
+        List<User> receiversList = new ArrayList<>();
+        User receiver = userdao.getUserById(postList.get(0).getIdReceiver());
+        receiversList.add(receiver);
+        for (int i = postList.size() - 1; i >= 0  ; i--) {
+            for (int j = receiversList.size() - 2; j >= 0; j--) {
+                int receiverId1 = postList.get(j).getIdReceiver();
+                int receiverId2 = postList.get(i).getIdReceiver();
+                if (receiverId1 == receiverId2) {
+                    postList.remove(postList.get(j));
                 }
+            }
         }
-        return users;
+        return postList;
+    }
+
+    // Getting list of users who has diallog to current user
+    public HashSet<User> getReceiverList (List<Post> listOfPosts) {
+        HashSet<User> receivers = new HashSet<>();
+        receivers.add(userdao.getUserById(listOfPosts.get(0).getIdReceiver()));
+            for (Post post : listOfPosts) {
+                int receiverId = post.getIdReceiver();
+                receivers.add(userdao.getUserById(receiverId));
+            }
+        return receivers;
     }
 
     public Dialog createDialog (User userSender, User userReceiver, List<Post> postList) {

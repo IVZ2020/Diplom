@@ -22,11 +22,11 @@
 
     <c:if test="${requestScope.newListOfDialogs != null}">
         <c:forEach items="${requestScope.newListOfDialogs}" var="dialog">
-            <div class="border"><strong>Диалог с пользователем</strong> ${dialog.userReceiver.name}
+            <div class="border">Диалог с пользователем <strong>${dialog.userReceiver.name}</strong>
                 <br>
                     <c:forEach items="${dialog.postList}" var="post">
-                        <strong>Сообщение:</strong>${post.post}<br>
-                        <strong>Отправлено:</strong>${post.stringDate}<br>
+                        <strong>Сообщение: </strong>${post.post}<br>
+                        <i>Отправлено: </i>${post.stringDate}<br>
                     </c:forEach>
                 <a href="/sendMessageServlet?receiverid=${dialog.userReceiver.id}">Новое сообщение</a><br>
             </div>

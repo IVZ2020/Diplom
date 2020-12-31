@@ -33,7 +33,7 @@ public class ChangeUserLoginServlet extends HttpServlet {
         if (userForChangeId == (currentUser.getId()) && userForChange.getRole() == 2) {
             res.sendRedirect("/editAdminProfile");
         } else if (userForChange.getRole() == 1) {
-            res.sendRedirect("/getAllUsers");
+            res.sendRedirect("/editUserProfile");
         } else {
             res.sendRedirect("/editUserProfile");
         }

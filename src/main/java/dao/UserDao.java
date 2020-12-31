@@ -488,6 +488,8 @@ public class UserDao extends AbstractDao {
         return receiversList;
     }
 
+
+
     public User getReceiverFromPostList (List<Post> postList) {
         User receiver = new User();
 

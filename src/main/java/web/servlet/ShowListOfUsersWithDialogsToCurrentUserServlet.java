@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @WebServlet(urlPatterns = "/allUsersPostList", name = "AllUsersPostList")
@@ -23,34 +24,29 @@ public class ShowListOfUsersWithDialogsToCurrentUserServlet extends HttpServlet 
     PostDao postDao = new PostDao();
     UserDao userDao = new UserDao();
     User currentUser;
-    int currentUserId;
-    List<Dialog> dialogs = new ArrayList<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Dialog> dialogs = new ArrayList<>();
         currentUser = (User) req.getSession().getAttribute("currentUser");
-        List<Post> userAllPostPageList = postDao.getUserAllPostPageList(currentUser.getId());
-        User userSender = currentUser;
-        List<User> listOfReceivers = userDao.getListOfReceivers(userAllPostPageList); // get Receiver from post
-        for (User receiver : listOfReceivers) {
+        int currentUserId = currentUser.getId();
+        //removing duplicates in list of receivers
+        List<Post> userAllPostPageList = postDao.getUserAllPostPageList(currentUserId);
+        HashSet<User> receiverList = postDao.getReceiverList(userAllPostPageList);
+        for (User receiver : receiverList) {
             //Choose only current receiver post for adding to Dialog
             List<Post> allPosts = postDao.createListOfPostByReceiverId(userAllPostPageList, receiver.getId(), currentUserId);
-            Dialog dialog = postDao.createDialog(userSender, receiver, allPosts);
-            dialog.setPostList(allPosts); //надо достать post только где совпадает receiver и sender
-
+            Dialog dialog = postDao.createDialog(currentUser, receiver, allPosts);
             dialogs.add(dialog); //Add Dialog to Dialog List to show in userAllPostPage.jsp
         }
         req.setAttribute("newListOfDialogs", dialogs);
-
-        List<User> getListOfAllUsersWhoHasDialogWithCurrentUser = postDao.getReceiverList(userAllPostPageList);
-        req.getSession().setAttribute("userAllPostPageList", userAllPostPageList);
-        req.setAttribute("getListOfAllUsersWhoHasDialogWithCurrentUser", getListOfAllUsersWhoHasDialogWithCurrentUser);
         req.getServletContext().getRequestDispatcher("/post/userAllPostPage.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int conversationUserId = Integer.parseInt(req.getParameter("conversationUserId"));
+        int currentUserId = currentUser.getId();
         req.getSession().setAttribute("currentUserId", currentUserId);
         req.getSession().setAttribute("conversationUserId", conversationUserId);
         resp.sendRedirect("/postServlet");
