@@ -5,6 +5,7 @@ import entity.Fields;
 import entity.User;
 import lombok.extern.log4j.Log4j;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Log4j
@@ -95,7 +96,11 @@ public class UserService {
     public List<User> getListOfUsersById(List<Integer> sendersIdList) {
         return userDao.getListOfUsersById(sendersIdList);
         }
+
+    public HashSet<User> getAllUsersHashList() {
+        return userDao.getAllUsersHashList();
     }
+}
 
 
 

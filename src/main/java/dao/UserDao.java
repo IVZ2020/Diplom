@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j;
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -501,5 +502,31 @@ public class UserDao extends AbstractDao {
             }
         }
         return receiver;
+    }
+
+    public HashSet<User> getAllUsersHashList() {
+
+        HashSet<User> allUsersHashList = new HashSet<>();
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_USERS);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User (
+                        (resultSet.getInt(1)),
+                        (resultSet.getString(2)),
+                        (resultSet.getString(3)),
+                        (resultSet.getString(4)),
+                        (resultSet.getString(5)),
+                        (resultSet.getInt(6)),
+                        (resultSet.getDouble(7)),
+                        (resultSet.getDouble(8)),
+                        (resultSet.getDouble(9)));
+                allUsersHashList.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allUsersHashList;
     }
 }

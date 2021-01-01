@@ -42,6 +42,7 @@
         </div>
     </div>
 </div>
+<a><p href="/userCabinet">В личный кабинет</p></a>
 <a href="/mainPage" name="exit"><p>На главную</p></a>
 <a href="/logoutServlet" name="logout"><p>Logout</p></a>
 </body>

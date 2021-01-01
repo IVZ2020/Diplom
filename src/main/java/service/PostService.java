@@ -3,7 +3,9 @@ package service;
 import dao.PostDao;
 import entity.Post;
 
+import java.awt.*;
 import java.util.Date;
+import java.util.List;
 
 public class PostService {
 
@@ -23,5 +25,13 @@ public class PostService {
 
     public void addNewPost (Post post) {
         postDao.addNewPost(post);
+    }
+
+    public List<Post> createListOfPostByReceiverId (List<Post> userAllPostPageList, int receiverId, int currentUserId) {
+        return postDao.createListOfPostByReceiverId( userAllPostPageList, receiverId, currentUserId);
+    }
+
+    public List<Post> getUserAllPostPageList(int currentUserId) {
+        return postDao.getUserAllPostPageList(currentUserId);
     }
 }

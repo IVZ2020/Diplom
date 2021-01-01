@@ -5,6 +5,7 @@ import dao.UserDao;
 import entity.Dialog;
 import entity.Post;
 import entity.User;
+import service.PostService;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -21,6 +22,7 @@ import java.util.List;
 public class ShowListOfUsersWithDialogsToCurrentUserServlet extends HttpServlet {
 
     UserService userService = new UserService();
+    PostService postService = new PostService();
     PostDao postDao = new PostDao();
     UserDao userDao = new UserDao();
     User currentUser;
@@ -35,11 +37,13 @@ public class ShowListOfUsersWithDialogsToCurrentUserServlet extends HttpServlet 
         HashSet<User> receiverList = postDao.getReceiverList(userAllPostPageList);
         for (User receiver : receiverList) {
             //Choose only current receiver post for adding to Dialog
-            List<Post> allPosts = postDao.createListOfPostByReceiverId(userAllPostPageList, receiver.getId(), currentUserId);
+            List<Post> allPosts = postService.createListOfPostByReceiverId(userAllPostPageList, receiver.getId(), currentUserId);
             Dialog dialog = postDao.createDialog(currentUser, receiver, allPosts);
             dialogs.add(dialog); //Add Dialog to Dialog List to show in userAllPostPage.jsp
         }
         req.setAttribute("newListOfDialogs", dialogs);
+        HashSet<User> allUserList = userService.getAllUsersHashList();
+        req.setAttribute("getAllUsersHashList", allUserList);
         req.getServletContext().getRequestDispatcher("/post/userAllPostPage.jsp").forward(req, resp);
     }
 
