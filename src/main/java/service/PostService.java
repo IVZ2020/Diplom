@@ -1,7 +1,9 @@
 package service;
 
 import dao.PostDao;
+import entity.Dialog;
 import entity.Post;
+import entity.User;
 
 import java.awt.*;
 import java.util.Date;
@@ -33,5 +35,9 @@ public class PostService {
 
     public List<Post> getUserAllPostPageList(int currentUserId) {
         return postDao.getUserAllPostPageList(currentUserId);
+    }
+
+    public Dialog createDialog(User currentUser, User receiver, List<Post> allPosts) {
+        return postDao.createDialog(currentUser, receiver, allPosts);
     }
 }

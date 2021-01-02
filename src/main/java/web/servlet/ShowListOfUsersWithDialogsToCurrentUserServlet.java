@@ -38,7 +38,7 @@ public class ShowListOfUsersWithDialogsToCurrentUserServlet extends HttpServlet 
         for (User receiver : receiverList) {
             //Choose only current receiver post for adding to Dialog
             List<Post> allPosts = postService.createListOfPostByReceiverId(userAllPostPageList, receiver.getId(), currentUserId);
-            Dialog dialog = postDao.createDialog(currentUser, receiver, allPosts);
+            Dialog dialog = postService.createDialog(currentUser, receiver, allPosts);
             dialogs.add(dialog); //Add Dialog to Dialog List to show in userAllPostPage.jsp
         }
         req.setAttribute("newListOfDialogs", dialogs);

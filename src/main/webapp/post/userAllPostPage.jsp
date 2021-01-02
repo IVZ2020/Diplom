@@ -20,45 +20,39 @@
 <body>
     <h4>Переписка пользователя "${sessionScope.currentUser.login}"</h4>
 
-    <form action="/sendMessageServlet" method="post">
-    <c:forEach items="${requestScope.getAllUsersHashList}" var="receiver">
-        Отправить пользователю ${receiver.login} (Имя: ${receiver.name}) <a href="/sendMessageServlet?receiverid=${user.id}>">Новое сообщение</a><br>
-    </c:forEach>
-    </form>
-
     <c:if test="${requestScope.newListOfDialogs != null}">
         <c:forEach items="${requestScope.newListOfDialogs}" var="dialog">
-            <div class="border">Переписка с <strong>${dialog.userReceiver.name}</strong><br>
-                    <a href="/correspondenceServlet?receiverid=${dialog.userReceiver.id}">Открыть переписку</a>
-<%--                    <c:forEach items="${dialog.postList}" var="post">--%>
-<%--                        <strong>Сообщение: </strong>${post.post}<br>--%>
-<%--                        <i>Отправлено: </i>${post.stringDate}<br>--%>
-<%--                    </c:forEach>--%>
+            <div class="border"><br>
+                    <a href="/correspondenceServlet?receiverid=${dialog.userReceiver.id}">Переписка с <strong>${dialog.userReceiver.name}</strong></a><br>
                     <a href="/sendMessageServlet?receiverid=${dialog.userReceiver.id}">Новое сообщение</a><br>
             </div>
         </c:forEach>
-    </c:if>
+        </c:if>
 
-
-<%--    <c:if test="${sessionScope.userAllPostPageList != null}">--%>
-<%--        <c:forEach items="${sessionScope.userAllPostPageList}" var="post">--%>
-<%--            <tr>--%>
-<%--                <th>--%>
-<%--                    Сообщение от ${post.idReceiver} "${post.post}" отправлено: ${post.stringDate}.--%>
-<%--                    <a href="/sendMessageServlet?receiverid=${post.idReceiver}">Написать</a><br>--%>
-<%--                </th>--%>
-<%--            </tr>--%>
+<%--    <form action="/sendMessageServlet" method="post">--%>
+<%--        <c:forEach items="${requestScope.getAllUsersHashList}" var="receiver">--%>
+<%--            <a href="/sendMessageServlet?receiverid=${receiver.id}">Новое сообщение</a> ${receiver.login}<br>--%>
 <%--        </c:forEach>--%>
-<%--    </c:if>--%>
+<%--    </form>--%>
 
-<%--    <c:forEach var="user" items="${requestScope.getListOfAllUsersWhoHasDialogWithCurrentUser}">--%>
-<%--        <tr>--%>
-<%--            <th>--%>
-<%--                <p>${user.name}</p>--%>
-<%--            </th>--%>
-<%--        </tr>--%>
-<%--    </c:forEach>--%>
+    <form action="/sendMessageServlet" method="get">
+    <select name="receiverid">
+        <c:forEach items="${requestScope.getAllUsersHashList}" var="receiver">
+            <option value="${receiver.id}">${receiver.login}</option>
+        </c:forEach>
+    </select>
+        <p><input type="submit" value="Написать"></p>
+<%--        <button>Написать</button>--%>
+    </form>
 
+
+
+    <c:if test="${sessionScope.currentUser.role == 2}">
+        <a href="/adminCabinet">В личный кабинет</a><br>
+    </c:if>
+    <c:if test="${sessionScope.currentUser.role == 1}">
+        <a href="/userCabinet">В личный кабинет</a><br>
+    </c:if>
     <a href="/logoutServlet">Выход</a><br>
     <a href="/mainPage">На главную</a><br>
 
