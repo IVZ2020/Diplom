@@ -19,21 +19,14 @@
 </head>
 <body>
     <h4>Переписка пользователя "${sessionScope.currentUser.login}"</h4>
-
     <c:if test="${requestScope.newListOfDialogs != null}">
         <c:forEach items="${requestScope.newListOfDialogs}" var="dialog">
             <div class="border"><br>
-                    <a href="/correspondenceServlet?receiverid=${dialog.userReceiver.id}">Переписка с <strong>${dialog.userReceiver.name}</strong></a><br>
-                    <button><a href="/sendMessageServlet?receiverid=${dialog.userReceiver.id}">Написать</a></button><br>
+                    <a href="/correspondenceServlet?receiverid=${dialog.userReceiver.id}">Открыть</a> переписку с <strong>${dialog.userReceiver.name} </strong>
+                    <button><a href="/sendMessageServlet?receiverid=${dialog.userReceiver.id}">Новое сообщение</a></button><br>
             </div>
         </c:forEach>
         </c:if>
-
-<%--    <form action="/sendMessageServlet" method="post">--%>
-<%--        <c:forEach items="${requestScope.getAllUsersHashList}" var="receiver">--%>
-<%--            <a href="/sendMessageServlet?receiverid=${receiver.id}">Новое сообщение</a> ${receiver.login}<br>--%>
-<%--        </c:forEach>--%>
-<%--    </form>--%>
 
     <form action="/sendMessageServlet" method="get">
         <h3>Выберете пользователя для сообщения:</h3>
@@ -43,7 +36,6 @@
         </c:forEach>
     </select>
         <input type="submit" value="Написать">
-<%--        <button>Написать</button>--%>
     </form>
 
     <c:if test="${sessionScope.currentUser.role == 2}">
@@ -54,9 +46,6 @@
     </c:if>
     <a href="/logoutServlet">Выход</a><br>
     <a href="/mainPage">На главную</a><br>
-
-    Сформировать диалог<br>
-    Сформировать список юзеров с диалогами<br>
 
 </body>
 </html>
