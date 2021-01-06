@@ -15,16 +15,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Change user ${sessionScope.currentUser.name} password</title>
+    <title>Change ${sessionScope.userForChange.name} password</title>
 </head>
 <body>
 <div>
-    <h3>Change user ${sessionScope.currentUser.name} password</h3>
+    <h3>Change user ${sessionScope.userForChange.name} password</h3>
 </div>
-<form method="post" action="/change/password">
+<form method="post" action="/changeUserPasswordServlet">
     <input name="newPassword" placeholder="New Password" type="text">
     <button>Change</button>
 </form>
+
+<c:if test="${sessionScope.passwordInvalidate != null}">
+    <p>${sessionScope.passwordInvalidate}</p>
+</c:if>
 
 <a href="/mainPage" name="exit">На главную</a>
 </body>

@@ -49,6 +49,11 @@ public class RegExDao {
 //        return matcher.matches();
 //    }
 
+    public static boolean validationPassword (String passwordString) {
+        return passwordString.matches(LOGIN_AND_PASS_CHECK);
+    }
+
+
     public static String validationOnRegistration (List<String> fieldsForValidation) {
         for (String field : fieldsForValidation
              ) {

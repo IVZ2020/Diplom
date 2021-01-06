@@ -28,7 +28,7 @@
             <p><a href="/change/name">Изменить имя</a></p>
             <p><a href="/change/lastName">Изменить фамилию</a></p>
             <p><a href="/change/login">Изменить логин</a></p>
-            <p><a href="/change/password">Изменить пароль</a></p>
+            <p><a href="/changeUserPasswordServlet?userforchangeid=${userForChange.id}">Изменить пароль</a></p>
             <p><a href="/change/salary">Изменить зарплату</a></p>
             <p><a href="/change/income">Изменить иные доходы</a></p>
         </div>

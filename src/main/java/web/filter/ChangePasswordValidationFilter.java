@@ -18,14 +18,12 @@ public class ChangePasswordValidationFilter  extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         if (req.getMethod().equals("POST")) {
-            List<String> fieldsForValidation = new ArrayList<>();
-            fieldsForValidation.add(req.getParameter("newPassword"));
-            String resultOfValidation = RegExDao.validationOnRegistration(fieldsForValidation);
-            if (resultOfValidation.equals("1")) {
+            if (RegExDao.validationPassword(req.getParameter("newPassword"))) {
+                req.getSession().removeAttribute("passwordInvalidate");
                 chain.doFilter(req, res);
             } else {
-                req.getSession().setAttribute("invalidateField", resultOfValidation);
-                res.sendRedirect("/inputInvalidate.jsp");
+                req.getSession().setAttribute("passwordInvalidate", "Пароль не валидный");
+                res.sendRedirect("/change/password.jsp");
             }
         } else {
             chain.doFilter(req, res);

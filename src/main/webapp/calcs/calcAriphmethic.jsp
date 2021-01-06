@@ -44,14 +44,9 @@
     <p>${requestScope.emptyDigits}</p>
 </c:if>
 
-<%--<c:if test="${sessionScope.inputDigits != 0}">--%>
-<%--    <p>${sessionScope.inputDigits}</p>--%>
-<%--</c:if>--%>
-
 <c:if test="${sessionScope.result != null}">
 <p>Результат: ${sessionScope.result}</p>
 </c:if>
-
 
 <c:if test="${sessionScope.currentUser.role == 2}">
     <a href="/adminCabinet">В личный кабинет</a><br>
