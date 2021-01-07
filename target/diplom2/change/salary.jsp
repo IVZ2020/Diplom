@@ -20,13 +20,29 @@
 <body>
 
 <div>
-    <h3>Change user ${sessionScope.currentUser.name} salary</h3>
+    <h3>Change ${sessionScope.currentUser.name} salary</h3>
 </div>
 
-<form method="post" action="/change/salary">
+<form method="post" action="/changeUserSalaryServlet">
     <input name="newSalary" placeholder="New Salary" type="text">
     <button>Изменить</button>
 </form>
+
+<c:if test="${sessionScope.doubleInvalidate != null}">
+    <p>${sessionScope.doubleInvalidate}</p>
+</c:if>
+
+<c:if test="${sessionScope.currentUser.role == 1}">
+    <a href="/adminCabinet">В личный кабинет</a>
+</c:if>
+
+<c:if test="${sessionScope.currentUser.role == 2}">
+    <a href="/userCabinet">В личный кабинет</a><br>
+</c:if>
+
+<c:if test="${sessionScope.currentUser.role == 3}">
+    <a href="/moderatorCabinet">В личный кабинет</a><br>
+</c:if>
 
 <a href="/mainPage" name="exit">На главную</a>
 </body>

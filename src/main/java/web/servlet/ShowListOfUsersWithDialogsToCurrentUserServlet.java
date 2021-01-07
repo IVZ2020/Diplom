@@ -32,16 +32,20 @@ public class ShowListOfUsersWithDialogsToCurrentUserServlet extends HttpServlet 
         List<Dialog> dialogs = new ArrayList<>();
         currentUser = (User) req.getSession().getAttribute("currentUser");
         int currentUserId = currentUser.getId();
-        //removing duplicates in list of receivers
-        List<Post> userAllPostPageList = postDao.getUserAllPostPageList(currentUserId);
-        HashSet<User> receiverList = postDao.getReceiverList(userAllPostPageList);
-        for (User receiver : receiverList) {
-            //Choose only current receiver post for adding to Dialog
-            List<Post> allPosts = postService.createListOfPostByReceiverId(userAllPostPageList, receiver.getId(), currentUserId);
-            Dialog dialog = postService.createDialog(currentUser, receiver, allPosts);
-            dialogs.add(dialog); //Add Dialog to Dialog List to show in userAllPostPage.jsp
+        List<Post> userAllPostPageList = postService.getUserAllPostPageList(currentUserId);
+        if (userAllPostPageList.size() != 0) {
+            HashSet<User> receiverList = postService.getReceiverList(userAllPostPageList);
+            for (User receiver : receiverList) {
+                //Choose only current receiver post for adding to Dialog
+                List<Post> allPosts = postService.createListOfPostByReceiverId(userAllPostPageList, receiver.getId(), currentUserId);
+                Dialog dialog = postService.createDialog(currentUser, receiver, allPosts);
+                dialogs.add(dialog); //Add Dialog to Dialog List to show in userAllPostPage.jsp
+                req.setAttribute("newListOfDialogs", dialogs);
+
+            }
+        } else {
+            req.setAttribute("noPostsWithCurrentUser", "Нет сообщений");
         }
-        req.setAttribute("newListOfDialogs", dialogs);
         HashSet<User> allUserList = userService.getAllUsersHashList();
         req.setAttribute("getAllUsersHashList", allUserList);
         req.getServletContext().getRequestDispatcher("/post/userAllPostPage.jsp").forward(req, resp);

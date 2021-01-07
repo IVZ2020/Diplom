@@ -7,6 +7,7 @@ import entity.User;
 
 import java.awt.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 public class PostService {
@@ -39,5 +40,10 @@ public class PostService {
 
     public Dialog createDialog(User currentUser, User receiver, List<Post> allPosts) {
         return postDao.createDialog(currentUser, receiver, allPosts);
+    }
+
+
+    public HashSet<User> getReceiverList(List<Post> userAllPostPageList) {
+        return postDao.getReceiverList(userAllPostPageList);
     }
 }

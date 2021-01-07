@@ -19,20 +19,35 @@ public class RegUserValidationFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         if (req.getMethod().equals("POST")) {
-            List<String> fieldsForValidation = new ArrayList<>();
-            fieldsForValidation.add(req.getParameter("userName"));
-            fieldsForValidation.add(req.getParameter("userLastName"));
-            fieldsForValidation.add(req.getParameter("userLogin"));
-            fieldsForValidation.add(req.getParameter("userPassword"));
-            String resultOfValidation = RegExDao.validationOnRegistration(fieldsForValidation);
-                    if (resultOfValidation.equals("1")) {
-                        chain.doFilter(req, res);
-                    } else {
-                        req.getSession().setAttribute("invalidateField", resultOfValidation);
-                        res.sendRedirect("/inputInvalidate.jsp");
-                    }
+            String userName = req.getParameter("userName");
+            String userLastName = req.getParameter("userLastName");
+            String userLogin = req.getParameter("userLogin");
+            String userPassword = req.getParameter("userPassword");
+
+            req.getSession().removeAttribute("nameInvalid");
+            req.getSession().removeAttribute("lastNameInvalid");
+            req.getSession().removeAttribute("loginInvalid");
+            req.getSession().removeAttribute("passwordInvalid");
+
+            if (!RegExDao.validationName(userName)) {
+                req.getSession().setAttribute("nameInvalid", "Введите корректное имя");
+                res.sendRedirect("/reg.jsp");
+            } else
+            if (!RegExDao.validationLastName(userLastName)) {
+                req.getSession().setAttribute("lastNameInvalid", "Введите корректную фамилию");
+                res.sendRedirect("/reg.jsp");
+            } else
+            if (!RegExDao.validationLogin(userLogin)) {
+                req.getSession().setAttribute("loginInvalid", "Введите корректный логин");
+                res.sendRedirect("/reg.jsp");
+            } else
+            if (!RegExDao.validationPassword(userPassword)) {
+                req.getSession().setAttribute("passwordInvalid", "Введите корректный пароль");
+                res.sendRedirect("/reg.jsp");
             } else {
-            chain.doFilter(req, res);
+                chain.doFilter(req,res);
+            }
         }
-        }
+        else chain.doFilter(req, res);
     }
+}

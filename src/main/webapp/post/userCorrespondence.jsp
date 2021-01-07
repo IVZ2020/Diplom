@@ -15,6 +15,10 @@
 <body>
     <h4>Переписка пользователя "${sessionScope.currentUser.login}"</h4>
 
+    <c:if test="${requestScope.noPostsWithCurrentUser == 0}">
+        <p>${requestScope.noPostsWithCurrentUser}</p>
+    </c:if>
+
     <c:if test="${requestScope.userDialogsList != null}">
         <p>Переписка с <strong>${requestScope.userDialogsList.userReceiver.login}</strong></p><br>
             <c:forEach items="${requestScope.userDialogsList.postList}" var="post">
@@ -24,6 +28,7 @@
             <a href="/sendMessageServlet?receiverid=${requestScope.userDialogsList.userReceiver.id}">Новое сообщение</a><br>
         <a href="/allUsersPostList">Вся переписка</a><br>
     </c:if>
+
     <c:if test="${sessionScope.currentUser.role == 2}">
         <a href="/adminCabinet">В личный кабинет</a><br>
     </c:if>

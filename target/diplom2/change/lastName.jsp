@@ -16,10 +16,26 @@
 <div>
     <h3>Change user ${sessionScope.currentUser.name} last name</h3>
 </div>
-<form method="post" action="/change/lastName">
+<form method="post" action="/changeUserLastNameServlet">
     <input name="newLastName" placeholder="New Last Name" type="text">
     <button>Change</button>
 </form>
+
+<c:if test="${sessionScope.lastNameInvalidate != null}">
+    <p>${sessionScope.lastNameInvalidate}</p>
+</c:if>
+
+<c:if test="${sessionScope.currentUser.role == 1}">
+    <a href="/adminCabinet">В личный кабинет</a>
+</c:if>
+
+<c:if test="${sessionScope.currentUser.role == 2}">
+    <a href="/userCabinet">В личный кабинет</a><br>
+</c:if>
+
+<c:if test="${sessionScope.currentUser.role == 3}">
+    <a href="/moderatorCabinet">В личный кабинет</a><br>
+</c:if>
 
 <a href="/mainPage" name="exit">На главную</a>
 

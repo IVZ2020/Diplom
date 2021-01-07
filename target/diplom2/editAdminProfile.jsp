@@ -24,12 +24,13 @@
     <div class="row">
         <div class="col-sm">
             <c:set var="userForChange" value="${sessionScope.userForChange}"></c:set>
-            <p><a href="/change/name.jsp">Изменить имя</a></p>
-            <p><a href="/change/lastName.jsp">Изменить фамилию</a></p>
-            <p><a href="/change/login.jsp">Изменить логин</a></p>
-            <p><a href="/change/password.jsp">Изменить пароль</a></p>
-            <p><a href="/change/salary.jsp">Изменить зарплату</a></p>
-            <p><a href="/change/income.jsp">Изменить иные доходы</a></p>
+            <c:set var="userForChangeId" value="${userForChange.id}"></c:set>
+            <p><a href="/changeUserNameServlet">Изменить имя</a></p>
+            <p><a href="/changeUserLastNameServlet">Изменить фамилию</a></p>
+            <p><a href="/changeUserLoginServlet">Изменить логин</a></p>
+            <p><a href="/changeUserPasswordServlet">Изменить пароль</a></p>
+            <p><a href="/changeUserSalaryServlet">Изменить зарплату</a></p>
+            <p><a href="/changeUserIncomeServlet">Изменить иные доходы</a></p>
         </div>
         <div class="col-sm">
             <p><c:out value="${userForChange.name}"></c:out></p>

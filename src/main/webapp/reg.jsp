@@ -15,7 +15,7 @@
 <body>
 
 <div>
-    <h4>New user registration</h4>
+    <h4>Регистрация нового пользователя</h4>
 </div>
 
 <c:if test="${requestScope.userExist != null}">
@@ -30,6 +30,20 @@
     <input name="userPassword" placeholder="Пароль" type="password">
     <button>Submit</button>
 </form>
+
+<c:if test="${sessionScope.nameInvalid != null}">
+    <p>${sessionScope.nameInvalid}</p>
+</c:if>
+<c:if test="${sessionScope.lastNameInvalid != null}">
+    <p>${sessionScope.lastNameInvalid}</p>
+</c:if>
+<c:if test="${sessionScope.loginInvalid != null}">
+    <p>${sessionScope.loginInvalid}</p>
+</c:if>
+<c:if test="${sessionScope.passwordInvalid != null}">
+    <p>${sessionScope.passwordInvalid}</p>
+</c:if>
+
 <a href="/mainPage" name="exit">На главную</a>
 
 </body>
