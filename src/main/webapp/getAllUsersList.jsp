@@ -31,8 +31,8 @@
     <div class="row">
         <c:forEach var="user" items="${sessionScope.allUsersList}">
             <div class="col-md">
-                <button><a href="/editUserProfile?id=${user.id}">Change profile</a></button>
-                <button><a href="/deleteUser?id=${user.id}">Delete</a></button>
+                <a href="/editUserProfile?useridforchange=${user.id}">Редактировать профиль</a>
+                <a href="/deleteUser?id=${user.id}">Удалить пользователя</a>
                 <table class="table table-striped table-bordered">
                     <tr>
                         <th>Имя</th>

@@ -18,6 +18,7 @@
 </head>
 <body>
 <c:set var="userForChange" value="${sessionScope.userForChange}"></c:set>
+<c:set var="userForChangeId" value="${userForChange.id}"></c:set>
 <div>
     <h4 align="center">Edit ${userForChange.name}Profile</h4>
 </div>
@@ -25,12 +26,12 @@
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <p><a href="/change/name">Изменить имя</a></p>
-            <p><a href="/change/lastName">Изменить фамилию</a></p>
-            <p><a href="/change/login">Изменить логин</a></p>
-            <p><a href="/changeUserPasswordServlet?userforchangeid=${userForChange.id}">Изменить пароль</a></p>
-            <p><a href="/change/salary">Изменить зарплату</a></p>
-            <p><a href="/change/income">Изменить иные доходы</a></p>
+            <p><a href="/changeUserNameServlet">Изменить имя</a></p>
+            <p><a href="/changeUserLastNameServlet">Изменить фамилию</a></p>
+            <p><a href="/changeUserLoginServlet">Изменить логин</a></p>
+            <p><a href="/changeUserPasswordServlet">Изменить пароль</a></p>
+            <p><a href="/changeUserSalaryServlet">Изменить зарплату</a></p>
+            <p><a href="/changeUserIncomeServlet">Изменить иные доходы</a></p>
         </div>
         <div class="col-sm">
             <p><c:out value="${userForChange.name}"></c:out></p>
@@ -42,7 +43,11 @@
         </div>
     </div>
 </div>
-<a><p href="/userCabinet">В личный кабинет</p></a>
+
+<c:if test="${sessionScope.currentUser.role == 1}">
+    <a href="/userCabinet"><p>В личный кабинет</p></a>
+</c:if>
+
 <a href="/mainPage" name="exit"><p>На главную</p></a>
 <a href="/logoutServlet" name="logout"><p>Logout</p></a>
 </body>

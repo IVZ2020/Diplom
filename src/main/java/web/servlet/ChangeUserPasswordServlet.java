@@ -29,13 +29,7 @@ public class ChangeUserPasswordServlet  extends HttpServlet {
         if (userService.changeUserPassword(newPassword, userForChangeId)) {
             userForChange.setPass(newPassword);
         }
-        User currentUser = (User) req.getSession().getAttribute("currentUser");
-        if (userForChangeId == (currentUser.getId()) && userForChange.getRole() == 2) {
-            res.sendRedirect("/editAdminProfile");
-        } else if (userForChange.getRole() == 1 && currentUser.getRole() == 2) {
-            res.sendRedirect("/getAllUsers");
-        } else {
-            res.sendRedirect("/editUserProfile");
-        }
+            res.sendRedirect("/chooseServletAfterEditingProfile");
+
     }
 }

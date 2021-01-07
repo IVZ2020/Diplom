@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/change/lastName", name = "ChangeUserLastNameServlet")
+@WebServlet(urlPatterns = "/changeUserLastNameServlet", name = "ChangeUserLastNameServlet")
 public class ChangeUserLastNameServlet extends HttpServlet {
 
     UserService userService = new UserService();
@@ -28,14 +28,7 @@ public class ChangeUserLastNameServlet extends HttpServlet {
         if (userService.changeUserLastName(newLastName, userForChangeId)) {
             userForChange.setLastName(newLastName);
         }
-        User currentUser = (User) req.getSession().getAttribute("currentUser");
-        if (userForChangeId == (currentUser.getId()) && userForChange.getRole() == 2) {
-            res.sendRedirect("/editAdminProfile");
-        } else if (currentUser.getRole() == 2 && userForChange.getRole() == 1) {
-            res.sendRedirect("/getAllUsers");
-        } else {
-            res.sendRedirect("/editUserProfile");
-        }
-//        res.sendRedirect("/getAllUsers");
+        res.sendRedirect("/chooseServletAfterEditingProfile");
+
     }
 }

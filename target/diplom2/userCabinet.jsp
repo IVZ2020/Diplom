@@ -14,7 +14,7 @@
 </head>
 <body>
 <div>
-<h4>Личный кабинет пользователя ${sessionScope.currentUser.name}</h4>
+<h4>Личный кабинет ${sessionScope.currentUser.name}</h4>
 </div>
 
 <div class="container">
@@ -33,7 +33,7 @@
 
     <ol style="list-style: none">
         <c:forEach var="menuItem" items="${sessionScope.userMenu}">
-            <li><a href="/${menuItem.menuLink}">${menuItem.menuRus}</a></li>
+            <li><a href="/${menuItem.menuLink}?useridforchange=${sessionScope.currentUser.id}">${menuItem.menuRus}</a></li>
         </c:forEach>
     </ol>
 </div>

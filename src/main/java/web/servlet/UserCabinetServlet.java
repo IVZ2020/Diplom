@@ -29,7 +29,6 @@ public class UserCabinetServlet extends HttpServlet {
         List<MenuItem> userMenu = menuService.getUserMenu();
         req.getSession().setAttribute("userMenu", userMenu);
         req.getServletContext().getRequestDispatcher("/userCabinet.jsp").forward(req, resp);
-
     }
 
     }

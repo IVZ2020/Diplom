@@ -17,10 +17,27 @@
 <div>
     <h3>Change login of ${sessionScope.userForChange.name}</h3>
 </div>
-<form method="post" action="/change/login">
+<form method="post" action="/changeUserLoginServlet">
     <input name="newLogin" placeholder="New Login" type="text">
     <button>Change</button>
 </form>
+
+<c:if test="${sessionScope.loginInvalidate != null}">
+    <p>${sessionScope.loginInvalidate}</p>
+</c:if>
+
+<c:if test="${sessionScope.currentUser.role == 1}">
+    <a href="/adminCabinet">В личный кабинет</a>
+</c:if>
+
+<c:if test="${sessionScope.currentUser.role == 2}">
+    <a href="/userCabinet">В личный кабинет</a><br>
+</c:if>
+
+<c:if test="${sessionScope.currentUser.role == 3}">
+    <a href="/moderatorCabinet">В личный кабинет</a><br>
+</c:if>
+
 <a href="/mainPage" name="exit">На главную</a>
 </body>
 </html>

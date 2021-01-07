@@ -18,14 +18,11 @@ public class ChangeLastNameValidationFilter  extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         if (req.getMethod().equals("POST")) {
-            List<String> fieldsForValidation = new ArrayList<>();
-            fieldsForValidation.add(req.getParameter("newLastName"));
-            String resultOfValidation = RegExDao.validationOnRegistration(fieldsForValidation);
-            if (resultOfValidation == "1") {
+            if (RegExDao.validationLogin(req.getParameter("newLastName"))) {
                 chain.doFilter(req, res);
             } else {
-                req.getSession().setAttribute("invalidateField", resultOfValidation);
-                res.sendRedirect("/inputInvalidate.jsp");
+                req.getSession().setAttribute("lastNameInvalidate", "Фамилия не валидная");
+                res.sendRedirect("/change/lastName.jsp");
             }
         } else {
             chain.doFilter(req, res);

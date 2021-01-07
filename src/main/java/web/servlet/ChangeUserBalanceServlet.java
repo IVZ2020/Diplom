@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet (urlPatterns = "/change/balance", name = "ChangeUserBalanceServlet")
+@WebServlet (urlPatterns = "/changeUserBalanceServlet", name = "ChangeUserBalanceServlet")
 public class ChangeUserBalanceServlet extends HttpServlet {
 
     UserService userService = new UserService();
@@ -21,22 +21,14 @@ public class ChangeUserBalanceServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String Uri = (String) req.getServletContext().getContextPath();
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         double newBalance = Double.parseDouble(req.getParameter("newBalance"));
         User userForChange = (User) req.getSession().getAttribute("userForChange");
         int userForChangeId = userForChange.getId();
         if (userService.changeUserSalary(newBalance, userForChangeId)) {
             userForChange.setSalary(newBalance);
         }
-        User currentUser = (User) req.getSession().getAttribute("currentUser");
-        if (userForChangeId == (currentUser.getId()) && userForChange.getRole() == 2) {
-            req.getSession().setAttribute("contextPath", Uri);
-            resp.sendRedirect("/editAdminProfile");
-        } else if (userForChange.getRole() == 1 && currentUser.getRole() == 2) {
-            resp.sendRedirect("/getAllUsers");
-        } else {
-            resp.sendRedirect("/editUserProfile");
-        }
+        res.sendRedirect("/chooseServletAfterEditingProfile");
+
     }
 }

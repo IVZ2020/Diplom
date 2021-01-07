@@ -19,7 +19,7 @@
 </head>
 <body>
 <div>
-    <h3>Change user ${sessionScope.userForChange.name} password</h3>
+    <h3>Change ${sessionScope.userForChange.name} password</h3>
 </div>
 <form method="post" action="/changeUserPasswordServlet">
     <input name="newPassword" placeholder="New Password" type="text">
@@ -30,6 +30,19 @@
     <p>${sessionScope.passwordInvalidate}</p>
 </c:if>
 
-<a href="/mainPage" name="exit">На главную</a>
+<c:if test="${sessionScope.currentUser.role == 1}">
+    <a href="/adminCabinet">В личный кабинет</a>
+</c:if>
+
+<c:if test="${sessionScope.currentUser.role == 2}">
+    <a href="/userCabinet">В личный кабинет</a><br>
+</c:if>
+
+<c:if test="${sessionScope.currentUser.role == 3}">
+    <a href="/moderatorCabinet">В личный кабинет</a><br>
+</c:if>
+
+<a href="/mainPage" name="exit">На главную</a><br>
+<a href="/logoutServlet" name="exit">Выход</a><br>
 </body>
 </html>

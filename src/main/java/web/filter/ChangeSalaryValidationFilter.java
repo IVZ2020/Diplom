@@ -18,14 +18,11 @@ public class ChangeSalaryValidationFilter  extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         if (req.getMethod().equals("POST")) {
-            List<String> fieldsForValidation = new ArrayList<>();
-            fieldsForValidation.add(req.getParameter("newSalary"));
-            String resultOfValidation = RegExDao.checkInputDouble(fieldsForValidation);
-            if (resultOfValidation == "1") {
+            if (RegExDao.isDouble(req.getParameter("newSalary"))) {
                 chain.doFilter(req, res);
             } else {
-                req.getSession().setAttribute("invalidateField", resultOfValidation);
-                res.sendRedirect("/inputInvalidate.jsp");
+                req.getSession().setAttribute("doubleInvalidate", "Введите число");
+                res.sendRedirect("/change/salary.jsp");
             }
         } else {
             chain.doFilter(req, res);

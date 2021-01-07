@@ -42,13 +42,13 @@ public class AuthServlet extends HttpServlet {
                         break;
                 }
             } else {
-                req.setAttribute("message", "wrong pass");
+                req.setAttribute("message", "Пароль неверный");
                 req.setAttribute("login", checkLogin);
                 req.getRequestDispatcher("/auth.jsp").forward(req, res);
 
             }
         } else {
-            req.setAttribute("message", "user not found");
+            req.setAttribute("message", "Пользователь не найден");
             req.getRequestDispatcher("/auth.jsp").forward(req, res);
         }
     }

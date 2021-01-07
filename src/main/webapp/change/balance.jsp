@@ -15,16 +15,32 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Change user ${sessionScope.currentUser.name} balance</title>
+    <title>Change ${sessionScope.currentUser.name} balance</title>
 </head>
 <body>
 <div>
     <h3>Change user ${sessionScope.currentUser.name} balance</h3>
 </div>
-<form method="post" action="/change/balance">
+<form method="post" action="/changeUserBalanceServlet">
     <input name="newBalance" placeholder="New Balance" type="number">
     <button>Change</button>
 </form>
+
+<c:if test="${sessionScope.doubleInvalidate != null}">
+    <p>${sessionScope.doubleInvalidate}</p>
+</c:if>
+
+<c:if test="${sessionScope.currentUser.role == 1}">
+    <a href="/adminCabinet">В личный кабинет</a>
+</c:if>
+
+<c:if test="${sessionScope.currentUser.role == 2}">
+    <a href="/userCabinet">В личный кабинет</a><br>
+</c:if>
+
+<c:if test="${sessionScope.currentUser.role == 3}">
+    <a href="/moderatorCabinet">В личный кабинет</a><br>
+</c:if>
 
 <a href="/mainPage" name="exit">На главную</a>
 </body>

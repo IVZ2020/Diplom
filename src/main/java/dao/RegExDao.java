@@ -53,6 +53,14 @@ public class RegExDao {
         return passwordString.matches(LOGIN_AND_PASS_CHECK);
     }
 
+    public static boolean validationName (String nameString) {
+        return nameString.matches(NAME_AND_LASTNAME_CHECK);
+    }
+
+    public static boolean validationLogin (String nameString) {
+        return nameString.matches(LOGIN_AND_PASS_CHECK);
+    }
+
 
     public static String validationOnRegistration (List<String> fieldsForValidation) {
         for (String field : fieldsForValidation
@@ -87,14 +95,9 @@ public class RegExDao {
 //        return false;
 //    }
 
-    public static String checkInputDouble(List<String> fieldsForValidation) {
-        for (String field : fieldsForValidation
-             ) {
-            if (!RegExDao.isNumeric(field))
-            return field;
+    public static boolean checkInputDouble(String numberString) {
+            return !RegExDao.isNumeric(numberString);
         }
-        return "1";
-    }
 
     public static boolean isDoubleNotZero (String string) {
             return (isDouble(string) && string.matches(DIGIT_NOT_ZERO_CHECK));

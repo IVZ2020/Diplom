@@ -18,15 +18,13 @@ public class EditUserProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        User currentUser = (User) req.getSession().getAttribute("currentUser");
-        req.getSession().setAttribute("userForChange", currentUser);
         List<String> userFieldLinks = userService.getUserFieldLinksForEditProfile("userTable");
         List<String> userFieldRusNames = userService.getUserFieldRusNamesForEditProfile("userTable");
         req.getSession().setAttribute("userFieldLinks", userFieldLinks);
         req.getSession().setAttribute("userFieldRusNames", userFieldRusNames);
-        if (req.getParameter("id") != null) {
-            int id = Integer.parseInt(req.getParameter("id"));
-            User user = userService.getUserById(id);
+        if (req.getParameter("useridforchange") != null) {
+            int userIdForChange = Integer.parseInt(req.getParameter("useridforchange"));
+            User user = userService.getUserById(userIdForChange);
             req.getSession().setAttribute("userForChange", user);
         }
         req.getServletContext().getRequestDispatcher("/editUserProfile.jsp").forward(req,res);
