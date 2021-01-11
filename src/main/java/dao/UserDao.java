@@ -109,7 +109,7 @@ public class UserDao extends AbstractDao {
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            User user = new User(
+            return new User(
                     (resultSet.getInt(1)),
                     (resultSet.getString(2)),
                     (resultSet.getString(3)),
@@ -118,9 +118,8 @@ public class UserDao extends AbstractDao {
                     (resultSet.getInt(6)),
                     (resultSet.getDouble(7)),
                     (resultSet.getDouble(8)),
-                    (resultSet.getDouble(9)));
+                    (resultSet.getBoolean(9)));
 //            connection.close();
-            return user;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -143,7 +142,7 @@ public class UserDao extends AbstractDao {
                     (resultSet.getInt(6)),
                     (resultSet.getDouble(7)),
                     (resultSet.getDouble(8)),
-                    (resultSet.getDouble(9)));
+            (resultSet.getBoolean(9)));
             connection.close();
             return user;
         } catch (SQLException e) {
@@ -160,7 +159,7 @@ public class UserDao extends AbstractDao {
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            User user = new User(
+            return new User(
                     (resultSet.getInt(1)),
                     (resultSet.getString(2)),
                     (resultSet.getString(3)),
@@ -169,9 +168,8 @@ public class UserDao extends AbstractDao {
                     (resultSet.getInt(6)),
                     (resultSet.getDouble(7)),
                     (resultSet.getDouble(8)),
-                    (resultSet.getDouble(9)));
+                    (resultSet.getBoolean(9)));
 //            connection.close();
-            return user;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -194,7 +192,7 @@ public class UserDao extends AbstractDao {
                         (resultSet.getInt(6)),
                         (resultSet.getDouble(7)),
                         (resultSet.getDouble(8)),
-                        (resultSet.getDouble(9)));
+                        (resultSet.getBoolean(9)));
                 allUsersList.add(user);
             }
         } catch (SQLException e) {
@@ -255,8 +253,6 @@ public class UserDao extends AbstractDao {
         userFieldsValue.add(user.getPass());
         userFieldsValue.add(String.valueOf(user.getRole()));
         userFieldsValue.add(String.valueOf(user.getBalance()));
-        userFieldsValue.add(String.valueOf(user.getSalary()));
-        userFieldsValue.add(String.valueOf(user.getIncome()));
         return userFieldsValue;
     }
 
@@ -301,8 +297,6 @@ public class UserDao extends AbstractDao {
         userProfileFieldsValue.add(user.getLastName());
         userProfileFieldsValue.add(user.getLogin());
         userProfileFieldsValue.add(user.getPass());
-        userProfileFieldsValue.add(String.valueOf(user.getSalary()));
-        userProfileFieldsValue.add(String.valueOf(user.getIncome()));
         return userProfileFieldsValue;
     }
 
@@ -521,7 +515,7 @@ public class UserDao extends AbstractDao {
                         (resultSet.getInt(6)),
                         (resultSet.getDouble(7)),
                         (resultSet.getDouble(8)),
-                        (resultSet.getDouble(9)));
+                        (resultSet.getBoolean(9)));
                 allUsersHashList.add(user);
             }
         } catch (SQLException e) {

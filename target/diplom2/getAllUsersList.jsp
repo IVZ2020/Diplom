@@ -41,8 +41,8 @@
                         <th>Пароль</th>
                         <th>Роль</th>
                         <th>Баланс</th>
-                        <th>Зарплата</th>
-                        <th>Иные доходы</th>
+<%--                        <th>Зарплата</th>--%>
+<%--                        <th>Иные доходы</th>--%>
                     </tr>
                     <tr>
                         <th>${user.name}</th>
@@ -51,8 +51,8 @@
                         <th>${user.pass}</th>
                         <th>${user.role}</th>
                         <th>${user.balance}</th>
-                        <th>${user.salary}</th>
-                        <th>${user.income}</th>
+<%--                        <th>${user.salary}</th>--%>
+<%--                        <th>${user.income}</th>--%>
                     </tr>
                 </table>
             </div>

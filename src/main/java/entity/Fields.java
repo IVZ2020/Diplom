@@ -13,7 +13,7 @@ public class Fields implements Comparable<Fields> {
     private String fieldLink;
     private String fieldRus;
 
-    public Fields(String fieldLink, String fieldRus) {
+    public Fields (String fieldLink, String fieldRus) {
         this.fieldLink = fieldLink;
         this.fieldRus = fieldRus;
     }
@@ -23,3 +23,4 @@ public class Fields implements Comparable<Fields> {
         return this.fieldId - fieldItem.getFieldId();
     }
 }
+

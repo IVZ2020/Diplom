@@ -22,21 +22,11 @@ public class UserService {
     }
 
     public User getUserByLogin(String login) {
-        User user = userDao.getUserByLogin(login);
-        return user;
+        return userDao.getUserByLogin(login);
     }
 
     public User getUserById(int id) {
-        User user = userDao.getUserById(id);
-        return user;
-    }
-
-    public void removeUserByLogin(String login) {
-        userDao.removeUserByLogin(login);
-    }
-
-    public boolean ifUserHasFieldsNull(String login) {
-        return userDao.ifUserHasFieldsNull(login);
+        return userDao.getUserById(id);
     }
 
     public List<String> getUserFieldList(String login) {
@@ -47,11 +37,7 @@ public class UserService {
         return userDao.getUserFieldsValue(login);
     }
 
-    public List<String> getUserProfileFieldsValues(String login) {return userDao.getUserProfileFieldsValues(login);}
-
-//    public boolean isNameOrLastNameEmpty(String login) {
-//        return userDao.isNameOrLastNameEmpty(login);
-//    }
+//    public List<String> getUserProfileFieldsValues(String login) {return userDao.getUserProfileFieldsValues(login);}
 
     public boolean changeUserName(String newName, int id) {
         return userDao.changeUserName(newName, id);
@@ -92,10 +78,6 @@ public class UserService {
     public boolean changeUserLogin(String newLogin, int currentUserId) {
         return userDao.changeUserLogin(newLogin, currentUserId);
     }
-
-    public List<User> getListOfUsersById(List<Integer> sendersIdList) {
-        return userDao.getListOfUsersById(sendersIdList);
-        }
 
     public HashSet<User> getAllUsersHashList() {
         return userDao.getAllUsersHashList();

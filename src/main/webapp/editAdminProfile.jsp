@@ -29,21 +29,18 @@
             <p><a href="/changeUserLastNameServlet">Изменить фамилию</a></p>
             <p><a href="/changeUserLoginServlet">Изменить логин</a></p>
             <p><a href="/changeUserPasswordServlet">Изменить пароль</a></p>
-            <p><a href="/changeUserSalaryServlet">Изменить зарплату</a></p>
-            <p><a href="/changeUserIncomeServlet">Изменить иные доходы</a></p>
+
         </div>
         <div class="col-sm">
             <p><c:out value="${userForChange.name}"></c:out></p>
             <p><c:out value="${userForChange.lastName}"></c:out></p>
             <p><c:out value="${userForChange.login}"></c:out></p>
             <p><c:out value="${userForChange.pass}"></c:out></p>
-            <p><c:out value="${userForChange.salary}"></c:out></p>
-            <p><c:out value="${userForChange.income}"></c:out></p>
         </div>
     </div>
 </div>
 
-<p>${sessionScope.contextPath.chars()}</p>
+<%--<p>${sessionScope.contextPath.chars()}</p>--%>
 <%--<a href="/mainPage" name="exit"><p>На главную</p></a>--%>
 <a href="/logoutServlet" name="logout"><p>Logout</p></a>
 

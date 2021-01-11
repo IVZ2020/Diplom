@@ -22,19 +22,6 @@ public class PostDao extends AbstractDao {
 
 //    private final static String GET_POSTS_TEST = "SELECT * FROM post p HAVING iduser = ?";
 
-    public String parseDateToString (Date date) {
-        return formatForDateNow.format(date);
-    }
-
-    public Date parseStringToDate (String dateString) {
-        try {
-            return formatForDateNow.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public Date currentDate () {
         return new Date();
     }
