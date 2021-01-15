@@ -18,15 +18,17 @@
 </head>
 <body>
 
-<form action="moneyEventServlet", method="post" name="moneyEvent">
+<form action="/moneyEventServlet" method="post">
     <p>Введите сумму:</p>
-    <input type="number" value="currentMoneyEventSumm" placeholder="Введите сумму" name="summ">
+    <input type="text" placeholder="Введите сумму" name="currentMoneyEventSumm">
     <p>Введите категорию</p>
-    <input type="text" value="cathegoryOfGoods" placeholder="Введите категорию">
+    <input type="text" placeholder="Введите категорию" name="cathegoryOfGoods">
     <p>Выберете тип операции:</p>
-    <button href="/moneyEventServlet?moneyEventType=expenceEvent">Расход</button>
-    <button href="/moneyEventServlet?moneyEventType=incomeEvent">Приход</button>
-
+    <select name="typeOfMoneyEvent">
+        <option value="expenceEvent">Expence</option>
+        <option value="incomeEvent">Income</option>
+    </select>
+    <button>Отправить</button>
 </form>
 
 </body>

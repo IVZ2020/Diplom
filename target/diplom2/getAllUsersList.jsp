@@ -41,8 +41,6 @@
                         <th>Пароль</th>
                         <th>Роль</th>
                         <th>Баланс</th>
-<%--                        <th>Зарплата</th>--%>
-<%--                        <th>Иные доходы</th>--%>
                     </tr>
                     <tr>
                         <th>${user.name}</th>
@@ -51,28 +49,13 @@
                         <th>${user.pass}</th>
                         <th>${user.role}</th>
                         <th>${user.balance}</th>
-<%--                        <th>${user.salary}</th>--%>
-<%--                        <th>${user.income}</th>--%>
                     </tr>
                 </table>
-            </div>
+            </div><br>
         </c:forEach>
     </div>
     <a href="/mainPage" name="exit"><p>На главную</p></a>
     <a href="/logoutServlet" name="logout"><p>Logout</p></a>
-<%--</div>  <script>--%>
-<%--    function isEmail() {--%>
-<%--        var str = document.getElementById("email").value;--%>
-<%--        var status = document.getElementById("status");--%>
-<%--        var re = /^[^\s()<>@,;:\/]+@\w[\w\.-]+\.[a-z]{2,}$/i;--%>
-<%--        if (re.test(str)) status.innerHTML = "Адрес правильный";--%>
-<%--        else status.innerHTML = "Адрес неверный";--%>
-<%--        if(isEmpty(str)) status.innerHTML = "Поле пустое";--%>
-<%--    }--%>
-<%--    function isEmpty(str){--%>
-<%--        return (str == null) || (str.length == 0);--%>
-<%--    }--%>
-<%--</script>--%>
 
 </body>
 </html>

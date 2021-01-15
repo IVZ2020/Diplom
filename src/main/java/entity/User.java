@@ -18,7 +18,6 @@ public class User {
     private int role;
     private double balance;
     private double debt;
-    private boolean changeBalance;
 //    private List<Action> history; // Как поместить в базу историю пользователя?
 
     public User(String login, String pass) {

@@ -117,8 +117,7 @@ public class UserDao extends AbstractDao {
                     (resultSet.getString(5)),
                     (resultSet.getInt(6)),
                     (resultSet.getDouble(7)),
-                    (resultSet.getDouble(8)),
-                    (resultSet.getBoolean(9)));
+                    (resultSet.getDouble(8)));
 //            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -141,8 +140,7 @@ public class UserDao extends AbstractDao {
                     (resultSet.getString(5)),
                     (resultSet.getInt(6)),
                     (resultSet.getDouble(7)),
-                    (resultSet.getDouble(8)),
-            (resultSet.getBoolean(9)));
+                    (resultSet.getDouble(8)));
             connection.close();
             return user;
         } catch (SQLException e) {
@@ -167,8 +165,7 @@ public class UserDao extends AbstractDao {
                     (resultSet.getString(5)),
                     (resultSet.getInt(6)),
                     (resultSet.getDouble(7)),
-                    (resultSet.getDouble(8)),
-                    (resultSet.getBoolean(9)));
+                    (resultSet.getDouble(8)));
 //            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -191,8 +188,7 @@ public class UserDao extends AbstractDao {
                         (resultSet.getString(5)),
                         (resultSet.getInt(6)),
                         (resultSet.getDouble(7)),
-                        (resultSet.getDouble(8)),
-                        (resultSet.getBoolean(9)));
+                        (resultSet.getDouble(8)));
                 allUsersList.add(user);
             }
         } catch (SQLException e) {
@@ -514,8 +510,7 @@ public class UserDao extends AbstractDao {
                         (resultSet.getString(5)),
                         (resultSet.getInt(6)),
                         (resultSet.getDouble(7)),
-                        (resultSet.getDouble(8)),
-                        (resultSet.getBoolean(9)));
+                        (resultSet.getDouble(8)));
                 allUsersHashList.add(user);
             }
         } catch (SQLException e) {

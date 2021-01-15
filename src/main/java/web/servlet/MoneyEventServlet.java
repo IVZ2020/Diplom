@@ -24,10 +24,10 @@ public class MoneyEventServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
-        moneyService.addMoneyEvent(new MoneyEvent(Double.parseDouble(req.getParameter("currentMoneyEvent")),
+        moneyService.addMoneyEvent(new MoneyEvent(Double.parseDouble(req.getParameter("currentMoneyEventSumm")),
                 req.getParameter("cathegoryOfGoods"), currentUser.getId(), req.getParameter("typeOfMoneyEvent")));
         moneyService.updateUserBalanceById(currentUser.getId(), currentUser.getBalance());
         moneyService.updateUserDebtById(currentUser.getId(), currentUser.getDebt());
-        resp.sendRedirect("/money/moneyEvent.jsp");
+        req.getServletContext().getRequestDispatcher("/money/moneyAccounting.jsp").forward(req, resp);
     }
 }
