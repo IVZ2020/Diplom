@@ -42,6 +42,7 @@ public class UserDao extends AbstractDao {
     private final static String UPDATE_LASTNAME_BY_ID = "UPDATE users SET lastname = ? WHERE id = ?";
     private final static String UPDATE_PASSWORD_BY_ID = "UPDATE users SET pass = ? WHERE id = ?";
     private final static String UPDATE_LOGIN_BY_ID = "UPDATE users SET login = ? WHERE id = ?";
+    private final static String UPDATE_ROLE_BY_ID = "UPDATE users SET role = ? WHERE id = ?";
 
 
     public void regNewUser(User user) {
@@ -518,4 +519,20 @@ public class UserDao extends AbstractDao {
         }
         return allUsersHashList;
     }
+
+    public boolean changeUserRole(int newUserRole, int userForChangeId) {
+        try {
+            connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ROLE_BY_ID);
+            preparedStatement.setInt(1, newUserRole);
+            preparedStatement.setInt(2, userForChangeId);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
+
+

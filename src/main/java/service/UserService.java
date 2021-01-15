@@ -82,6 +82,10 @@ public class UserService {
     public HashSet<User> getAllUsersHashList() {
         return userDao.getAllUsersHashList();
     }
+
+    public boolean changeUserRole(int newUserRole, int userForChangeId) {
+        return userDao.changeUserRole(newUserRole, userForChangeId);
+    }
 }
 
 

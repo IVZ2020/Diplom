@@ -30,6 +30,9 @@
             <p><a href="/changeUserLastNameServlet">Изменить фамилию</a></p>
             <p><a href="/changeUserLoginServlet">Изменить логин</a></p>
             <p><a href="/changeUserPasswordServlet">Изменить пароль</a></p>
+            <c:if test="${sessionScope.currentUser.role == 2}">
+                <p><a href="/changeUserRoleServlet">Изменить роль</a></p>
+            </c:if>
 
 
         </div>
@@ -38,6 +41,10 @@
             <p><c:out value="${userForChange.lastName}"></c:out></p>
             <p><c:out value="${userForChange.login}"></c:out></p>
             <p><c:out value="${userForChange.pass}"></c:out></p>
+
+            <c:if test="${sessionScope.currentUser.role == 2}">
+                <p><c:out value="${userForChange.role}"></c:out></p>
+            </c:if>
         </div>
     </div>
 </div>
