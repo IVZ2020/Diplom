@@ -1,6 +1,7 @@
 package web.filter;
 
 import dao.OperationsDao;
+import dao.RegExDao;
 import entity.User;
 import service.UserService;
 
@@ -15,13 +16,19 @@ import java.io.IOException;
 @WebFilter(servletNames = "MoneyEventServlet")
 public class MoneyEventServletFilter extends HttpFilter {
 
+
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         if (req.getMethod().equals("POST")) {
+            String inputSumm = req.getParameter("currentMoneyEventSumm");
+            if (!RegExDao.isDouble(inputSumm)) {
+                req.setAttribute("wrongDigit", "Введите сумму");
+                req.getServletContext().getRequestDispatcher("/money/moneyOperations.jsp").forward(req, res);
+            }
             User currentUser = (User) (req.getSession().getAttribute("currentUser"));
-            double currentMoneyEventSumm = Double.parseDouble(req.getParameter("currentMoneyEventSumm"));
+            double currentMoneyEventSumm = Double.parseDouble(inputSumm);
             if (req.getParameter("typeOfMoneyEvent").equals("expenceEvent"))
-                currentMoneyEventSumm = OperationsDao.changeSignOfDoubleNumber(Double.parseDouble(req.getParameter("currentMoneyEventSumm")));
+                currentMoneyEventSumm = OperationsDao.changeSignOfDoubleNumber(currentMoneyEventSumm);
             currentUser.setBalance(currentUser.getBalance() + currentMoneyEventSumm);
             currentUser.setDebt(0);
             if (currentUser.getBalance() < 0) {

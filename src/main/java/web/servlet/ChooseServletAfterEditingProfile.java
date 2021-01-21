@@ -20,11 +20,6 @@ public class ChooseServletAfterEditingProfile extends HttpServlet {
         if (userForChangeId == (currentUser.getId()) && userForChange.getRole() == 2) {
             resp.sendRedirect("/editAdminProfile");
         }
-//        else if (userForChange.getRole() == 1 && currentUser.getRole() == 2) {
-//            resp.sendRedirect("/editUserProfile");
-//        } else if (userForChange.getRole() == 3 && currentUser.getRole() == 2 ) {
-//            resp.sendRedirect("/editUserProfile");
-//        }
         else {
             resp.sendRedirect("/editUserProfile");
         }

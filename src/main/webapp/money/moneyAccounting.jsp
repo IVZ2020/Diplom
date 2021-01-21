@@ -20,6 +20,16 @@
 
 <p>Список сделок</p>
 
+<c:forEach var = "moneyEvent" items="${requestScope.allMoneyEvents}">
+    <p>${moneyEvent.date}</p>
+    <p>${moneyEvent.cathegory}</p>
+    <p>${moneyEvent.summ}</p>
+    <p>${moneyEvent.type}</p>
+
+
+</c:forEach>
+
+
 <a href="/moneyEventServlet">Добавить расход/приход</a>
 
 </body>
