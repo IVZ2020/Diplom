@@ -18,6 +18,7 @@ public class RegUserValidationFilter extends HttpFilter {
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+        req.setCharacterEncoding("UTF-8");
         if (req.getMethod().equals("POST")) {
             String userName = req.getParameter("userName");
             String userLastName = req.getParameter("userLastName");

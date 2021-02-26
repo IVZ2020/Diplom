@@ -16,6 +16,7 @@ public class AuthFilter extends HttpFilter {
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
+        req.setCharacterEncoding("UTF-8");
         User currentUser = (User) req.getSession().getAttribute("currentUser");
         if (currentUser == null) {
             chain.doFilter(req, resp);

@@ -4,9 +4,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegExDao {
-    private static final String LOGIN_AND_PASS_CHECK = "^[a-zA-Z0-9_-]+$";
+    private static final String LOGIN_AND_PASS_CHECK = "^[а-яА-Яa-zA-Z0-9_-]+$";
     private static final String DOUBLE_CHECK = "^\\d+(\\.\\d+)?";
-    private static final String NAME_AND_LASTNAME_CHECK = "^[a-zA-Z-]+$";
+    private static final String NAME_AND_LASTNAME_CHECK = "^[а-яА-Яa-zA-Z-]+$";
     private static final String EMAIL_CHECK = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-._]+\\.[a-zA-Z0-9-.]+$";
     private static final String IS_NUMERIC = "^\\d+$";
     private static final String DIGIT_NOT_ZERO_CHECK = "^[1-9]+$";

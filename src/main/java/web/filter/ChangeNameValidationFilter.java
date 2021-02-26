@@ -17,6 +17,7 @@ public class ChangeNameValidationFilter  extends HttpFilter {
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+        req.setCharacterEncoding("UTF-8");
         if (req.getMethod().equals("POST")) {
             if (RegExDao.validationName(req.getParameter("newName"))) {
                 chain.doFilter(req, res);

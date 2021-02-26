@@ -22,7 +22,7 @@ public class MoneyEventServletFilter extends HttpFilter {
         if (req.getMethod().equals("POST")) {
             String inputSumm = req.getParameter("currentMoneyEventSumm");
             if (!RegExDao.isDouble(inputSumm)) {
-                req.setAttribute("wrongDigit", "Введите сумму");
+                req.setAttribute("wrongDigit", "Введите числовое значение");
                 req.getServletContext().getRequestDispatcher("/money/moneyOperations.jsp").forward(req, res);
             }
             User currentUser = (User) (req.getSession().getAttribute("currentUser"));

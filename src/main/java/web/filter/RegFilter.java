@@ -15,6 +15,7 @@ public class RegFilter extends HttpFilter {
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+        req.setCharacterEncoding("UTF-8");
         if (req.getSession().getAttribute("currentUser") == null) {
             chain.doFilter(req, res);
 //        } else if (req.getSession().getAttribute("currentUser") != null && ((User) (req.getSession().getAttribute("currentUser"))).getRole() == 2) {

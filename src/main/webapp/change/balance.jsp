@@ -21,6 +21,20 @@
 <div>
     <h3>Change user ${sessionScope.currentUser.name} balance</h3>
 </div>
+
+<header class="main-header-area">
+    <!-- Main Header Area Start -->
+    <nav class="navbar navbar-light bg-faded">
+        <div class="nav navbar-nav">
+            <a class="nav-item nav-link active" href="/mainPage">Главная страница <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="/calcServlet">Калькулятор</a>
+            <a class="nav-item nav-link" href="logoutServlet">Выход</a>
+            <a class="nav-item nav-link" href="/help">Помощь</a>
+        </div>
+    </nav>
+    <!-- Main Header Area End -->
+</header>
+
 <form method="post" action="/changeUserBalanceServlet">
     <input name="newBalance" placeholder="New Balance" type="number">
     <button>Change</button>

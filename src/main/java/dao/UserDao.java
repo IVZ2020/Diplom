@@ -250,6 +250,7 @@ public class UserDao extends AbstractDao {
         userFieldsValue.add(user.getPass());
         userFieldsValue.add(String.valueOf(user.getRole()));
         userFieldsValue.add(String.valueOf(user.getBalance()));
+        userFieldsValue.add(String.valueOf(user.getDebt()));
         return userFieldsValue;
     }
 

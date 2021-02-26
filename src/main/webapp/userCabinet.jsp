@@ -17,6 +17,19 @@
 <h4>Личный кабинет ${sessionScope.currentUser.name}</h4>
 </div>
 
+<header class="main-header-area">
+    <!-- Main Header Area Start -->
+    <nav class="navbar navbar-light bg-faded">
+        <div class="nav navbar-nav">
+            <a class="nav-item nav-link active" href="/mainPage">Главная страница</a>
+            <a class="nav-item nav-link" href="/calcServlet">Калькулятор</a>
+            <a class="nav-item nav-link" href="logoutServlet">Выход</a>
+            <a class="nav-item nav-link" href="/help">Помощь</a>
+        </div>
+    </nav>
+    <!-- Main Header Area End -->
+</header>
+
 <div class="container">
 <table border="1" class="table table-striped table-bordered">
     <tr class="thead-dark">
